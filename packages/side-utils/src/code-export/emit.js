@@ -69,6 +69,12 @@ export function emitCommand(
         emitter.valuePreprocessor,
         variableLookup,
         { ignoreEscaping }
+      ),
+      preprocessParameter(
+        command.comment,
+        undefined,
+        variableLookup,
+        { ignoreEscaping }
       )
     )
     if (command.opensWindow) result = emitNewWindowHandling(command, result)

@@ -18,6 +18,7 @@
 export const availableLanguages = {
   'csharp-nunit': require('code-export-csharp-nunit'),
   'csharp-xunit': require('code-export-csharp-xunit'),
+  gherkin: require('code-export-gherkin'),
   'java-junit': require('code-export-java-junit'),
   'javascript-mocha': require('code-export-javascript-mocha'),
   'python-pytest': require('code-export-python-pytest'),
