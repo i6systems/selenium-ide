@@ -14,16 +14,16 @@
 // KIND, either express or implied.  See the License for the specific language governing permissions and limitations
 // under the License.
 
-import { codeExport as exporter, userAgent } from '@seleniumhq/side-utils'
+import { codeExport as exporter } from '@seleniumhq/side-utils'
 
 const emitters = {
-  afterAll,
-  afterEach,
-  beforeAll,
-  beforeEach,
-  declareDependencies,
+  afterAll: empty,
+  afterEach: empty,
+  beforeAll: empty,
+  beforeEach: empty,
+  declareDependencies: empty,
   declareMethods: empty,
-  declareVariables,
+  declareVariables: empty,
   inEachBegin: empty,
   inEachEnd: empty,
 }
@@ -38,74 +38,6 @@ export function generateHooks() {
     result[hookName] = generate(hookName)
   })
   return result
-}
-
-function afterAll() {
-  const params = {
-    startingSyntax: {
-      commands: [{ level: 0, statement: '' }],
-    },
-    endingSyntax: {
-      commands: [{ level: 0, statement: '' }],
-    },
-    registrationLevel: 1,
-  }
-  return params
-}
-
-function afterEach() {
-  const params = {
-    startingSyntax: {
-      commands: [{ level: 0, statement: '' }],
-    },
-    endingSyntax: {
-      commands: [{ level: 0, statement: '' }],
-    },
-  }
-  return params
-}
-
-function beforeAll() {
-  const params = {
-    startingSyntax: {
-      commands: [{ level: 0, statement: '' }],
-    },
-    endingSyntax: {
-      commands: [{ level: 0, statement: '' }],
-    },
-    registrationLevel: 1,
-  }
-  return params
-}
-
-function beforeEach() {
-  const params = {
-    startingSyntax: {
-      commands: [{ level: 0, statement: '' }],
-    },
-    endingSyntax: {
-      commands: [{ level: 0, statement: '' }],
-    },
-  }
-  return params
-}
-
-function declareDependencies() {
-  const params = {
-    startingSyntax: {
-      commands: [{ level: 0, statement: '' }],
-    },
-  }
-  return params
-}
-
-function declareVariables() {
-  const params = {
-    startingSyntax: {
-      commands: [{ level: 0, statement: '' }],
-    },
-  }
-  return params
 }
 
 function empty() {

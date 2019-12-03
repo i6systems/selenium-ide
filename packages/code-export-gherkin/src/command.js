@@ -111,7 +111,6 @@ export const emitters = {
   waitForElementNotPresent: emitStep,
   waitForElementNotVisible: emitStep,
   webdriverAnswerOnVisiblePrompt: emitStep,
-  waitForText: emitStep,
   webdriverChooseCancelOnVisibleConfirmation: emitStep,
   webdriverChooseCancelOnVisiblePrompt: emitStep,
   webdriverChooseOkOnVisibleConfirmation: emitStep,
@@ -152,11 +151,15 @@ function emitWaitForWindow() {
 }
 
 async function emitNewWindowHandling() {
-  return Promise.resolve('')
+  return Promise.resolve(undefined)
 }
 
 function emitStep(_locator, _value, comment) {
-  return Promise.resolve(`        ${comment}`)
+  let result = undefined
+  if (comment && comment !== '-') {
+    result = `        ${comment}`
+  }
+  return Promise.resolve(result)
 }
 
 export default {

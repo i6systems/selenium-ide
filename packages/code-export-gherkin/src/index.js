@@ -28,7 +28,7 @@ opts.emitter = emitter
 opts.hooks = generateHooks()
 opts.fileExtension = '.feature'
 opts.commandPrefixPadding = '  '
-opts.terminatingKeyword = '})'
+opts.terminatingKeyword = ''
 opts.commentPrefix = '//'
 opts.generateMethodDeclaration = generateMethodDeclaration
 
