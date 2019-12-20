@@ -17,7 +17,7 @@
 
 import { codeExport as exporter } from '@seleniumhq/side-utils'
 import emitter from './command'
-import { location } from 'code-export-csharp-commons'
+import { location } from '@seleniumhq/code-export-csharp-commons'
 import { generateHooks } from './hook'
 import _default from 'diff-sequences'
 
@@ -67,6 +67,8 @@ export async function emitTest({
   tests,
   project,
   enableOriginTracing,
+  beforeEachOptions,
+  enableDescriptionAsComment,
 }) {
   global.baseUrl = baseUrl
   const testDeclaration = generateTestDeclaration(test.name)
@@ -74,6 +76,7 @@ export async function emitTest({
     ...opts,
     testDeclaration,
     enableOriginTracing,
+    enableDescriptionAsComment,
     project,
   })
   const suiteName = test.name
@@ -83,6 +86,7 @@ export async function emitTest({
     suiteDeclaration,
     suiteName,
     project,
+    beforeEachOptions,
   })
   return {
     filename: generateFilename(test.name),
@@ -97,10 +101,13 @@ export async function emitSuite({
   tests,
   project,
   enableOriginTracing,
+  beforeEachOptions,
+  enableDescriptionAsComment,
 }) {
   global.baseUrl = baseUrl
   const result = await exporter.emit.testsFromSuite(tests, suite, opts, {
     enableOriginTracing,
+    enableDescriptionAsComment,
     generateTestDeclaration,
     project,
   })
@@ -110,6 +117,7 @@ export async function emitSuite({
     suiteDeclaration,
     suite,
     project,
+    beforeEachOptions,
   })
   return {
     filename: generateFilename(suite.name),

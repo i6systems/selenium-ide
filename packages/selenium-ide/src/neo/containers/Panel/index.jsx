@@ -109,6 +109,7 @@ export default class Panel extends React.Component {
   constructor(props) {
     super(props)
     this.state = { project }
+    this.selectAllCommands = this.selectAllCommands.bind(this)
     this.parseKeyDown = this.parseKeyDown.bind(this)
     this.keyDownHandler = window.document.body.onkeydown = this.handleKeyDown.bind(
       this
@@ -170,6 +171,14 @@ export default class Panel extends React.Component {
     } else if (keyComb.onlyPrimary && keyComb.key === 'O' && this.openFile) {
       e.preventDefault()
       this.openFile()
+    } else if (
+      keyComb.onlyPrimary &&
+      keyComb.key === 'A' &&
+      e.target.localName !== 'input' &&
+      e.target.localName !== 'textarea'
+    ) {
+      e.preventDefault()
+      this.selectAllCommands()
     } else if (keyComb.onlyPrimary && keyComb.key === '1') {
       // test view
       e.preventDefault()
@@ -270,6 +279,35 @@ export default class Panel extends React.Component {
     Logger.clearLogs()
     newProject.setModified(false)
   }
+  async doLoadProject(file) {
+    if (!UiState.isSaved()) {
+      const choseProceed = await ModalState.showAlert({
+        title: 'Load without saving',
+        description:
+          'Are you sure you would like to load a new project without saving the current one?',
+        confirmLabel: 'proceed',
+        cancelLabel: 'cancel',
+      })
+      if (choseProceed) {
+        await UiState.stopRecording({ nameNewTest: false })
+        loadProject(this.state.project, file)
+      }
+    } else if (UiState.isRecording) {
+      const choseProceed = await ModalState.showAlert({
+        title: 'Stop recording',
+        description:
+          'Leaving this project and loading a new one will stop the recording process. Would you like to continue?',
+        confirmLabel: 'proceed',
+        cancelLabel: 'cancel',
+      })
+      if (choseProceed) {
+        await UiState.stopRecording({ nameNewTest: false })
+        loadProject(this.state.project, file)
+      }
+    } else {
+      loadProject(this.state.project, file)
+    }
+  }
 
   componentWillUnmount() {
     if (isProduction) {
@@ -278,12 +316,22 @@ export default class Panel extends React.Component {
       window.removeEventListener('beforeunload', this.quitHandler)
     }
   }
+  onClick() {
+    UiState.clearSelectedCommands()
+  }
+  selectAllCommands() {
+    UiState.clearSelectedCommands()
+    UiState.selectCommandByIndex(0)
+    UiState.selectAllCommands()
+  }
   render() {
     return (
-      <div className="container" onKeyDown={this.handleKeyDownAlt.bind(this)}>
-        <SuiteDropzone
-          loadProject={loadProject.bind(undefined, this.state.project)}
-        >
+      <div
+        className="container"
+        onKeyDown={this.handleKeyDownAlt.bind(this)}
+        onClick={this.onClick.bind(this)}
+      >
+        <SuiteDropzone loadProject={this.doLoadProject.bind(this)}>
           <SplitPane
             split="horizontal"
             minSize={UiState.minContentHeight}
@@ -303,7 +351,7 @@ export default class Panel extends React.Component {
                 openFile={openFile => {
                   this.openFile = openFile
                 }}
-                load={loadProject.bind(undefined, this.state.project)}
+                load={this.doLoadProject.bind(this)}
                 save={() => saveProject(this.state.project)}
                 new={this.loadNewProject.bind(this)}
               />

@@ -16,13 +16,13 @@
 // under the License.
 
 export const availableLanguages = {
-  'csharp-nunit': require('code-export-csharp-nunit'),
-  'csharp-xunit': require('code-export-csharp-xunit'),
-  gherkin: require('code-export-gherkin'),
-  'java-junit': require('code-export-java-junit'),
-  'javascript-mocha': require('code-export-javascript-mocha'),
-  'python-pytest': require('code-export-python-pytest'),
-  'ruby-rspec': require('code-export-ruby-rspec'),
+  'csharp-nunit': require('@seleniumhq/code-export-csharp-nunit'),
+  'csharp-xunit': require('@seleniumhq/code-export-csharp-xunit'),
+  'gherkin': require('@seleniumhq/code-export-gherkin'),
+  'java-junit': require('@seleniumhq/code-export-java-junit'),
+  'javascript-mocha': require('@seleniumhq/code-export-javascript-mocha'),
+  'python-pytest': require('@seleniumhq/code-export-python-pytest'),
+  'ruby-rspec': require('@seleniumhq/code-export-ruby-rspec'),
 }
 
 function registerCommand(language, command, emitter) {
@@ -63,7 +63,15 @@ function registerAfterAll(language, emitter) {
 
 function emitTest(
   language,
-  { url, test, tests, project, enableOriginTracing }
+  {
+    url,
+    test,
+    tests,
+    project,
+    enableOriginTracing,
+    beforeEachOptions,
+    enableDescriptionAsComment,
+  }
 ) {
   return availableLanguages[language].default.emit.test({
     baseUrl: url,
@@ -71,12 +79,22 @@ function emitTest(
     tests,
     project,
     enableOriginTracing,
+    beforeEachOptions,
+    enableDescriptionAsComment,
   })
 }
 
 export function emitSuite(
   language,
-  { url, suite, tests, project, enableOriginTracing }
+  {
+    url,
+    suite,
+    tests,
+    project,
+    enableOriginTracing,
+    beforeEachOptions,
+    enableDescriptionAsComment,
+  }
 ) {
   return availableLanguages[language].default.emit.suite({
     baseUrl: url,
@@ -84,6 +102,8 @@ export function emitSuite(
     tests,
     project,
     enableOriginTracing,
+    beforeEachOptions,
+    enableDescriptionAsComment,
   })
 }
 
