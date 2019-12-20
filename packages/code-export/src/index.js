@@ -18,7 +18,7 @@
 export const availableLanguages = {
   'csharp-nunit': require('@seleniumhq/code-export-csharp-nunit'),
   'csharp-xunit': require('@seleniumhq/code-export-csharp-xunit'),
-  'gherkin': require('@seleniumhq/code-export-gherkin'),
+  gherkin: require('@seleniumhq/code-export-gherkin'),
   'java-junit': require('@seleniumhq/code-export-java-junit'),
   'javascript-mocha': require('@seleniumhq/code-export-javascript-mocha'),
   'python-pytest': require('@seleniumhq/code-export-python-pytest'),

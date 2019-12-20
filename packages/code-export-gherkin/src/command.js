@@ -110,6 +110,7 @@ export const emitters = {
   waitForElementNotEditable: emitStep,
   waitForElementNotPresent: emitStep,
   waitForElementNotVisible: emitStep,
+  waitForText: emitStep,
   webdriverAnswerOnVisiblePrompt: emitStep,
   webdriverChooseCancelOnVisibleConfirmation: emitStep,
   webdriverChooseCancelOnVisiblePrompt: emitStep,
