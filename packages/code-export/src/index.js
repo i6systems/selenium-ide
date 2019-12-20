@@ -21,6 +21,7 @@ export const availableLanguages = {
   gherkin: require('@seleniumhq/code-export-gherkin'),
   'java-junit': require('@seleniumhq/code-export-java-junit'),
   'javascript-mocha': require('@seleniumhq/code-export-javascript-mocha'),
+  'javascript-cypress': require('@seleniumhq/code-export-javascript-cypress'),
   'python-pytest': require('@seleniumhq/code-export-python-pytest'),
   'ruby-rspec': require('@seleniumhq/code-export-ruby-rspec'),
 }
