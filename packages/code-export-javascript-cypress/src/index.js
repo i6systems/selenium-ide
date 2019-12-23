@@ -26,27 +26,28 @@ export const displayName = 'JavaScript Cypress'
 export let opts = {}
 opts.emitter = emitter
 opts.hooks = generateHooks()
-opts.fileExtension = '.spec.js'
+opts.fileExtension = '.js'
 opts.commandPrefixPadding = '  '
-opts.terminatingKeyword = '})'
+opts.terminatingKeyword = '}'
 opts.commentPrefix = '//'
 opts.generateMethodDeclaration = generateMethodDeclaration
 
 // Create generators for dynamic string creation of primary entities (e.g., filename, methods, test, and suite)
-function generateTestDeclaration(name) {
-  return `it('${name}', async function() {`
+function generateTestDeclaration() {
+  return ''
 }
-function generateMethodDeclaration(name) {
+
+function generateMethodDeclaration() {
   return {
-    body: `async function ${exporter.parsers.uncapitalize(
-      exporter.parsers.sanitizeName(name)
-    )}() {`,
-    terminatingKeyword: '}',
+    body: '',
+    terminatingKeyword: '',
   }
 }
-function generateSuiteDeclaration(name) {
-  return `describe('${name}', function() {`
+
+function generateSuiteDeclaration() {
+  return ''
 }
+
 function generateFilename(name) {
   return `${exporter.parsers.uncapitalize(
     exporter.parsers.sanitizeName(name)
@@ -83,7 +84,7 @@ export async function emitTest({
   })
   return {
     filename: generateFilename(test.name),
-    body: exporter.emit.orderedSuite(_suite),
+    body: emitOrderedSuite(_suite),
   }
 }
 
@@ -114,9 +115,40 @@ export async function emitSuite({
   })
   return {
     filename: generateFilename(suite.name),
-    body: exporter.emit.orderedSuite(_suite),
+    body: emitOrderedSuite(_suite),
   }
 }
+
+function emitOrderedSuite(emittedSuite) {
+  let result = ''
+  result += emittedSuite.headerComment
+  result += emittedSuite.dependencies
+  result += emittedSuite.suiteDeclaration
+  result += emittedSuite.variables
+  result += emittedSuite.beforeAll
+  result += emittedSuite.beforeEach
+  result += emittedSuite.afterEach
+  result += emittedSuite.afterAll
+  result += emittedSuite.methods
+  if (emittedSuite.tests.testDeclaration) {
+    const test = emittedSuite.tests
+    result += test.testDeclaration
+    result += test.inEachBegin
+    result += test.commands
+    result += test.inEachEnd
+  } else {
+    for (const testName in emittedSuite.tests) {
+      const test = emittedSuite.tests[testName]
+      result += test.testDeclaration
+      result += test.inEachBegin
+      result += test.commands
+      result += test.inEachEnd
+    }
+  }
+  result += emittedSuite.suiteEnd
+  return result
+}
+
 
 export default {
   emit: {

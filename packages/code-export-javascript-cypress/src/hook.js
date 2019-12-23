@@ -17,13 +17,13 @@
 import { codeExport as exporter } from '@seleniumhq/side-utils'
 
 const emitters = {
-  afterAll,
-  afterEach,
-  beforeAll,
-  beforeEach,
+  afterAll: empty,
+  afterEach: empty,
+  beforeAll: empty,
+  beforeEach: empty,
   declareDependencies,
   declareMethods: empty,
-  declareVariables,
+  declareVariables: empty,
   inEachBegin: empty,
   inEachEnd: empty,
 }
@@ -40,110 +40,18 @@ export function generateHooks() {
   return result
 }
 
-function afterAll() {
-  const params = {
-    startingSyntax: {
-      commands: [{ level: 0, statement: 'afterAll(async function() {' }],
-    },
-    endingSyntax: {
-      commands: [{ level: 0, statement: '})' }],
-    },
-    registrationLevel: 1,
-  }
-  return params
-}
-
-function afterEach() {
-  const params = {
-    startingSyntax: {
-      commands: [
-        { level: 0, statement: 'afterEach(async function() {' },
-        { level: 1, statement: 'await driver.quit();' },
-      ],
-    },
-    endingSyntax: {
-      commands: [{ level: 0, statement: '})' }],
-    },
-  }
-  return params
-}
-
-function beforeAll() {
-  const params = {
-    startingSyntax: {
-      commands: [{ level: 0, statement: 'beforeAll(async function() {' }],
-    },
-    endingSyntax: {
-      commands: [{ level: 0, statement: '})' }],
-    },
-    registrationLevel: 1,
-  }
-  return params
-}
-
-function beforeEach() {
-  const params = {
-    startingSyntax: ({ browserName, gridUrl } = {}) => ({
-      commands: [
-        { level: 0, statement: 'beforeEach(async function() {' },
-        {
-          level: 1,
-          statement: `driver = await new Builder().forBrowser('${
-            browserName ? browserName.toLowerCase() : 'chrome'
-          }')${gridUrl ? `.usingServer('${gridUrl}')` : ''}.build()`,
-        },
-        { level: 1, statement: 'vars = {}' },
-      ],
-    }),
-    endingSyntax: {
-      commands: [{ level: 0, statement: '})' }],
-    },
-  }
-  return params
-}
-
 function declareDependencies() {
-  const params = {
+  return {
     startingSyntax: {
       commands: [
         {
           level: 0,
-          statement: `const { Builder, By, Key, until } = require('selenium-webdriver')`,
-        },
-        {
-          level: 0,
-          statement: `const assert = require('assert')`,
-        },
-        {
-          level: 0,
-          statement: '',
+          statement:
+            'import { Given, When, Then } from "cypress-cucumber-preprocessor/steps";',
         },
       ],
     },
   }
-  return params
-}
-
-function declareVariables() {
-  const params = {
-    startingSyntax: {
-      commands: [
-        {
-          level: 0,
-          statement: `this.timeout(30000)`,
-        },
-        {
-          level: 0,
-          statement: `let driver`,
-        },
-        {
-          level: 0,
-          statement: 'let vars',
-        },
-      ],
-    },
-  }
-  return params
 }
 
 function empty() {
