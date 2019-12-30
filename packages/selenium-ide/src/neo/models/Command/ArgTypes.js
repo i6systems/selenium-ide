@@ -106,6 +106,10 @@ export const ArgTypes = {
     name: 'select locator',
     description: 'An element locator identifying a drop-down menu.',
   },
+  step: {
+    name: 'step',
+    description: 'The name of the step.',
+  },
   testCase: {
     name: 'test case',
     description: 'Test case name from the project.',

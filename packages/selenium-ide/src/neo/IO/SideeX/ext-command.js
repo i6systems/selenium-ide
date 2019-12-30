@@ -868,6 +868,22 @@ export default class ExtCommand {
     return false
   }
 
+  doAnd() {
+    return Promise.resolve()
+  }
+
+  doGiven() {
+    return Promise.resolve()
+  }
+
+  doThen() {
+    return Promise.resolve()
+  }
+
+  doWhen() {
+    return Promise.resolve()
+  }
+
   name(command) {
     let upperCase = command.charAt(0).toUpperCase() + command.slice(1)
     return 'do' + upperCase
@@ -875,18 +891,22 @@ export default class ExtCommand {
 
   isExtCommand(command) {
     switch (command) {
+      case 'and':
+      case 'close':
       case 'debugger':
       case 'echo':
-      case 'pause':
+      case 'given':
       case 'open':
+      case 'pause':
+      case 'run':
       case 'selectFrame':
       case 'selectWindow':
-      case 'run':
-      case 'setWindowSize':
       case 'setSpeed':
+      case 'setWindowSize':
       case 'store':
       case 'storeWindowHandle':
-      case 'close':
+      case 'then':
+      case 'when':
         return true
       default:
         return false

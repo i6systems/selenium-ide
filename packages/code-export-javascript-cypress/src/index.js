@@ -149,7 +149,6 @@ function emitOrderedSuite(emittedSuite) {
   return result
 }
 
-
 export default {
   emit: {
     test: emitTest,

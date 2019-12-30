@@ -870,6 +870,14 @@ describe('command code emitter', () => {
     }
     return expect(prettify(command)).resolves.toMatchSnapshot()
   })
+  it('should emit `when` command', () => {
+    const command = {
+      command: 'when',
+      target: 'I do something',
+      value: '',
+    }
+    return expect(prettify(command)).resolves.toMatchSnapshot()
+  })
   it('should emit `while` command', () => {
     const command = {
       command: ControlFlowCommandNames.while,

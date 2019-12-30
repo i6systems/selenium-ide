@@ -21,6 +21,7 @@ import selection from './selection'
 
 export const emitters = {
   addSelection: emitSelect,
+  and: skip,
   answerOnNextPrompt: skip,
   assert: emitAssert,
   assertAlert: emitAssertAlert,
@@ -59,6 +60,7 @@ export const emitters = {
   executeScript: emitExecuteScript,
   executeAsyncScript: emitExecuteAsyncScript,
   forEach: emitControlFlowForEach,
+  given: skip,
   if: emitControlFlowIf,
   mouseDown: emitMouseDown,
   mouseDownAt: emitMouseDown,
@@ -89,6 +91,7 @@ export const emitters = {
   storeWindowHandle: emitStoreWindowHandle,
   storeXpathCount: emitStoreXpathCount,
   submit: emitSubmit,
+  then: skip,
   times: emitControlFlowTimes,
   type: emitType,
   uncheck: emitUncheck,
@@ -117,6 +120,7 @@ export const emitters = {
   webdriverChooseCancelOnVisibleConfirmation: emitChooseCancelOnNextConfirmation,
   webdriverChooseCancelOnVisiblePrompt: emitChooseCancelOnNextConfirmation,
   webdriverChooseOkOnVisibleConfirmation: emitChooseOkOnNextConfirmation,
+  when: skip,
   while: emitControlFlowWhile,
 }
 

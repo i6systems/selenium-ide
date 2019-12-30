@@ -413,6 +413,31 @@ export default class BackgroundRecorder {
           }, 100)
         })
       return
+    } else if (
+      message.command === 'and' ||
+      message.command === 'given' ||
+      message.command === 'then' ||
+      message.command === 'when'
+    ) {
+      browser.windows
+        .update(this.windowSession.ideWindowId, { focused: true })
+        .then(() => {
+          setTimeout(() => {
+            message.target = [[prompt('Enter the step')]]
+            if (message.insertBeforeLastCommand) {
+              record(message.command, message.target, '', true)
+            } else {
+              this.sendRecordNotification(
+                sender.tab.id,
+                message.command,
+                message.target,
+                ''
+              )
+              record(message.command, message.target, '')
+            }
+          }, 100)
+        })
+      return
     }
 
     //handle choose ok/cancel confirm

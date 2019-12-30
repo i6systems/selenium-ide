@@ -657,6 +657,13 @@ Recorder.addEventHandler(
         m.cmd === 'mouseOver'
       ) {
         record(m.cmd, tmpTarget, '')
+      } else if (
+        m.cmd === 'and' ||
+        m.cmd === 'given' ||
+        m.cmd === 'then' ||
+        m.cmd === 'when'
+      ) {
+        record(m.cmd, '', '')
       } else if (m.cmd.includes('Value')) {
         let tmpValue = event.target.value
         record(m.cmd, tmpTarget, tmpValue)

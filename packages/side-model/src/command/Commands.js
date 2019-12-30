@@ -41,6 +41,14 @@ export const Commands = [
     },
   ],
   [
+    'and',
+    {
+      name: 'And',
+      description: 'Defines an "And" step for Gherkin.',
+      target: ArgTypes.step,
+    },
+  ],
+  [
     'answerOnNextPrompt',
     {
       name: 'answer on next prompt',
@@ -407,6 +415,14 @@ export const Commands = [
     },
   ],
   [
+    'given',
+    {
+      name: 'Given',
+      description: 'Defines a "Given" step for Gherkin.',
+      target: ArgTypes.step,
+    },
+  ],
+  [
     'forEach',
     {
       name: 'for each',
@@ -719,6 +735,14 @@ export const Commands = [
     },
   ],
   [
+    'then',
+    {
+      name: 'Then',
+      description: 'Defines a "Then" step for Gherkin.',
+      target: ArgTypes.step,
+    },
+  ],
+  [
     'times',
     {
       name: 'times',
@@ -1003,6 +1027,14 @@ export const Commands = [
       description: `Affects a currently showing confirmation alert. This 
         command instructs Selenium to accept it. If the alert has not appeared 
         yet then use "choose ok on next confirmation" instead.`,
+    },
+  ],
+  [
+    'when',
+    {
+      name: 'When',
+      description: 'Defines a "When" step for Gherkin.',
+      target: ArgTypes.step,
     },
   ],
   [
