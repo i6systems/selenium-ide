@@ -77,6 +77,10 @@ class UiState {
   specifiedRemoteUrl = null
   @observable
   gridConfigEnabled = null
+  @observable
+  enableOriginTracing = null
+  @observable
+  enableDescriptionAsComment = null
 
   constructor() {
     this.suiteStates = {}
@@ -96,6 +100,12 @@ class UiState {
       data.gridConfigEnabled
         ? (this.gridConfigEnabled = data.gridConfigEnabled)
         : (this.gridConfigEnabled = false)
+      data.enableOriginTracing
+        ? (this.enableOriginTracing = data.enableOriginTracing)
+        : (this.enableOriginTracing = false)
+      data.enableDescriptionAsComment
+        ? (this.enableDescriptionAsComment = data.enableDescriptionAsComment)
+        : (this.enableDescriptionAsComment = false)
       if (
         data.consoleSize !== undefined &&
         data.consoleSize >= this.minConsoleHeight
@@ -451,6 +461,22 @@ class UiState {
     this.gridConfigEnabled = !this.gridConfigEnabled
     storage.set({
       gridConfigEnabled: this.gridConfigEnabled,
+    })
+  }
+
+  @action.bound
+  toggleEnableOriginTracing() {
+    this.enableOriginTracing = !this.enableOriginTracing
+    storage.set({
+      enableOriginTracing: this.enableOriginTracing,
+    })
+  }
+
+  @action.bound
+  toggleEnableDescriptionAsComment() {
+    this.enableDescriptionAsComment = !this.enableDescriptionAsComment
+    storage.set({
+      enableDescriptionAsComment: this.enableDescriptionAsComment,
     })
   }
 

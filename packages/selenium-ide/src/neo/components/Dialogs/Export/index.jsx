@@ -51,7 +51,8 @@ class ExportContent extends React.Component {
     super(props)
     this.state = {
       selectedLanguages: [UiState.selectedExportLanguage],
-      enableOriginTracing: false,
+      enableOriginTracing: UiState.enableOriginTracing,
+      enableDescriptionAsComment: UiState.enableDescriptionAsComment,
       enableGridConfig: UiState.gridConfigEnabled,
       gridConfigUrl: UiState.specifiedRemoteUrl,
     }
@@ -65,9 +66,11 @@ class ExportContent extends React.Component {
     this.setState({ selectedLanguages: [language] })
   }
   toggleOriginTracing() {
+    UiState.toggleEnableOriginTracing()
     this.setState({ enableOriginTracing: !this.state.enableOriginTracing })
   }
   toggleDescriptionAsComment() {
+    UiState.toggleEnableDescriptionAsComment()
     this.setState({
       enableDescriptionAsComment: !this.state.enableDescriptionAsComment,
     })
