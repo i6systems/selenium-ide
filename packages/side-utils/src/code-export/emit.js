@@ -174,6 +174,9 @@ export function emitOriginTracing(
   }
   test.commands.forEach((command, index) => {
     let row = ''
+    if (command.comment) {
+      command.comment = command.comment.trim()
+    }
     if (enableOriginTracing) {
       row =
         commentPrefix +

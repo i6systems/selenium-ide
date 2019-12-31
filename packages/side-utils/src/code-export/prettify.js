@@ -30,6 +30,8 @@ export default function prettify(
 ) {
   if (commandBlock === undefined) return { body: undefined }
   if (!startingLevel) startingLevel = 0
+  if (commandBlock.setStartingLevel !== undefined)
+    startingLevel = commandBlock.setStartingLevel
   if (commandBlock.startingLevelAdjustment)
     startingLevel += commandBlock.startingLevelAdjustment
   if (startingLevel < 0) startingLevel = 0

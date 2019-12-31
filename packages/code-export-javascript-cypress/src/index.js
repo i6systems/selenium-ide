@@ -28,7 +28,7 @@ opts.emitter = emitter
 opts.hooks = generateHooks()
 opts.fileExtension = '.js'
 opts.commandPrefixPadding = '  '
-opts.terminatingKeyword = '}'
+opts.terminatingKeyword = '});'
 opts.commentPrefix = '//'
 opts.generateMethodDeclaration = generateMethodDeclaration
 
@@ -64,6 +64,7 @@ export async function emitTest({
   beforeEachOptions,
   enableDescriptionAsComment,
 }) {
+  emitter.init()
   global.baseUrl = baseUrl
   const testDeclaration = generateTestDeclaration(test.name)
   const result = await exporter.emit.test(test, tests, {
@@ -98,6 +99,7 @@ export async function emitSuite({
   beforeEachOptions,
   enableDescriptionAsComment,
 }) {
+  emitter.init()
   global.baseUrl = baseUrl
   const result = await exporter.emit.testsFromSuite(tests, suite, opts, {
     enableOriginTracing,
@@ -121,7 +123,6 @@ export async function emitSuite({
 
 function emitOrderedSuite(emittedSuite) {
   let result = ''
-  result += emittedSuite.headerComment
   result += emittedSuite.dependencies
   result += emittedSuite.suiteDeclaration
   result += emittedSuite.variables

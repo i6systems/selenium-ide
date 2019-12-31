@@ -19,9 +19,11 @@ import { codeExport as exporter } from '@seleniumhq/side-utils'
 import location from './location'
 import selection from './selection'
 
+let activeKeyword;
+
 export const emitters = {
   addSelection: emitSelect,
-  and: skip,
+  and: emitAnd,
   answerOnNextPrompt: skip,
   assert: emitAssert,
   assertAlert: emitAssertAlert,
@@ -60,7 +62,7 @@ export const emitters = {
   executeScript: emitExecuteScript,
   executeAsyncScript: emitExecuteAsyncScript,
   forEach: emitControlFlowForEach,
-  given: skip,
+  given: emitGiven,
   if: emitControlFlowIf,
   mouseDown: emitMouseDown,
   mouseDownAt: emitMouseDown,
@@ -91,7 +93,7 @@ export const emitters = {
   storeWindowHandle: emitStoreWindowHandle,
   storeXpathCount: emitStoreXpathCount,
   submit: emitSubmit,
-  then: skip,
+  then: emitThen,
   times: emitControlFlowTimes,
   type: emitType,
   uncheck: emitUncheck,
@@ -120,11 +122,15 @@ export const emitters = {
   webdriverChooseCancelOnVisibleConfirmation: emitChooseCancelOnNextConfirmation,
   webdriverChooseCancelOnVisiblePrompt: emitChooseCancelOnNextConfirmation,
   webdriverChooseOkOnVisibleConfirmation: emitChooseOkOnNextConfirmation,
-  when: skip,
+  when: emitWhen,
   while: emitControlFlowWhile,
 }
 
 exporter.register.preprocessors(emitters)
+
+function init() {
+  activeKeyword = null
+}
 
 function register(command, emitter) {
   exporter.register.emitter({ command, emitter, emitters })
@@ -988,9 +994,52 @@ async function emitWaitForText(locator, text) {
   )
 }
 
+async function emitAnd(step) {
+  if (activeKeyword === null) {
+    return Promise.reject(
+      new Error('"And" cannot be the first step in an scenario')
+    )
+  }
+  return emitStep(activeKeyword, step)
+}
+
+async function emitGiven(step) {
+  if (activeKeyword !== null) {
+    return Promise.reject(
+      new Error('"Given" must be the first step in an scenario')
+    )
+  }
+  return emitStep('Given', step)
+}
+
+async function emitThen(step) {
+  return emitStep('Then', step)
+}
+
+async function emitWhen(step) {
+  return emitStep('When', step)
+}
+
+async function emitStep(keyword, step) {
+  let commands = []
+  if (activeKeyword !== null) {
+    commands.push({ level: 0, statement: `});` })
+    commands.push({ level: 0, statement: `` })
+  }
+  activeKeyword = keyword
+  commands.push({ level: 0, statement: `${keyword}(\`${step}\`, () => {` })
+
+  return Promise.resolve({
+    commands: commands,
+    setStartingLevel: 0,
+    endingLevelAdjustment: 1,
+  })
+}
+
 export default {
   canEmit,
   emit,
   register,
+  init,
   extras: { emitWaitForWindow },
 }
