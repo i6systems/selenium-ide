@@ -47,7 +47,27 @@ function declareDependencies() {
         {
           level: 0,
           statement:
-            'import { Given, When, Then } from "cypress-cucumber-preprocessor/steps";',
+            'import { Before, Given, When, Then } from "cypress-cucumber-preprocessor/steps"',
+        },
+        {
+          level: 0,
+          statement: 'const Helpers = require("../../support/helpers")',
+        },
+        {
+          level: 0,
+          statement: '',
+        },
+        {
+          level: 0,
+          statement: 'Before(() => {',
+        },
+        {
+          level: 1,
+          statement: "Helpers.login('test.user@example.com')",
+        },
+        {
+          level: 0,
+          statement: '})',
         },
       ],
     },

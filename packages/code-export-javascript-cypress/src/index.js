@@ -27,8 +27,8 @@ export let opts = {}
 opts.emitter = emitter
 opts.hooks = generateHooks()
 opts.fileExtension = '.js'
-opts.commandPrefixPadding = '  '
-opts.terminatingKeyword = '});'
+opts.commandPrefixPadding = '    '
+opts.terminatingKeyword = '})'
 opts.commentPrefix = '//'
 opts.generateMethodDeclaration = generateMethodDeclaration
 

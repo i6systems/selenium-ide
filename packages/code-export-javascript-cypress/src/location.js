@@ -36,25 +36,25 @@ export default {
 }
 
 function emitId(selector) {
-  return Promise.resolve(`By.id("${selector}")`)
+  return Promise.resolve(`cy.get('#${selector}')`)
 }
 
 function emitName(selector) {
-  return Promise.resolve(`By.name("${selector}")`)
+  return Promise.resolve(`cy.get('[name="${selector}"]')`)
 }
 
 function emitLink(selector) {
-  return Promise.resolve(`By.linkText("${selector}")`)
+  return Promise.resolve(`cy.get('a').contains('${selector}')`)
 }
 
 function emitPartialLinkText(selector) {
-  return Promise.resolve(`By.partialLinkText("${selector}")`)
+  return Promise.resolve(`cy.get('a').contains('${selector}')`)
 }
 
 function emitCss(selector) {
-  return Promise.resolve(`By.css("${selector}")`)
+  return Promise.resolve(`cy.get('${selector}')`)
 }
 
 function emitXpath(selector) {
-  return Promise.resolve(`By.xpath("${selector}")`)
+  return Promise.resolve(`cy.xpath('${selector}')`)
 }
