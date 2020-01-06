@@ -32,42 +32,42 @@ describe('location code emitter', () => {
     const type = 'id'
     const selector = 'someId'
     return expect(emit(`${type}=${selector}`)).resolves.toEqual(
-      `By.id("someId")`
+      `cy.get('#someId')`
     )
   })
   it('should emit link locator', () => {
     const type = 'link'
     const selector = 'someLink'
     return expect(emit(`${type}=${selector}`)).resolves.toEqual(
-      `By.linkText("someLink")`
+      `cy.get('a').contains('someLink')`
     )
   })
   it('should emit linkText locator', () => {
     const type = 'linkText'
     const selector = 'someLink'
     return expect(emit(`${type}=${selector}`)).resolves.toEqual(
-      `By.linkText("someLink")`
+      `cy.get('a').contains('someLink')`
     )
   })
   it('should emit partialLinkText locator', () => {
     const type = 'partialLinkText'
     const selector = 'someLink'
     return expect(emit(`${type}=${selector}`)).resolves.toEqual(
-      `By.partialLinkText("someLink")`
+      `cy.get('a').contains('someLink')`
     )
   })
   it('should emit css locator', () => {
     const type = 'css'
     const selector = 'someCss'
     return expect(emit(`${type}=${selector}`)).resolves.toEqual(
-      `By.css("someCss")`
+      `cy.get('someCss')`
     )
   })
   it('should emit css locator with `=` sign', () => {
     const type = 'css'
     const selector = 'a[title=JScript]'
     return expect(emit(`${type}=${selector}`)).resolves.toEqual(
-      `By.css("a[title=JScript]")`
+      `cy.get('a[title=JScript]')`
     )
   })
   it('should escape quotes in locator strings', () => {
@@ -79,18 +79,18 @@ describe('location code emitter', () => {
     const type = 'xpath'
     const selector = 'someXpath'
     return expect(emit(`${type}=${selector}`)).resolves.toEqual(
-      `By.xpath("someXpath")`
+      `cy.xpath('someXpath')`
     )
   })
   it('should emit implicit xpath locator', () => {
     const selector = '//test=xpath'
-    return expect(emit(selector)).resolves.toEqual(`By.xpath("//test=xpath")`)
+    return expect(emit(selector)).resolves.toEqual(`cy.xpath('//test=xpath')`)
   })
   it('should emit name locator', () => {
     const type = 'name'
     const selector = 'someName'
     return expect(emit(`${type}=${selector}`)).resolves.toEqual(
-      `By.name("someName")`
+      `cy.get('[name="someName"]')`
     )
   })
 })

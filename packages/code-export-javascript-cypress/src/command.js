@@ -320,9 +320,7 @@ async function emitStoreText(locator, varName) {
   const commands = [
     {
       level: 0,
-      statement: `${await location.emit(
-        locator
-      )}.text().then(text => {`,
+      statement: `${await location.emit(locator)}.text().then(text => {`,
     },
     { level: 1, statement: `${variableSetter(varName, 'text')}` },
     { level: 0, statement: `}` },

@@ -487,48 +487,6 @@ describe('command code emitter', () => {
     }
     return expect(prettify(command)).resolves.toMatchSnapshot()
   })
-  it('should fail to emit `select window` by using unknown locator', () => {
-    const command = {
-      command: 'selectWindow',
-      target: 'notExisting=something',
-      value: '',
-    }
-    return expect(prettify(command)).rejects.toThrow(
-      'Can only emit `select window` using handles'
-    )
-  })
-  it('should emit `select window` to select a window by handle', () => {
-    const command = {
-      command: 'selectWindow',
-      target: 'handle=${window}',
-      value: '',
-    }
-    return expect(prettify(command)).resolves.toMatchSnapshot()
-  })
-  it('should emit `select window` to select a window by name', () => {
-    const command = {
-      command: 'selectWindow',
-      target: 'name=window',
-      value: '',
-    }
-    return expect(prettify(command)).resolves.toMatchSnapshot()
-  })
-  it('should emit `select window` to select a window by the local keyword', () => {
-    const command = {
-      command: 'selectWindow',
-      target: 'win_ser_local',
-      value: '',
-    }
-    return expect(prettify(command)).resolves.toMatchSnapshot()
-  })
-  it('should emit `select window` to select a window by implicit index', () => {
-    const command = {
-      command: 'selectWindow',
-      target: 'win_ser_12',
-      value: '',
-    }
-    return expect(prettify(command)).resolves.toMatchSnapshot()
-  })
   it('should emit `send keys` command', () => {
     const command = {
       command: 'sendKeys',
@@ -565,22 +523,6 @@ describe('command code emitter', () => {
       value: '',
     }
     return expect(prettify(command)).resolves.toMatchSnapshot()
-  })
-  it('should skip playback supported commands, that are not supported in webdriver', () => {
-    return Promise.all([
-      expect(
-        prettify({ command: 'answerOnNextPrompt', target: 'blah' })
-      ).resolves.toBe(undefined),
-      expect(
-        prettify({ command: 'chooseCancelOnNextConfirmation' })
-      ).resolves.toBe(undefined),
-      expect(prettify({ command: 'chooseCancelOnNextPrompt' })).resolves.toBe(
-        undefined
-      ),
-      expect(prettify({ command: 'chooseOkOnNextConfirmation' })).resolves.toBe(
-        undefined
-      ),
-    ])
   })
   it('should emit `store` command', () => {
     const command = {

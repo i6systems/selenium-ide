@@ -30,7 +30,7 @@ class UiState {
   @observable
   lastViewSelection = new Map()
   @observable
-  selectedView = 'Tests'
+  selectedView = 'Test suites'
   @observable
   selectedTest = {}
   @observable
