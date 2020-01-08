@@ -51,6 +51,14 @@ function declareDependencies() {
         },
         {
           level: 0,
+          statement: "const Database = require('../../support/database')",
+        },
+        {
+          level: 0,
+          statement: "const Redis = require('../../support/redis')",
+        },
+        {
+          level: 0,
           statement: 'const Helpers = require("../../support/helpers")',
         },
         {
@@ -60,6 +68,14 @@ function declareDependencies() {
         {
           level: 0,
           statement: 'Before(() => {',
+        },
+        {
+          level: 1,
+          statement: 'Database.reload()',
+        },
+        {
+          level: 1,
+          statement: 'Redis.clear()',
         },
         {
           level: 1,

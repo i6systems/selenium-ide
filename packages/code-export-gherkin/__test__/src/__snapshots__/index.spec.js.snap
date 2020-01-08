@@ -2,79 +2,95 @@
 
 exports[`Code Export JavaScript Cypress should export a suite 1`] = `
 "Feature: login
+        
     Scenario: valid credentials
+        
     Scenario: invalid credentials
 "
 `;
 
 exports[`Code Export JavaScript Cypress should export a suite that uses control flow commands 1`] = `
 "Feature: control flow
+        
     Scenario: control flow if
+        
     Scenario: control flow else if
+        
     Scenario: control flow else
+        
     Scenario: control flow do
+        
     Scenario: control flow times
+        
     Scenario: control flow while
 "
 `;
 
 exports[`Code Export JavaScript Cypress should export a suite with a reused test method 1`] = `
 "Feature: login
-
-
-
-
-
-
-
+    
+        
+        
+        
+        
+        
+    
+        
     Scenario: invalid credentials
+        
     Scenario: valid credentials
 "
 `;
 
 exports[`Code Export JavaScript Cypress should export a suite with commands that open a new window inside of a reused test method 1`] = `
 "Feature: Default Suite
-
-
-
+    
+        
+    
+        
     Scenario: reuse
 "
 `;
 
 exports[`Code Export JavaScript Cypress should export a suite with just one new window util method when there are multiple commands that open a new window 1`] = `
 "Feature: Default Suite
-
-
-
+    
+        
+    
+        
     Scenario: reuse
+        
     Scenario: select window
 "
 `;
 
 exports[`Code Export JavaScript Cypress should export a test 1`] = `
 "Feature: login
+        
     Scenario: login
 "
 `;
 
 exports[`Code Export JavaScript Cypress should export a test with a reused test method 1`] = `
 "Feature: valid credentials
-
-
-
-
-
-
-
+    
+        
+        
+        
+        
+        
+    
+        
     Scenario: valid credentials
 "
 `;
 
 exports[`Code Export JavaScript Cypress should export a test with commands that open a new window 1`] = `
 "Feature: select window
-
-
-
+    
+        
+    
+        
     Scenario: select window
 "
 `;

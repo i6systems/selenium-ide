@@ -2,57 +2,67 @@
 
 exports[`Code Export JavaScript Cypress should export a suite 1`] = `
 "import { Before, Given, When, Then } from \\"cypress-cucumber-preprocessor/steps\\"
+const Database = require('../../support/database')
+const Redis = require('../../support/redis')
 const Helpers = require(\\"../../support/helpers\\")
 
 Before(() => {
+    Database.reload()
+    Redis.clear()
     Helpers.login('test.user@example.com')
 })
-    
-        cy.visit(\\"http://the-internet.herokuapp.com/login\\")
-        cy.viewport(1440, 1177)
-        cy.get('#username').type(\\"tomsmith\\", { force:true })
-        cy.get('#password').type(\\"SuperSecretPassword!\\", { force:true })
-        cy.get('#login button').click({ force:true })
-        cy.get('.flash.success').text().should('equal','You logged into a secure area!\\\\\\\\\\\\\\\\n×')
-    
-        cy.visit(\\"http://the-internet.herokuapp.com/login\\")
-        cy.viewport(1440, 1177)
-        cy.get('#username').type(\\"blah\\", { force:true })
-        cy.get('#password').type(\\"blah\\", { force:true })
-        cy.get('#login button').click({ force:true })
-        cy.get('#flash').text().should('equal','Your username is invalid!\\\\\\\\\\\\\\\\n×')
+    cy.visit(\\"http://the-internet.herokuapp.com/login\\")
+    cy.viewport(1440, 1177)
+    cy.get('#username').type(\\"tomsmith\\", { force:true })
+    cy.get('#password').type(\\"SuperSecretPassword!\\", { force:true })
+    cy.get('#login button').click({ force:true })
+    cy.get('.flash.success').text().should('equal','You logged into a secure area!\\\\\\\\\\\\\\\\n×')
+})
+    cy.visit(\\"http://the-internet.herokuapp.com/login\\")
+    cy.viewport(1440, 1177)
+    cy.get('#username').type(\\"blah\\", { force:true })
+    cy.get('#password').type(\\"blah\\", { force:true })
+    cy.get('#login button').click({ force:true })
+    cy.get('#flash').text().should('equal','Your username is invalid!\\\\\\\\\\\\\\\\n×')
 })
 "
 `;
 
 exports[`Code Export JavaScript Cypress should export a suite that uses control flow commands 1`] = `
 "import { Before, Given, When, Then } from \\"cypress-cucumber-preprocessor/steps\\"
+const Database = require('../../support/database')
+const Redis = require('../../support/redis')
 const Helpers = require(\\"../../support/helpers\\")
 
 Before(() => {
+    Database.reload()
+    Redis.clear()
     Helpers.login('test.user@example.com')
 })
-    
-        expect(vars['output']).to.equal('a')
-    
-        expect(vars['output']).to.equal('b')
-    
-        expect(vars['output']).to.equal('c')
-    
-        expect(vars['check']).to.equal('3')
-    
-        expect(vars['check']).to.equal('3')
-    
-        expect(vars['check']).to.equal('3')
+    expect(vars['output']).to.equal('a')
+})
+    expect(vars['output']).to.equal('b')
+})
+    expect(vars['output']).to.equal('c')
+})
+    expect(vars['check']).to.equal('3')
+})
+    expect(vars['check']).to.equal('3')
+})
+    expect(vars['check']).to.equal('3')
 })
 "
 `;
 
 exports[`Code Export JavaScript Cypress should export a suite with a reused test method 1`] = `
 "import { Before, Given, When, Then } from \\"cypress-cucumber-preprocessor/steps\\"
+const Database = require('../../support/database')
+const Redis = require('../../support/redis')
 const Helpers = require(\\"../../support/helpers\\")
 
 Before(() => {
+    Database.reload()
+    Redis.clear()
     Helpers.login('test.user@example.com')
 })
     
@@ -62,41 +72,40 @@ Before(() => {
         cy.get('#password').type(vars[\\"password\\"], { force:true })
         cy.get('.fa').click({ force:true })
     
-    
-        vars[\\"username\\"] = \\"blah\\"
-        vars[\\"password\\"] = \\"blah\\"
-        login()
-    
-        vars[\\"username\\"] = \\"tomsmith\\"
-        vars[\\"password\\"] = \\"SuperSecretPassword!\\"
-        login()
+    vars[\\"username\\"] = \\"blah\\"
+    vars[\\"password\\"] = \\"blah\\"
+    login()
+})
+    vars[\\"username\\"] = \\"tomsmith\\"
+    vars[\\"password\\"] = \\"SuperSecretPassword!\\"
+    login()
 })
 "
 `;
 
 exports[`Code Export JavaScript Cypress should export a test 1`] = `
 "import { Before, Given, When, Then } from \\"cypress-cucumber-preprocessor/steps\\"
+const Database = require('../../support/database')
+const Redis = require('../../support/redis')
 const Helpers = require(\\"../../support/helpers\\")
 
 Before(() => {
+    Database.reload()
+    Redis.clear()
     Helpers.login('test.user@example.com')
 })
-    
-        cy.visit(\\"http://the-internet.herokuapp.com/login\\")
-        cy.viewport(1440, 1177)
-        cy.get('#username').type(\\"tomsmith\\", { force:true })
-        cy.get('#password').type(\\"SuperSecretPassword!\\", { force:true })
-        cy.get('#login button').click({ force:true })
-        cy.get('.flash.success').text().should('equal','You logged into a secure area!\\\\\\\\\\\\\\\\n×')
-})
-"
+undefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefined"
 `;
 
 exports[`Code Export JavaScript Cypress should export a test with a reused test method 1`] = `
 "import { Before, Given, When, Then } from \\"cypress-cucumber-preprocessor/steps\\"
+const Database = require('../../support/database')
+const Redis = require('../../support/redis')
 const Helpers = require(\\"../../support/helpers\\")
 
 Before(() => {
+    Database.reload()
+    Redis.clear()
     Helpers.login('test.user@example.com')
 })
     
@@ -106,28 +115,19 @@ Before(() => {
         cy.get('#password').type(vars[\\"password\\"], { force:true })
         cy.get('.fa').click({ force:true })
     
-    
-        vars[\\"username\\"] = \\"tomsmith\\"
-        vars[\\"password\\"] = \\"SuperSecretPassword!\\"
-        login()
-})
-"
+undefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefined"
 `;
 
 exports[`Code Export JavaScript Cypress should export a test with grid execution 1`] = `
 "import { Before, Given, When, Then } from \\"cypress-cucumber-preprocessor/steps\\"
+const Database = require('../../support/database')
+const Redis = require('../../support/redis')
 const Helpers = require(\\"../../support/helpers\\")
 
 Before(() => {
+    Database.reload()
+    Redis.clear()
     Helpers.login('test.user@example.com')
 })
-    
-        cy.visit(\\"http://the-internet.herokuapp.com/login\\")
-        cy.viewport(1440, 1177)
-        cy.get('#username').type(\\"tomsmith\\", { force:true })
-        cy.get('#password').type(\\"SuperSecretPassword!\\", { force:true })
-        cy.get('#login button').click({ force:true })
-        cy.get('.flash.success').text().should('equal','You logged into a secure area!\\\\\\\\\\\\\\\\n×')
-})
-"
+undefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefined"
 `;

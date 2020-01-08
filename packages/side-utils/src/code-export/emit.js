@@ -108,6 +108,9 @@ export function emitSelection(location, emitters) {
 }
 
 async function emitCommands(commands, emitter) {
+  if (typeof emitter.init === 'function') {
+    emitter.init()
+  }
   const _commands = commands.map(command => {
     return emitter.emit(command)
   })
@@ -221,8 +224,12 @@ async function emitTest(
 ) {
   // preamble
   let result = {}
-  testLevel = testLevel || 1
-  commandLevel = commandLevel || 2
+  if (testLevel === undefined) {
+    testLevel = 1
+  }
+  if (commandLevel === undefined) {
+    commandLevel = 2
+  }
   const methods = findReusedTestMethods(test, tests)
   const render = doRender.bind(this, commandPrefixPadding)
 

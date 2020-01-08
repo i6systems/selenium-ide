@@ -17,6 +17,8 @@
 
 import { codeExport as exporter } from '@seleniumhq/side-utils'
 
+let activeKeyword
+
 export const emitters = {
   addSelection: skip,
   and: emitAnd,
@@ -124,6 +126,10 @@ export const emitters = {
 
 exporter.register.preprocessors(emitters)
 
+function init() {
+  activeKeyword = null
+}
+
 function register(command, emitter) {
   exporter.register.emitter({ command, emitter, emitters })
 }
@@ -159,24 +165,58 @@ async function emitNewWindowHandling() {
   return Promise.resolve(undefined)
 }
 
-function emitAnd(locator) {
-  return emitStep('And', locator)
+async function emitAnd(step) {
+  if (activeKeyword === null) {
+    return Promise.reject(
+      new Error('"And" cannot be the first step in an scenario')
+    )
+  }
+  return emitStep('And', step)
 }
 
-function emitGiven(locator) {
-  return emitStep('Given', locator)
+async function emitGiven(step) {
+  if (activeKeyword !== null) {
+    return Promise.reject(
+      new Error('"Given" must be the first step in an scenario')
+    )
+  }
+  if (activeKeyword === 'Given') {
+    return Promise.reject(
+      new Error(
+        'You cannot have two consecutive "Given" steps, use an "And" step instead'
+      )
+    )
+  }
+  return emitStep('Given', step)
 }
 
-function emitThen(locator) {
-  return emitStep('Then', locator)
+async function emitThen(step) {
+  if (activeKeyword === 'Then') {
+    return Promise.reject(
+      new Error(
+        'You cannot have two consecutive "Then" steps, use an "And" step instead'
+      )
+    )
+  }
+  return emitStep('Then', step)
 }
 
-function emitWhen(locator) {
-  return emitStep('When', locator)
+async function emitWhen(step) {
+  if (activeKeyword === 'When') {
+    return Promise.reject(
+      new Error(
+        'You cannot have two consecutive "When" steps, use an "And" step instead'
+      )
+    )
+  }
+  return emitStep('When', step)
 }
 
 function emitStep(command, step) {
-  let result = `        ${command} ${step}`
+  let result = `${command} ${step}`
+  if (command !== 'And') {
+    activeKeyword = command
+  }
   return Promise.resolve(result)
 }
 
@@ -188,5 +228,6 @@ export default {
   canEmit,
   emit,
   register,
+  init,
   extras: { emitWaitForWindow, emitNewWindowHandling },
 }

@@ -30,6 +30,8 @@ opts.fileExtension = '.js'
 opts.commandPrefixPadding = '    '
 opts.terminatingKeyword = '})'
 opts.commentPrefix = '//'
+opts.testLevel = 0
+opts.commandLevel = 1
 opts.generateMethodDeclaration = generateMethodDeclaration
 
 // Create generators for dynamic string creation of primary entities (e.g., filename, methods, test, and suite)
@@ -64,7 +66,6 @@ export async function emitTest({
   beforeEachOptions,
   enableDescriptionAsComment,
 }) {
-  emitter.init()
   global.baseUrl = baseUrl
   const testDeclaration = generateTestDeclaration(test.name)
   const result = await exporter.emit.test(test, tests, {
@@ -99,7 +100,6 @@ export async function emitSuite({
   beforeEachOptions,
   enableDescriptionAsComment,
 }) {
-  emitter.init()
   global.baseUrl = baseUrl
   const result = await exporter.emit.testsFromSuite(tests, suite, opts, {
     enableOriginTracing,
@@ -137,6 +137,7 @@ function emitOrderedSuite(emittedSuite) {
     result += test.inEachBegin
     result += test.commands
     result += test.inEachEnd
+    result += test.testEnd
   } else {
     for (const testName in emittedSuite.tests) {
       const test = emittedSuite.tests[testName]
@@ -144,9 +145,9 @@ function emitOrderedSuite(emittedSuite) {
       result += test.inEachBegin
       result += test.commands
       result += test.inEachEnd
+      result += test.testEnd
     }
   }
-  result += emittedSuite.suiteEnd
   return result
 }
 

@@ -27,14 +27,14 @@ export let opts = {}
 opts.emitter = emitter
 opts.hooks = generateHooks()
 opts.fileExtension = '.feature'
-opts.commandPrefixPadding = ''
+opts.commandPrefixPadding = '    '
 opts.terminatingKeyword = ''
 opts.commentPrefix = '#'
 opts.generateMethodDeclaration = generateMethodDeclaration
 
 // Create generators for dynamic string creation of primary entities (e.g., filename, methods, test, and suite)
 function generateTestDeclaration(name) {
-  return `    Scenario: ${name}`
+  return ['    ', `Scenario: ${name}`]
 }
 function generateMethodDeclaration() {
   return {

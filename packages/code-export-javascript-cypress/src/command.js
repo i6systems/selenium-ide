@@ -20,6 +20,10 @@ import location from './location'
 
 let activeKeyword
 
+let emittedSteps = []
+
+let emitting
+
 export const emitters = {
   addSelection: emitSelect,
   and: emitAnd,
@@ -129,6 +133,7 @@ exporter.register.preprocessors(emitters)
 
 function init() {
   activeKeyword = null
+  emitting = true
 }
 
 function register(command, emitter) {
@@ -136,6 +141,16 @@ function register(command, emitter) {
 }
 
 function emit(command) {
+  if (
+    command.command !== 'and' &&
+    command.command !== 'given' &&
+    command.command !== 'then' &&
+    command.command !== 'when' &&
+    emitting === false
+  ) {
+    return skip()
+  }
+
   return exporter.emit.command(command, emitters[command.command], {
     variableLookup,
     emitNewWindowHandling,
@@ -470,7 +485,7 @@ async function emitAnd(step) {
       new Error('"And" cannot be the first step in an scenario')
     )
   }
-  return emitStep(activeKeyword, step)
+  return emitGherkinStep(activeKeyword, step)
 }
 
 async function emitGiven(step) {
@@ -479,24 +494,52 @@ async function emitGiven(step) {
       new Error('"Given" must be the first step in an scenario')
     )
   }
-  return emitStep('Given', step)
+  if (activeKeyword === 'Given') {
+    return Promise.reject(
+      new Error(
+        'You cannot have two consecutive "Given" steps, use an "And" step instead'
+      )
+    )
+  }
+  return emitGherkinStep('Given', step)
 }
 
 async function emitThen(step) {
-  return emitStep('Then', step)
+  if (activeKeyword === 'Then') {
+    return Promise.reject(
+      new Error(
+        'You cannot have two consecutive "Then" steps, use an "And" step instead'
+      )
+    )
+  }
+  return emitGherkinStep('Then', step)
 }
 
 async function emitWhen(step) {
-  return emitStep('When', step)
+  if (activeKeyword === 'When') {
+    return Promise.reject(
+      new Error(
+        'You cannot have two consecutive "When" steps, use an "And" step instead'
+      )
+    )
+  }
+  return emitGherkinStep('When', step)
 }
 
-async function emitStep(keyword, step) {
+async function emitGherkinStep(keyword, step) {
+  if (step in emittedSteps) {
+    emitting = false
+    return skip()
+  }
+  emitting = true
+  emittedSteps[step] = true
+
   let commands = []
   if (activeKeyword !== null) {
     commands.push({ level: 0, statement: `})` })
-    commands.push({ level: 0, statement: `` })
   }
   activeKeyword = keyword
+  commands.push({ level: 0, statement: `` })
   commands.push({ level: 0, statement: `${keyword}(\`${step}\`, () => {` })
 
   return Promise.resolve({
