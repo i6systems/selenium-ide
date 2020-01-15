@@ -294,7 +294,7 @@ exports[`command code emitter should emit \`repeatIf\` command 1`] = `"} while (
 
 exports[`command code emitter should emit \`run script\` command 1`] = `"js.executeScript(\\"alert('test');alert('Im annoying');\\");"`;
 
-exports[`command code emitter should emit \`run\` command 1`] = `"sometestcase();"`;
+exports[`command code emitter should emit \`run\` command 1`] = `"some-test-case();"`;
 
 exports[`command code emitter should emit \`select frame\` to select the top frame 1`] = `"driver.switchTo().defaultContent();"`;
 

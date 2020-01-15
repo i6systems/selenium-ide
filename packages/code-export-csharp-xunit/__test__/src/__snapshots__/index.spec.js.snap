@@ -30,7 +30,7 @@ public class SuiteTests : IDisposable {
     driver.Quit();
   }
   [Fact]
-  public void Validcredentials() {
+  public void Valid-credentials() {
     driver.Navigate().GoToUrl(\\"http://the-internet.herokuapp.com/login\\");
     driver.Manage().Window.Size = new System.Drawing.Size(1440, 1177);
     driver.FindElement(By.Id(\\"username\\")).SendKeys(\\"tomsmith\\");
@@ -39,7 +39,7 @@ public class SuiteTests : IDisposable {
     Assert.Equal(driver.FindElement(By.CssSelector(\\".flash.success\\")).Text, \\"You logged into a secure area!\\\\\\\\\\\\\\\\n×\\");
   }
   [Fact]
-  public void Invalidcredentials() {
+  public void Invalid-credentials() {
     driver.Navigate().GoToUrl(\\"http://the-internet.herokuapp.com/login\\");
     driver.Manage().Window.Size = new System.Drawing.Size(1440, 1177);
     driver.FindElement(By.Id(\\"username\\")).SendKeys(\\"blah\\");
@@ -64,7 +64,7 @@ using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Interactions;
 using Xunit;
-namespace Controlflow
+namespace Control-flow
 {
 public class SuiteTests : IDisposable {
   public IWebDriver driver {get; private set;}
@@ -81,7 +81,7 @@ public class SuiteTests : IDisposable {
     driver.Quit();
   }
   [Fact]
-  public void Controlflowif() {
+  public void Control-flow-if() {
     vars[\\"myVar\\"] = js.ExecuteScript(\\"return 'a'\\");
     if ((Boolean) js.ExecuteScript(\\"return (arguments[0] === 'a')\\", vars[\\"myVar\\"])) {
       vars[\\"output\\"] = js.ExecuteScript(\\"return 'a'\\");
@@ -93,7 +93,7 @@ public class SuiteTests : IDisposable {
     Assert.Equal(vars[\\"output\\"].ToString(), \\"a\\");
   }
   [Fact]
-  public void Controlflowelseif() {
+  public void Control-flow-else-if() {
     vars[\\"myVar\\"] = js.ExecuteScript(\\"return 'b'\\");
     if ((Boolean) js.ExecuteScript(\\"return (arguments[0] === 'a')\\", vars[\\"myVar\\"])) {
       vars[\\"output\\"] = js.ExecuteScript(\\"return 'a'\\");
@@ -105,7 +105,7 @@ public class SuiteTests : IDisposable {
     Assert.Equal(vars[\\"output\\"].ToString(), \\"b\\");
   }
   [Fact]
-  public void Controlflowelse() {
+  public void Control-flow-else() {
     vars[\\"myVar\\"] = js.ExecuteScript(\\"return 'c'\\");
     if ((Boolean) js.ExecuteScript(\\"return (arguments[0] === 'a')\\", vars[\\"myVar\\"])) {
       vars[\\"output\\"] = js.ExecuteScript(\\"return 'a'\\");
@@ -117,7 +117,7 @@ public class SuiteTests : IDisposable {
     Assert.Equal(vars[\\"output\\"].ToString(), \\"c\\");
   }
   [Fact]
-  public void Controlflowdo() {
+  public void Control-flow-do() {
     vars[\\"check\\"] = js.ExecuteScript(\\"return 1\\");
     do {
       vars[\\"check\\"] = js.ExecuteScript(\\"return arguments[0] + 1\\", vars[\\"check\\"]);
@@ -125,7 +125,7 @@ public class SuiteTests : IDisposable {
     Assert.Equal(vars[\\"check\\"].ToString(), \\"3\\");
   }
   [Fact]
-  public void Controlflowtimes() {
+  public void Control-flow-times() {
     vars[\\"check\\"] = js.ExecuteScript(\\"return 1\\");
     var times = 2;
     for(int i = 0; i < times; i++) {
@@ -134,7 +134,7 @@ public class SuiteTests : IDisposable {
     Assert.Equal(vars[\\"check\\"].ToString(), \\"3\\");
   }
   [Fact]
-  public void Controlflowwhile() {
+  public void Control-flow-while() {
     vars[\\"check\\"] = js.ExecuteScript(\\"return 1\\");
     while ((Boolean) js.ExecuteScript(\\"return (arguments[0] < 3)\\", vars[\\"check\\"])) {
       vars[\\"check\\"] = js.ExecuteScript(\\"return arguments[0] + 1\\", vars[\\"check\\"]);
@@ -183,13 +183,13 @@ public class SuiteTests : IDisposable {
     driver.FindElement(By.CssSelector(\\".fa\\")).Click();
   }
   [Fact]
-  public void Invalidcredentials() {
+  public void Invalid-credentials() {
     vars[\\"username\\"] = \\"blah\\";
     vars[\\"password\\"] = \\"blah\\";
     login();
   }
   [Fact]
-  public void Validcredentials() {
+  public void Valid-credentials() {
     vars[\\"username\\"] = \\"tomsmith\\";
     vars[\\"password\\"] = \\"SuperSecretPassword!\\";
     login();
@@ -211,7 +211,7 @@ using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Interactions;
 using Xunit;
-namespace DefaultSuite
+namespace Default-Suite
 {
 public class SuiteTests : IDisposable {
   public IWebDriver driver {get; private set;}
@@ -241,7 +241,7 @@ public class SuiteTests : IDisposable {
       return whNow.First().ToString();
     }
   }
-  public void selectwindow() 
+  public void select-window() 
   {
     driver.Navigate().GoToUrl(\\"http://the-internet.herokuapp.com/windows\\");
     vars[\\"WindowHandles\\"] = driver.WindowHandles;
@@ -252,7 +252,7 @@ public class SuiteTests : IDisposable {
   }
   [Fact]
   public void Reuse() {
-    selectwindow();
+    select-window();
   }
 }
 }"
@@ -271,7 +271,7 @@ using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Interactions;
 using Xunit;
-namespace DefaultSuite
+namespace Default-Suite
 {
 public class SuiteTests : IDisposable {
   public IWebDriver driver {get; private set;}
@@ -301,7 +301,7 @@ public class SuiteTests : IDisposable {
       return whNow.First().ToString();
     }
   }
-  public void selectwindow() 
+  public void select-window() 
   {
     driver.Navigate().GoToUrl(\\"http://the-internet.herokuapp.com/windows\\");
     vars[\\"WindowHandles\\"] = driver.WindowHandles;
@@ -312,10 +312,10 @@ public class SuiteTests : IDisposable {
   }
   [Fact]
   public void Reuse() {
-    selectwindow();
+    select-window();
   }
   [Fact]
-  public void Selectwindow() {
+  public void Select-window() {
     driver.Navigate().GoToUrl(\\"http://the-internet.herokuapp.com/windows\\");
     vars[\\"WindowHandles\\"] = driver.WindowHandles;
     driver.FindElement(By.LinkText(\\"Click Here\\")).Click();
@@ -403,7 +403,7 @@ public class SuiteTests : IDisposable {
     driver.FindElement(By.CssSelector(\\".fa\\")).Click();
   }
   [Fact]
-  public void Validcredentials() {
+  public void Valid-credentials() {
     vars[\\"username\\"] = \\"tomsmith\\";
     vars[\\"password\\"] = \\"SuperSecretPassword!\\";
     login();
@@ -454,7 +454,7 @@ public class SuiteTests : IDisposable {
     }
   }
   [Fact]
-  public void Selectwindow() {
+  public void Select-window() {
     driver.Navigate().GoToUrl(\\"http://the-internet.herokuapp.com/\\");
     driver.Manage().Window.Size = new System.Drawing.Size(1260, 1027);
     driver.FindElement(By.LinkText(\\"Multiple Windows\\")).Click();

@@ -30,7 +30,7 @@ public class LoginTest {
     driver.Quit();
   }
   [Test]
-  public void validcredentials() {
+  public void valid-credentials() {
     driver.Navigate().GoToUrl(\\"http://the-internet.herokuapp.com/login\\");
     driver.Manage().Window.Size = new System.Drawing.Size(1440, 1177);
     driver.FindElement(By.Id(\\"username\\")).SendKeys(\\"tomsmith\\");
@@ -39,7 +39,7 @@ public class LoginTest {
     Assert.That(driver.FindElement(By.CssSelector(\\".flash.success\\")).Text, Is.EqualTo(\\"You logged into a secure area!\\\\\\\\\\\\\\\\n×\\"));
   }
   [Test]
-  public void invalidcredentials() {
+  public void invalid-credentials() {
     driver.Navigate().GoToUrl(\\"http://the-internet.herokuapp.com/login\\");
     driver.Manage().Window.Size = new System.Drawing.Size(1440, 1177);
     driver.FindElement(By.Id(\\"username\\")).SendKeys(\\"blah\\");
@@ -66,7 +66,7 @@ using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Interactions;
 using NUnit.Framework;
 [TestFixture]
-public class ControlflowTest {
+public class Control-flowTest {
   private IWebDriver driver;
   public IDictionary<string, object> vars {get; private set;}
   private IJavaScriptExecutor js;
@@ -81,7 +81,7 @@ public class ControlflowTest {
     driver.Quit();
   }
   [Test]
-  public void controlflowif() {
+  public void control-flow-if() {
     vars[\\"myVar\\"] = js.ExecuteScript(\\"return 'a'\\");
     if ((Boolean) js.ExecuteScript(\\"return (arguments[0] === 'a')\\", vars[\\"myVar\\"])) {
       vars[\\"output\\"] = js.ExecuteScript(\\"return 'a'\\");
@@ -93,7 +93,7 @@ public class ControlflowTest {
     Assert.That(vars[\\"output\\"].ToString(), Is.EqualTo(\\"a\\"));
   }
   [Test]
-  public void controlflowelseif() {
+  public void control-flow-else-if() {
     vars[\\"myVar\\"] = js.ExecuteScript(\\"return 'b'\\");
     if ((Boolean) js.ExecuteScript(\\"return (arguments[0] === 'a')\\", vars[\\"myVar\\"])) {
       vars[\\"output\\"] = js.ExecuteScript(\\"return 'a'\\");
@@ -105,7 +105,7 @@ public class ControlflowTest {
     Assert.That(vars[\\"output\\"].ToString(), Is.EqualTo(\\"b\\"));
   }
   [Test]
-  public void controlflowelse() {
+  public void control-flow-else() {
     vars[\\"myVar\\"] = js.ExecuteScript(\\"return 'c'\\");
     if ((Boolean) js.ExecuteScript(\\"return (arguments[0] === 'a')\\", vars[\\"myVar\\"])) {
       vars[\\"output\\"] = js.ExecuteScript(\\"return 'a'\\");
@@ -117,7 +117,7 @@ public class ControlflowTest {
     Assert.That(vars[\\"output\\"].ToString(), Is.EqualTo(\\"c\\"));
   }
   [Test]
-  public void controlflowdo() {
+  public void control-flow-do() {
     vars[\\"check\\"] = js.ExecuteScript(\\"return 1\\");
     do {
       vars[\\"check\\"] = js.ExecuteScript(\\"return arguments[0] + 1\\", vars[\\"check\\"]);
@@ -125,7 +125,7 @@ public class ControlflowTest {
     Assert.That(vars[\\"check\\"].ToString(), Is.EqualTo(\\"3\\"));
   }
   [Test]
-  public void controlflowtimes() {
+  public void control-flow-times() {
     vars[\\"check\\"] = js.ExecuteScript(\\"return 1\\");
     var times = 2;
     for(int i = 0; i < times; i++) {
@@ -134,7 +134,7 @@ public class ControlflowTest {
     Assert.That(vars[\\"check\\"].ToString(), Is.EqualTo(\\"3\\"));
   }
   [Test]
-  public void controlflowwhile() {
+  public void control-flow-while() {
     vars[\\"check\\"] = js.ExecuteScript(\\"return 1\\");
     while ((Boolean) js.ExecuteScript(\\"return (arguments[0] < 3)\\", vars[\\"check\\"])) {
       vars[\\"check\\"] = js.ExecuteScript(\\"return arguments[0] + 1\\", vars[\\"check\\"]);
@@ -182,13 +182,13 @@ public class LoginTest {
     driver.FindElement(By.CssSelector(\\".fa\\")).Click();
   }
   [Test]
-  public void invalidcredentials() {
+  public void invalid-credentials() {
     vars[\\"username\\"] = \\"blah\\";
     vars[\\"password\\"] = \\"blah\\";
     login();
   }
   [Test]
-  public void validcredentials() {
+  public void valid-credentials() {
     vars[\\"username\\"] = \\"tomsmith\\";
     vars[\\"password\\"] = \\"SuperSecretPassword!\\";
     login();
@@ -212,7 +212,7 @@ using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Interactions;
 using NUnit.Framework;
 [TestFixture]
-public class DefaultSuiteTest {
+public class Default-SuiteTest {
   private IWebDriver driver;
   public IDictionary<string, object> vars {get; private set;}
   private IJavaScriptExecutor js;
@@ -240,7 +240,7 @@ public class DefaultSuiteTest {
       return whNow.First().ToString();
     }
   }
-  public void selectwindow() {
+  public void select-window() {
     driver.Navigate().GoToUrl(\\"http://the-internet.herokuapp.com/windows\\");
     vars[\\"WindowHandles\\"] = driver.WindowHandles;
     driver.FindElement(By.LinkText(\\"Click Here\\")).Click();
@@ -250,7 +250,7 @@ public class DefaultSuiteTest {
   }
   [Test]
   public void reuse() {
-    selectwindow();
+    select-window();
   }
 }
 "
@@ -271,7 +271,7 @@ using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Interactions;
 using NUnit.Framework;
 [TestFixture]
-public class DefaultSuiteTest {
+public class Default-SuiteTest {
   private IWebDriver driver;
   public IDictionary<string, object> vars {get; private set;}
   private IJavaScriptExecutor js;
@@ -299,7 +299,7 @@ public class DefaultSuiteTest {
       return whNow.First().ToString();
     }
   }
-  public void selectwindow() {
+  public void select-window() {
     driver.Navigate().GoToUrl(\\"http://the-internet.herokuapp.com/windows\\");
     vars[\\"WindowHandles\\"] = driver.WindowHandles;
     driver.FindElement(By.LinkText(\\"Click Here\\")).Click();
@@ -309,10 +309,10 @@ public class DefaultSuiteTest {
   }
   [Test]
   public void reuse() {
-    selectwindow();
+    select-window();
   }
   [Test]
-  public void selectwindow() {
+  public void select-window() {
     driver.Navigate().GoToUrl(\\"http://the-internet.herokuapp.com/windows\\");
     vars[\\"WindowHandles\\"] = driver.WindowHandles;
     driver.FindElement(By.LinkText(\\"Click Here\\")).Click();
@@ -381,7 +381,7 @@ using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Interactions;
 using NUnit.Framework;
 [TestFixture]
-public class ValidcredentialsTest {
+public class Valid-credentialsTest {
   private IWebDriver driver;
   public IDictionary<string, object> vars {get; private set;}
   private IJavaScriptExecutor js;
@@ -403,7 +403,7 @@ public class ValidcredentialsTest {
     driver.FindElement(By.CssSelector(\\".fa\\")).Click();
   }
   [Test]
-  public void validcredentials() {
+  public void valid-credentials() {
     vars[\\"username\\"] = \\"tomsmith\\";
     vars[\\"password\\"] = \\"SuperSecretPassword!\\";
     login();
@@ -427,7 +427,7 @@ using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Interactions;
 using NUnit.Framework;
 [TestFixture]
-public class SelectwindowTest {
+public class Select-windowTest {
   private IWebDriver driver;
   public IDictionary<string, object> vars {get; private set;}
   private IJavaScriptExecutor js;
@@ -456,7 +456,7 @@ public class SelectwindowTest {
     }
   }
   [Test]
-  public void selectwindow() {
+  public void select-window() {
     driver.Navigate().GoToUrl(\\"http://the-internet.herokuapp.com/\\");
     driver.Manage().Window.Size = new System.Drawing.Size(1260, 1027);
     driver.FindElement(By.LinkText(\\"Multiple Windows\\")).Click();

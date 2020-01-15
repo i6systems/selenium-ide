@@ -21,7 +21,7 @@ class TestLogin():
   def teardown_method(self, method):
     self.driver.quit()
   
-  def test_validcredentials(self):
+  def test_valid-credentials(self):
     self.driver.get(\\"http://the-internet.herokuapp.com/login\\")
     self.driver.set_window_size(1440, 1177)
     self.driver.find_element(By.ID, \\"username\\").send_keys(\\"tomsmith\\")
@@ -29,7 +29,7 @@ class TestLogin():
     self.driver.find_element(By.CSS_SELECTOR, \\"#login button\\").click()
     assert self.driver.find_element(By.CSS_SELECTOR, \\".flash.success\\").text == \\"You logged into a secure area!\\\\\\\\\\\\\\\\n×\\"
   
-  def test_invalidcredentials(self):
+  def test_invalid-credentials(self):
     self.driver.get(\\"http://the-internet.herokuapp.com/login\\")
     self.driver.set_window_size(1440, 1177)
     self.driver.find_element(By.ID, \\"username\\").send_keys(\\"blah\\")
@@ -53,7 +53,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-class TestControlflow():
+class TestControl-flow():
   def setup_method(self, method):
     self.driver = webdriver.Chrome()
     self.vars = {}
@@ -61,7 +61,7 @@ class TestControlflow():
   def teardown_method(self, method):
     self.driver.quit()
   
-  def test_controlflowif(self):
+  def test_control-flow-if(self):
     self.vars[\\"myVar\\"] = self.driver.execute_script(\\"return 'a'\\")
     if self.driver.execute_script(\\"return (arguments[0] === 'a')\\", self.vars[\\"myVar\\"]):
       self.vars[\\"output\\"] = self.driver.execute_script(\\"return 'a'\\")
@@ -71,7 +71,7 @@ class TestControlflow():
       self.vars[\\"output\\"] = self.driver.execute_script(\\"return 'c'\\")
     assert(self.vars[\\"output\\"] == \\"a\\")
   
-  def test_controlflowelseif(self):
+  def test_control-flow-else-if(self):
     self.vars[\\"myVar\\"] = self.driver.execute_script(\\"return 'b'\\")
     if self.driver.execute_script(\\"return (arguments[0] === 'a')\\", self.vars[\\"myVar\\"]):
       self.vars[\\"output\\"] = self.driver.execute_script(\\"return 'a'\\")
@@ -81,7 +81,7 @@ class TestControlflow():
       self.vars[\\"output\\"] = self.driver.execute_script(\\"return 'c'\\")
     assert(self.vars[\\"output\\"] == \\"b\\")
   
-  def test_controlflowelse(self):
+  def test_control-flow-else(self):
     self.vars[\\"myVar\\"] = self.driver.execute_script(\\"return 'c'\\")
     if self.driver.execute_script(\\"return (arguments[0] === 'a')\\", self.vars[\\"myVar\\"]):
       self.vars[\\"output\\"] = self.driver.execute_script(\\"return 'a'\\")
@@ -91,7 +91,7 @@ class TestControlflow():
       self.vars[\\"output\\"] = self.driver.execute_script(\\"return 'c'\\")
     assert(self.vars[\\"output\\"] == \\"c\\")
   
-  def test_controlflowdo(self):
+  def test_control-flow-do(self):
     self.vars[\\"check\\"] = self.driver.execute_script(\\"return 1\\")
     condition = True
     while condition:
@@ -99,13 +99,13 @@ class TestControlflow():
       condition = self.driver.execute_script(\\"return (arguments[0] < 3)\\", self.vars[\\"check\\"])
     assert(self.vars[\\"check\\"] == 3)
   
-  def test_controlflowtimes(self):
+  def test_control-flow-times(self):
     self.vars[\\"check\\"] = self.driver.execute_script(\\"return 1\\")
     for i in range(0, 2):
       self.vars[\\"check\\"] = self.driver.execute_script(\\"return arguments[0] + 1\\", self.vars[\\"check\\"])
     assert(self.vars[\\"check\\"] == 3)
   
-  def test_controlflowwhile(self):
+  def test_control-flow-while(self):
     self.vars[\\"check\\"] = self.driver.execute_script(\\"return 1\\")
     while self.driver.execute_script(\\"return (arguments[0] < 3)\\", self.vars[\\"check\\"]):
       self.vars[\\"check\\"] = self.driver.execute_script(\\"return arguments[0] + 1\\", self.vars[\\"check\\"])
@@ -142,12 +142,12 @@ class TestLogin():
     self.driver.find_element(By.ID, \\"password\\").send_keys(self.vars[\\"password\\"])
     self.driver.find_element(By.CSS_SELECTOR, \\".fa\\").click()
   
-  def test_invalidcredentials(self):
+  def test_invalid-credentials(self):
     self.vars[\\"username\\"] = \\"blah\\"
     self.vars[\\"password\\"] = \\"blah\\"
     self.login()
   
-  def test_validcredentials(self):
+  def test_valid-credentials(self):
     self.vars[\\"username\\"] = \\"tomsmith\\"
     self.vars[\\"password\\"] = \\"SuperSecretPassword!\\"
     self.login()
@@ -168,7 +168,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-class TestDefaultSuite():
+class TestDefault-Suite():
   def setup_method(self, method):
     self.driver = webdriver.Chrome()
     self.vars = {}
@@ -183,7 +183,7 @@ class TestDefaultSuite():
     if len(wh_now) > len(wh_then):
       return set(wh_now).difference(set(wh_then)).pop()
   
-  def selectwindow(self):
+  def select-window(self):
     self.driver.get(\\"http://the-internet.herokuapp.com/windows\\")
     self.vars[\\"window_handles\\"] = self.driver.window_handles
     self.driver.find_element(By.LINK_TEXT, \\"Click Here\\").click()
@@ -192,7 +192,7 @@ class TestDefaultSuite():
     assert self.driver.title == \\"New Window\\"
   
   def test_reuse(self):
-    self.selectwindow()
+    self.select-window()
   
 "
 `;
@@ -210,7 +210,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-class TestDefaultSuite():
+class TestDefault-Suite():
   def setup_method(self, method):
     self.driver = webdriver.Chrome()
     self.vars = {}
@@ -225,7 +225,7 @@ class TestDefaultSuite():
     if len(wh_now) > len(wh_then):
       return set(wh_now).difference(set(wh_then)).pop()
   
-  def selectwindow(self):
+  def select-window(self):
     self.driver.get(\\"http://the-internet.herokuapp.com/windows\\")
     self.vars[\\"window_handles\\"] = self.driver.window_handles
     self.driver.find_element(By.LINK_TEXT, \\"Click Here\\").click()
@@ -234,9 +234,9 @@ class TestDefaultSuite():
     assert self.driver.title == \\"New Window\\"
   
   def test_reuse(self):
-    self.selectwindow()
+    self.select-window()
   
-  def test_selectwindow(self):
+  def test_select-window(self):
     self.driver.get(\\"http://the-internet.herokuapp.com/windows\\")
     self.vars[\\"window_handles\\"] = self.driver.window_handles
     self.driver.find_element(By.LINK_TEXT, \\"Click Here\\").click()
@@ -292,7 +292,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-class TestValidcredentials():
+class TestValid-credentials():
   def setup_method(self, method):
     self.driver = webdriver.Chrome()
     self.vars = {}
@@ -307,7 +307,7 @@ class TestValidcredentials():
     self.driver.find_element(By.ID, \\"password\\").send_keys(self.vars[\\"password\\"])
     self.driver.find_element(By.CSS_SELECTOR, \\".fa\\").click()
   
-  def test_validcredentials(self):
+  def test_valid-credentials(self):
     self.vars[\\"username\\"] = \\"tomsmith\\"
     self.vars[\\"password\\"] = \\"SuperSecretPassword!\\"
     self.login()
@@ -328,7 +328,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-class TestSelectwindow():
+class TestSelect-window():
   def setup_method(self, method):
     self.driver = webdriver.Chrome()
     self.vars = {}
@@ -343,7 +343,7 @@ class TestSelectwindow():
     if len(wh_now) > len(wh_then):
       return set(wh_now).difference(set(wh_then)).pop()
   
-  def test_selectwindow(self):
+  def test_select-window(self):
     self.driver.get(\\"http://the-internet.herokuapp.com/\\")
     self.driver.set_window_size(1260, 1027)
     self.driver.find_element(By.LINK_TEXT, \\"Multiple Windows\\").click()

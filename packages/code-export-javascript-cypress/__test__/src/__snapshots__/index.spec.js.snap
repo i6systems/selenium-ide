@@ -13,14 +13,18 @@ Before(() => {
 })
     cy.visit(\\"http://the-internet.herokuapp.com/login\\")
     cy.viewport(1440, 1177)
+    cy.get('#username').clear({ force:true })
     cy.get('#username').type(\\"tomsmith\\", { force:true })
+    cy.get('#password').clear({ force:true })
     cy.get('#password').type(\\"SuperSecretPassword!\\", { force:true })
     cy.get('#login button').click({ force:true })
     cy.get('.flash.success').text().should('equal','You logged into a secure area!\\\\\\\\\\\\\\\\n×')
 })
     cy.visit(\\"http://the-internet.herokuapp.com/login\\")
     cy.viewport(1440, 1177)
+    cy.get('#username').clear({ force:true })
     cy.get('#username').type(\\"blah\\", { force:true })
+    cy.get('#password').clear({ force:true })
     cy.get('#password').type(\\"blah\\", { force:true })
     cy.get('#login button').click({ force:true })
     cy.get('#flash').text().should('equal','Your username is invalid!\\\\\\\\\\\\\\\\n×')
@@ -68,8 +72,8 @@ Before(() => {
     
         cy.visit(\\"https://the-internet.herokuapp.com/\\")
         cy.get('a').contains('Form Authentication').click({ force:true })
-        cy.get('#username').type(vars[\\"username\\"], { force:true })
-        cy.get('#password').type(vars[\\"password\\"], { force:true })
+        [object Object]
+        [object Object]
         cy.get('.fa').click({ force:true })
     
     vars[\\"username\\"] = \\"blah\\"
@@ -94,7 +98,16 @@ Before(() => {
     Redis.clear()
     Helpers.login('test.user@example.com')
 })
-undefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefined"
+    cy.visit(\\"http://the-internet.herokuapp.com/login\\")
+    cy.viewport(1440, 1177)
+    cy.get('#username').clear({ force:true })
+    cy.get('#username').type(\\"tomsmith\\", { force:true })
+    cy.get('#password').clear({ force:true })
+    cy.get('#password').type(\\"SuperSecretPassword!\\", { force:true })
+    cy.get('#login button').click({ force:true })
+    cy.get('.flash.success').text().should('equal','You logged into a secure area!\\\\\\\\\\\\\\\\n×')
+})
+"
 `;
 
 exports[`Code Export JavaScript Cypress should export a test with a reused test method 1`] = `
@@ -111,11 +124,15 @@ Before(() => {
     
         cy.visit(\\"https://the-internet.herokuapp.com/\\")
         cy.get('a').contains('Form Authentication').click({ force:true })
-        cy.get('#username').type(vars[\\"username\\"], { force:true })
-        cy.get('#password').type(vars[\\"password\\"], { force:true })
+        [object Object]
+        [object Object]
         cy.get('.fa').click({ force:true })
     
-undefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefined"
+    vars[\\"username\\"] = \\"tomsmith\\"
+    vars[\\"password\\"] = \\"SuperSecretPassword!\\"
+    login()
+})
+"
 `;
 
 exports[`Code Export JavaScript Cypress should export a test with grid execution 1`] = `
@@ -129,5 +146,14 @@ Before(() => {
     Redis.clear()
     Helpers.login('test.user@example.com')
 })
-undefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefinedundefined"
+    cy.visit(\\"http://the-internet.herokuapp.com/login\\")
+    cy.viewport(1440, 1177)
+    cy.get('#username').clear({ force:true })
+    cy.get('#username').type(\\"tomsmith\\", { force:true })
+    cy.get('#password').clear({ force:true })
+    cy.get('#password').type(\\"SuperSecretPassword!\\", { force:true })
+    cy.get('#login button').click({ force:true })
+    cy.get('.flash.success').text().should('equal','You logged into a secure area!\\\\\\\\\\\\\\\\n×')
+})
+"
 `;
