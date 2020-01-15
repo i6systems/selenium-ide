@@ -141,17 +141,26 @@ exports[`command code emitter should emit \`repeatIf\` command 1`] = `undefined`
 
 exports[`command code emitter should emit \`run script\` command 1`] = `undefined`;
 
-exports[`command code emitter should emit \`run\` command 1`] = `"sometestcase()"`;
+exports[`command code emitter should emit \`run\` command 1`] = `"some-test-case()"`;
 
 exports[`command code emitter should emit \`select frame\` to select the top frame 1`] = `undefined`;
 
 exports[`command code emitter should emit \`select\` command 1`] = `"cy.get('select').select('A label', { force:true })"`;
 
-exports[`command code emitter should emit \`send keys\` command 1`] = `"cy.get('#input').type(\\"example input\\", { force:true })"`;
+exports[`command code emitter should emit \`send keys\` command 1`] = `
+"cy.get('#input').clear({ force:true })
+cy.get('#input').type(\\"example input\\", { force:true })"
+`;
 
-exports[`command code emitter should emit \`send keys\` command with a key press 1`] = `"cy.get('#input').type(\\"SuperSecretPassword!\\", Key.ENTER, { force:true })"`;
+exports[`command code emitter should emit \`send keys\` command with a key press 1`] = `
+"cy.get('#input').clear({ force:true })
+cy.get('#input').type(\\"SuperSecretPassword!\\", Key.ENTER, { force:true })"
+`;
 
-exports[`command code emitter should emit \`send keys\` command with a variable input 1`] = `"cy.get('#input').type(vars[\\"blah\\"], { force:true })"`;
+exports[`command code emitter should emit \`send keys\` command with a variable input 1`] = `
+"cy.get('#input').clear({ force:true })
+cy.get('#input').type(vars[\\"blah\\"], { force:true })"
+`;
 
 exports[`command code emitter should emit \`set speed\` 1`] = `undefined`;
 
@@ -197,7 +206,10 @@ exports[`command code emitter should emit \`submit\` command 1`] = `"cy.get('#fo
 
 exports[`command code emitter should emit \`times\` command 1`] = `undefined`;
 
-exports[`command code emitter should emit \`type\` command 1`] = `"cy.get('#input').type(\\"example input\\", { force:true })"`;
+exports[`command code emitter should emit \`type\` command 1`] = `
+"cy.get('#input').clear({ force:true })
+cy.get('#input').type(\\"example input\\", { force:true })"
+`;
 
 exports[`command code emitter should emit \`uncheck\` command 1`] = `"cy.get('#f').uncheck({ force:true })"`;
 

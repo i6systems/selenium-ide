@@ -40,7 +40,7 @@ public class LoginTest {
     driver.quit();
   }
   @Test
-  public void validcredentials() {
+  public void valid-credentials() {
     driver.get(\\"http://the-internet.herokuapp.com/login\\");
     driver.manage().window().setSize(new Dimension(1440, 1177));
     driver.findElement(By.id(\\"username\\")).sendKeys(\\"tomsmith\\");
@@ -49,7 +49,7 @@ public class LoginTest {
     assertThat(driver.findElement(By.cssSelector(\\".flash.success\\")).getText(), is(\\"You logged into a secure area!\\\\\\\\\\\\\\\\n×\\"));
   }
   @Test
-  public void invalidcredentials() {
+  public void invalid-credentials() {
     driver.get(\\"http://the-internet.herokuapp.com/login\\");
     driver.manage().window().setSize(new Dimension(1440, 1177));
     driver.findElement(By.id(\\"username\\")).sendKeys(\\"blah\\");
@@ -86,7 +86,7 @@ import org.openqa.selenium.Keys;
 import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-public class ControlflowTest {
+public class Control-flowTest {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
@@ -101,7 +101,7 @@ public class ControlflowTest {
     driver.quit();
   }
   @Test
-  public void controlflowif() {
+  public void control-flow-if() {
     vars.put(\\"myVar\\", js.executeScript(\\"return 'a'\\"));
     if ((Boolean) js.executeScript(\\"return (arguments[0] === 'a')\\", vars.get(\\"myVar\\"))) {
       vars.put(\\"output\\", js.executeScript(\\"return 'a'\\"));
@@ -113,7 +113,7 @@ public class ControlflowTest {
     assertEquals(vars.get(\\"output\\").toString(), \\"a\\");
   }
   @Test
-  public void controlflowelseif() {
+  public void control-flow-else-if() {
     vars.put(\\"myVar\\", js.executeScript(\\"return 'b'\\"));
     if ((Boolean) js.executeScript(\\"return (arguments[0] === 'a')\\", vars.get(\\"myVar\\"))) {
       vars.put(\\"output\\", js.executeScript(\\"return 'a'\\"));
@@ -125,7 +125,7 @@ public class ControlflowTest {
     assertEquals(vars.get(\\"output\\").toString(), \\"b\\");
   }
   @Test
-  public void controlflowelse() {
+  public void control-flow-else() {
     vars.put(\\"myVar\\", js.executeScript(\\"return 'c'\\"));
     if ((Boolean) js.executeScript(\\"return (arguments[0] === 'a')\\", vars.get(\\"myVar\\"))) {
       vars.put(\\"output\\", js.executeScript(\\"return 'a'\\"));
@@ -137,7 +137,7 @@ public class ControlflowTest {
     assertEquals(vars.get(\\"output\\").toString(), \\"c\\");
   }
   @Test
-  public void controlflowdo() {
+  public void control-flow-do() {
     vars.put(\\"check\\", js.executeScript(\\"return 1\\"));
     do {
       vars.put(\\"check\\", js.executeScript(\\"return arguments[0] + 1\\", vars.get(\\"check\\")));
@@ -145,7 +145,7 @@ public class ControlflowTest {
     assertEquals(vars.get(\\"check\\").toString(), \\"3\\");
   }
   @Test
-  public void controlflowtimes() {
+  public void control-flow-times() {
     vars.put(\\"check\\", js.executeScript(\\"return 1\\"));
     Integer times = 2;
     for(int i = 0; i < times; i++) {
@@ -154,7 +154,7 @@ public class ControlflowTest {
     assertEquals(vars.get(\\"check\\").toString(), \\"3\\");
   }
   @Test
-  public void controlflowwhile() {
+  public void control-flow-while() {
     vars.put(\\"check\\", js.executeScript(\\"return 1\\"));
     while ((Boolean) js.executeScript(\\"return (arguments[0] < 3)\\", vars.get(\\"check\\"))) {
       vars.put(\\"check\\", js.executeScript(\\"return arguments[0] + 1\\", vars.get(\\"check\\")));
@@ -212,13 +212,13 @@ public class LoginTest {
     driver.findElement(By.cssSelector(\\".fa\\")).click();
   }
   @Test
-  public void invalidcredentials() {
+  public void invalid-credentials() {
     vars.put(\\"username\\", \\"blah\\");
     vars.put(\\"password\\", \\"blah\\");
     login();
   }
   @Test
-  public void validcredentials() {
+  public void valid-credentials() {
     vars.put(\\"username\\", \\"tomsmith\\");
     vars.put(\\"password\\", \\"SuperSecretPassword!\\");
     login();
@@ -252,7 +252,7 @@ import org.openqa.selenium.Keys;
 import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-public class DefaultSuiteTest {
+public class Default-SuiteTest {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
@@ -279,7 +279,7 @@ public class DefaultSuiteTest {
     }
     return whNow.iterator().next();
   }
-  public void selectwindow() {
+  public void select-window() {
     driver.get(\\"http://the-internet.herokuapp.com/windows\\");
     vars.put(\\"window_handles\\", driver.getWindowHandles());
     driver.findElement(By.linkText(\\"Click Here\\")).click();
@@ -289,7 +289,7 @@ public class DefaultSuiteTest {
   }
   @Test
   public void reuse() {
-    selectwindow();
+    select-window();
   }
 }
 "
@@ -320,7 +320,7 @@ import org.openqa.selenium.Keys;
 import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-public class DefaultSuiteTest {
+public class Default-SuiteTest {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
@@ -347,7 +347,7 @@ public class DefaultSuiteTest {
     }
     return whNow.iterator().next();
   }
-  public void selectwindow() {
+  public void select-window() {
     driver.get(\\"http://the-internet.herokuapp.com/windows\\");
     vars.put(\\"window_handles\\", driver.getWindowHandles());
     driver.findElement(By.linkText(\\"Click Here\\")).click();
@@ -357,10 +357,10 @@ public class DefaultSuiteTest {
   }
   @Test
   public void reuse() {
-    selectwindow();
+    select-window();
   }
   @Test
-  public void selectwindow() {
+  public void select-window() {
     driver.get(\\"http://the-internet.herokuapp.com/windows\\");
     vars.put(\\"window_handles\\", driver.getWindowHandles());
     driver.findElement(By.linkText(\\"Click Here\\")).click();
@@ -501,7 +501,7 @@ import org.openqa.selenium.Keys;
 import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-public class ValidcredentialsTest {
+public class Valid-credentialsTest {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
@@ -523,7 +523,7 @@ public class ValidcredentialsTest {
     driver.findElement(By.cssSelector(\\".fa\\")).click();
   }
   @Test
-  public void validcredentials() {
+  public void valid-credentials() {
     vars.put(\\"username\\", \\"tomsmith\\");
     vars.put(\\"password\\", \\"SuperSecretPassword!\\");
     login();
@@ -557,7 +557,7 @@ import org.openqa.selenium.Keys;
 import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-public class SelectwindowTest {
+public class Select-windowTest {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
@@ -585,7 +585,7 @@ public class SelectwindowTest {
     return whNow.iterator().next();
   }
   @Test
-  public void selectwindow() {
+  public void select-window() {
     driver.get(\\"http://the-internet.herokuapp.com/\\");
     driver.manage().window().setSize(new Dimension(1260, 1027));
     driver.findElement(By.linkText(\\"Multiple Windows\\")).click();

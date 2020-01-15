@@ -173,7 +173,7 @@ describe('Default Suite', function() {
     }
     throw new Error(\\"New window did not appear before timeout\\")
   }
-  async function selectwindow() {
+  async function select-window() {
     await driver.get(\\"http://the-internet.herokuapp.com/windows\\")
     vars[\\"windowHandles\\"] = await driver.getAllWindowHandles()
     await driver.findElement(By.linkText(\\"Click Here\\")).click()
@@ -182,7 +182,7 @@ describe('Default Suite', function() {
     assert(await driver.getTitle() == \\"New Window\\")
   }
   it('reuse', async function() {
-    selectwindow()
+    select-window()
   })
 })
 "
@@ -213,7 +213,7 @@ describe('Default Suite', function() {
     }
     throw new Error(\\"New window did not appear before timeout\\")
   }
-  async function selectwindow() {
+  async function select-window() {
     await driver.get(\\"http://the-internet.herokuapp.com/windows\\")
     vars[\\"windowHandles\\"] = await driver.getAllWindowHandles()
     await driver.findElement(By.linkText(\\"Click Here\\")).click()
@@ -222,7 +222,7 @@ describe('Default Suite', function() {
     assert(await driver.getTitle() == \\"New Window\\")
   }
   it('reuse', async function() {
-    selectwindow()
+    select-window()
   })
   it('select window', async function() {
     await driver.get(\\"http://the-internet.herokuapp.com/windows\\")

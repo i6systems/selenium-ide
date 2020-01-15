@@ -19,10 +19,7 @@ import { sanitizeName, capitalize } from '../../../src/code-export/parsers'
 
 describe('parsers', () => {
   it('should sanitize the name', () => {
-    expect(sanitizeName('blah blah')).toEqual('blahblah')
-  })
-  it('should trim whitespace from the name', () => {
-    expect(sanitizeName(' blah blah ')).toEqual('blahblah')
+    expect(sanitizeName('blah blah')).toEqual('blah-blah')
   })
   it('should capitalize the name', () => {
     expect(capitalize('blahblah')).toEqual('Blahblah')
