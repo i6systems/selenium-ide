@@ -68,7 +68,8 @@ export async function emitTest({
 }) {
   global.baseUrl = baseUrl
   const testDeclaration = generateTestDeclaration(test.name)
-  const result = await exporter.emit.test(test, tests, {
+  let result = {}
+  result[test.name] = await exporter.emit.test(test, tests, {
     ...opts,
     testDeclaration,
     enableOriginTracing,
