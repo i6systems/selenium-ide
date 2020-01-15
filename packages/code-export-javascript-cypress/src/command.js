@@ -134,6 +134,7 @@ exporter.register.preprocessors(emitters)
 function init() {
   activeKeyword = null
   emitting = true
+  emittedSteps = []
 }
 
 function register(command, emitter) {
@@ -298,11 +299,19 @@ function generateSendKeysInput(value) {
 }
 
 async function emitSendKeys(locator, value) {
-  return Promise.resolve(
-    `${await location.emit(locator)}.type(${generateSendKeysInput(
-      value
-    )}, { force:true })`
-  )
+  const commands = [
+    {
+      level: 0,
+      statement: `${await location.emit(locator)}.clear({ force:true })`,
+    },
+    {
+      level: 0,
+      statement: `${await location.emit(locator)}.type(${generateSendKeysInput(
+        value
+      )}, { force:true })`,
+    },
+  ]
+  return Promise.resolve({ commands })
 }
 
 async function emitStore(value, varName) {
@@ -529,6 +538,7 @@ async function emitWhen(step) {
 async function emitGherkinStep(keyword, step) {
   if (step in emittedSteps) {
     emitting = false
+    activeKeyword = keyword
     return skip()
   }
   emitting = true
