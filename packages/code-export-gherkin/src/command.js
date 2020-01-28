@@ -213,7 +213,8 @@ async function emitWhen(step) {
 }
 
 function emitStep(command, step) {
-  let result = `${command} ${step}`
+  let commandToEmmit = command === 'Given' ? 'And' : command
+  let result = `${commandToEmmit} ${step}`
   if (command !== 'And') {
     activeKeyword = command
   }
