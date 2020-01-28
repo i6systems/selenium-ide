@@ -47,43 +47,7 @@ function declareDependencies() {
         {
           level: 0,
           statement:
-            'import { Before, Given, When, Then } from "cypress-cucumber-preprocessor/steps"',
-        },
-        {
-          level: 0,
-          statement: "const Database = require('../../support/database')",
-        },
-        {
-          level: 0,
-          statement: "const Redis = require('../../support/redis')",
-        },
-        {
-          level: 0,
-          statement: 'const Helpers = require("../../support/helpers")',
-        },
-        {
-          level: 0,
-          statement: '',
-        },
-        {
-          level: 0,
-          statement: 'Before(() => {',
-        },
-        {
-          level: 1,
-          statement: 'Database.reload()',
-        },
-        {
-          level: 1,
-          statement: 'Redis.clear()',
-        },
-        {
-          level: 1,
-          statement: "Helpers.login('test.user@example.com')",
-        },
-        {
-          level: 0,
-          statement: '})',
+            'import { Given, When, Then } from "cypress-cucumber-preprocessor/steps"',
         },
       ],
     },

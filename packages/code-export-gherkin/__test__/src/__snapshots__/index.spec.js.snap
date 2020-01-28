@@ -4,8 +4,12 @@ exports[`Code Export JavaScript Cypress should export a suite 1`] = `
 "Feature: login
         
     Scenario: valid credentials
+        Given I reset the \\"backup\\" database
+        And I log in as \\"test.user@example.com\\"
         
     Scenario: invalid credentials
+        Given I reset the \\"backup\\" database
+        And I log in as \\"test.user@example.com\\"
 "
 `;
 
@@ -13,16 +17,28 @@ exports[`Code Export JavaScript Cypress should export a suite that uses control 
 "Feature: control flow
         
     Scenario: control flow if
+        Given I reset the \\"backup\\" database
+        And I log in as \\"test.user@example.com\\"
         
     Scenario: control flow else if
+        Given I reset the \\"backup\\" database
+        And I log in as \\"test.user@example.com\\"
         
     Scenario: control flow else
+        Given I reset the \\"backup\\" database
+        And I log in as \\"test.user@example.com\\"
         
     Scenario: control flow do
+        Given I reset the \\"backup\\" database
+        And I log in as \\"test.user@example.com\\"
         
     Scenario: control flow times
+        Given I reset the \\"backup\\" database
+        And I log in as \\"test.user@example.com\\"
         
     Scenario: control flow while
+        Given I reset the \\"backup\\" database
+        And I log in as \\"test.user@example.com\\"
 "
 `;
 
@@ -37,8 +53,12 @@ exports[`Code Export JavaScript Cypress should export a suite with a reused test
     
         
     Scenario: invalid credentials
+        Given I reset the \\"backup\\" database
+        And I log in as \\"test.user@example.com\\"
         
     Scenario: valid credentials
+        Given I reset the \\"backup\\" database
+        And I log in as \\"test.user@example.com\\"
 "
 `;
 
@@ -49,6 +69,8 @@ exports[`Code Export JavaScript Cypress should export a suite with commands that
     
         
     Scenario: reuse
+        Given I reset the \\"backup\\" database
+        And I log in as \\"test.user@example.com\\"
 "
 `;
 
@@ -59,8 +81,12 @@ exports[`Code Export JavaScript Cypress should export a suite with just one new 
     
         
     Scenario: reuse
+        Given I reset the \\"backup\\" database
+        And I log in as \\"test.user@example.com\\"
         
     Scenario: select window
+        Given I reset the \\"backup\\" database
+        And I log in as \\"test.user@example.com\\"
 "
 `;
 
@@ -68,6 +94,8 @@ exports[`Code Export JavaScript Cypress should export a test 1`] = `
 "Feature: login
         
     Scenario: login
+        Given I reset the \\"backup\\" database
+        And I log in as \\"test.user@example.com\\"
 "
 `;
 
@@ -82,6 +110,8 @@ exports[`Code Export JavaScript Cypress should export a test with a reused test 
     
         
     Scenario: valid credentials
+        Given I reset the \\"backup\\" database
+        And I log in as \\"test.user@example.com\\"
 "
 `;
 
@@ -92,5 +122,7 @@ exports[`Code Export JavaScript Cypress should export a test with commands that 
     
         
     Scenario: select window
+        Given I reset the \\"backup\\" database
+        And I log in as \\"test.user@example.com\\"
 "
 `;
