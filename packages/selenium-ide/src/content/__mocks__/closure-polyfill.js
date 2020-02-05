@@ -40,4 +40,8 @@ bot.locators.findElement = () => {
   return element
 }
 
+bot.locators.findElements = () => {
+  return [element]
+}
+
 export { core, bot }

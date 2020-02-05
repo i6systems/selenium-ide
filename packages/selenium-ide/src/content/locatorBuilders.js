@@ -65,7 +65,7 @@ LocatorBuilders.prototype.buildAll = function(el) {
         //TODO: the builderName should NOT be used as a strategy name, create a feature to allow locatorBuilders to specify this kind of behaviour
         //TODO: Useful if a builder wants to capture a different element like a parent. Use the this.elementEquals
         let fe = this.findElement(locator)
-        if (e == fe) {
+        if (e == fe && this.elementsCount(locator) == 1) {
           locators.push([locator, finderName])
         }
       }
@@ -86,6 +86,19 @@ LocatorBuilders.prototype.findElement = function(loc) {
     )
   } catch (error) {
     //this.log.debug("findElement failed: " + error + ", locator=" + locator);
+    return null
+  }
+}
+
+LocatorBuilders.prototype.elementsCount = function(loc) {
+  try {
+    const locator = parse_locator(loc, true)
+    return bot.locators.findElements(
+      { [locator.type]: locator.string },
+      this.window.document
+    ).length
+  } catch (error) {
+    //this.log.debug("findElements failed: " + error + ", locator=" + locator);
     return null
   }
 }
@@ -289,23 +302,22 @@ LocatorBuilders.add('id', function id(e) {
   return null
 })
 
-LocatorBuilders.add('linkText', function linkText(e) {
-  if (e.nodeName == 'A') {
-    let text = e.textContent
-    if (!text.match(/^\s*$/)) {
-      return (
-        'linkText=' + text.replace(/\xA0/g, ' ').replace(/^\s*(.*?)\s*$/, '$1')
-      )
-    }
-  }
-  return null
-})
-
 LocatorBuilders.add('name', function name(e) {
   if (e.name) {
     return 'name=' + e.name
   }
   return null
+})
+
+LocatorBuilders.add('xpath:innerText', function xpathInnerText(el) {
+  if (el.innerText) {
+    return this.preciseXPath(
+      `//${el.nodeName.toLowerCase()}[. = '${el.innerText}']`,
+      el
+    )
+  } else {
+    return null
+  }
 })
 
 LocatorBuilders.add('css:finder', function cssFinder(e) {
@@ -319,9 +331,9 @@ LocatorBuilders.add('xpath:link', function xpathLink(e) {
       return this.preciseXPath(
         '//' +
           this.xpathHtmlElement('a') +
-          "[contains(text(),'" +
+          "[text() = '" +
           text.replace(/^\s+/, '').replace(/\s+$/, '') +
-          "')]",
+          "']",
         e
       )
     }
@@ -353,9 +365,9 @@ LocatorBuilders.add('xpath:img', function xpathImg(e) {
       return this.preciseXPath(
         '//' +
           this.xpathHtmlElement('img') +
-          '[contains(@src,' +
+          '[@src = ' +
           this.attributeValue(e.src) +
-          ')]',
+          ']',
         e
       )
     }
@@ -456,13 +468,12 @@ LocatorBuilders.add('xpath:href', function xpathHref(e) {
         e
       )
     } else {
-      // use contains(), because in IE getAttribute("href") will return absolute path
       return this.preciseXPath(
         '//' +
           this.xpathHtmlElement('a') +
-          '[contains(@href, ' +
+          '[@href = ' +
           this.attributeValue(href) +
-          ')]',
+          ']',
         e
       )
     }
@@ -493,10 +504,14 @@ LocatorBuilders.add('xpath:position', function xpathPosition(
   return null
 })
 
-LocatorBuilders.add('xpath:innerText', function xpathInnerText(el) {
-  if (el.innerText) {
-    return `xpath=//${el.nodeName.toLowerCase()}[contains(.,'${el.innerText}')]`
-  } else {
-    return null
+LocatorBuilders.add('linkText', function linkText(e) {
+  if (e.nodeName == 'A') {
+    let text = e.textContent
+    if (!text.match(/^\s*$/)) {
+      return (
+        'linkText=' + text.replace(/\xA0/g, ' ').replace(/^\s*(.*?)\s*$/, '$1')
+      )
+    }
   }
+  return null
 })
