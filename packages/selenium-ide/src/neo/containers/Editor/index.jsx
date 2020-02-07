@@ -21,7 +21,7 @@ import { observer } from 'mobx-react'
 import { modifier } from 'modifier-keys'
 import UiState from '../../stores/view/UiState'
 import ToolBar from '../../components/ToolBar'
-import UrlBar from '../../components/UrlBar'
+import OptionsBar from '../../components/OptionsBar'
 import TestTable from '../../components/TestTable'
 import CommandForm from '../../components/CommandForm'
 import './style.css'
@@ -34,6 +34,9 @@ export default class Editor extends React.Component {
     url: PropTypes.string.isRequired,
     urls: PropTypes.array,
     setUrl: PropTypes.func.isRequired,
+    pageName: PropTypes.string.isRequired,
+    pageNames: PropTypes.array,
+    setPageName: PropTypes.func.isRequired,
   }
   constructor(props) {
     super(props)
@@ -86,10 +89,13 @@ export default class Editor extends React.Component {
     return (
       <main className="editor" onKeyDown={this.handleKeyDown.bind(this)}>
         <ToolBar />
-        <UrlBar
+        <OptionsBar
           url={this.props.url}
           urls={this.props.urls}
           setUrl={this.props.setUrl}
+          pageName={this.props.pageName}
+          pageNames={this.props.pageNames}
+          setPageName={this.props.setPageName}
         />
         <TestTable
           commands={this.props.test ? this.props.test.commands : null}

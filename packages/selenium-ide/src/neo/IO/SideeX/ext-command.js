@@ -20,7 +20,7 @@ import Debugger, { convertLocator } from '../debugger'
 import PlaybackState from '../../stores/view/PlaybackState'
 import { Logger, Channels, output } from '../../stores/view/Logs'
 import FrameNotFoundError from '../../../errors/frame-not-found'
-import { absolutifyUrl } from '../playback/utils'
+import { absolutifyUrl, fetchURL } from '../playback/utils'
 import { userAgent as parsedUA } from '../../../common/utils'
 import { buildFrameTree } from '../playback/cdp-utils'
 import './bootstrap'
@@ -116,6 +116,19 @@ export default class ExtCommand {
       await this.attachToRecordingWindow(testCaseId)
     } catch (e) {
       await this.updateOrCreateTab()
+    }
+    if (!this.options.softInit) {
+      try {
+        await fetchURL(
+          'https://qa-test-company.i6clouds.com/test/set-database-base-date'
+        )
+        await fetchURL(
+          'https://qa-test-company.i6clouds.com/test/restore-database'
+        )
+      } catch (_e) {
+        await this.doClose()
+        throw new Error('Could not clear the database.')
+      }
     }
     this.attaching = false
   }

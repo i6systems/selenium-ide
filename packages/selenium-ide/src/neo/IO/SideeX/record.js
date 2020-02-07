@@ -68,13 +68,17 @@ async function notifyPluginsOfRecordedCommand(command, test) {
   }
 }
 
-async function addInitialCommands(recordedUrl) {
+export async function addInitialCommands(recordedUrl) {
   const { test } = UiState.selectedTest
   if (WindowSession.openedTabIds[test.id]) {
-    const open = test.createCommand(0)
+    const given = test.createCommand(0)
+    given.setCommand('Given')
+    given.setTarget(`I am on the ${UiState.pageName} page`)
+    const open = test.createCommand(1)
     open.setCommand('open')
-    const setSize = test.createCommand(1)
+    const setSize = test.createCommand(2)
     setSize.setCommand('setWindowSize')
+    UiState.setPageName(UiState.pageName, true)
 
     const tab = await browser.tabs.get(WindowSession.currentUsedTabId[test.id])
     const win = await browser.windows.get(tab.windowId)
@@ -84,11 +88,14 @@ async function addInitialCommands(recordedUrl) {
       UiState.setUrl(url.origin, true)
       open.setTarget(`${url.pathname}${url.search}`)
     } else if (url.origin === UiState.baseUrl) {
+      UiState.setUrl(UiState.baseUrl, true)
       open.setTarget(`${url.pathname}${url.search}`)
     } else {
+      UiState.setUrl(recordedUrl, true)
       open.setTarget(recordedUrl)
     }
     setSize.setTarget(`${win.width}x${win.height}`)
+    await notifyPluginsOfRecordedCommand(given, test)
     await notifyPluginsOfRecordedCommand(open, test)
     await notifyPluginsOfRecordedCommand(setSize, test)
   }

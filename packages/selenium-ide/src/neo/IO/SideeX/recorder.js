@@ -17,8 +17,9 @@
 
 import browser from 'webextension-polyfill'
 import UiState from '../../stores/view/UiState'
-import record, { recordOpensWindow } from './record'
+import record, { recordOpensWindow, addInitialCommands } from './record'
 import { Logger, Channels } from '../../stores/view/Logs'
+import { fetchURL } from '../playback/utils'
 
 const logger = new Logger(Channels.PLAYBACK)
 
@@ -592,9 +593,24 @@ export default class BackgroundRecorder {
 
   async createNewRecordingWindow(testCaseId, url) {
     const win = await browser.windows.create({
-      url,
+      url: browser.runtime.getURL('/recorder.html'),
     })
     const tab = win.tabs[0]
+    try {
+      await fetchURL(
+        'https://qa-test-company.i6clouds.com/test/set-database-base-date'
+      )
+      await fetchURL(
+        'https://qa-test-company.i6clouds.com/test/restore-database'
+      )
+    } catch (_e) {
+      await browser.tabs.remove(tab.id)
+      throw new Error('Could not clear the database.')
+    }
+    await browser.tabs.update(tab.id, {
+      url: url,
+      active: true,
+    })
     this.lastAttachedTabId = tab.id
     this.windowSession.setOpenedWindow(tab.windowId)
     this.windowSession.openedTabIds[testCaseId] = {}
@@ -604,6 +620,9 @@ export default class BackgroundRecorder {
     this.windowSession.currentUsedWindowId[testCaseId] = tab.windowId
     this.windowSession.openedTabIds[testCaseId][tab.id] = 'root'
     this.windowSession.openedTabCount[testCaseId] = 1
+    if (!hasRecorded()) {
+      addInitialCommands(url)
+    }
   }
 
   doesTabBelongToRecording(tabId) {

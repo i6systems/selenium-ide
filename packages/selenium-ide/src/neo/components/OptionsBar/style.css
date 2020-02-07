@@ -1,0 +1,12 @@
+.options > div {
+  display: flex;
+}
+
+.options > div > * {
+  flex-grow: 1;
+  margin: 6px 8px;
+}
+
+.options > div > *:first-of-type {
+  flex-grow: 2;
+}

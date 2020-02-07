@@ -32,6 +32,8 @@ export default class ProjectStore {
   @observable
   url = ''
   @observable
+  pageName = ''
+  @observable
   plugins = []
   @observable
   _tests = []
@@ -39,6 +41,8 @@ export default class ProjectStore {
   _suites = []
   @observable
   _urls = []
+  @observable
+  _pageNames = []
   @observable
   version = VERSIONS[VERSIONS.length - 1]
 
@@ -107,6 +111,32 @@ export default class ProjectStore {
   @action.bound
   addCurrentUrl() {
     this.addUrl(this.url)
+  }
+
+  @computed
+  get pageNames() {
+    return this._pageNames.slice().sort()
+  }
+
+  @action.bound
+  setPageName(pageName) {
+    this.pageName = pageName
+    this.setModified(true)
+  }
+
+  @action.bound
+  addPageName(pageNameToAdd) {
+    if (pageNameToAdd) {
+      if (!this._pageNames.find(u => u === pageNameToAdd)) {
+        this._pageNames.push(pageNameToAdd)
+        this.setModified(true)
+      }
+    }
+  }
+
+  @action.bound
+  addCurrentPageName() {
+    this.addPageName(this.pageName)
   }
 
   @action.bound
@@ -219,6 +249,7 @@ export default class ProjectStore {
   fromJS(jsRep) {
     this.name = jsRep.name
     this.setUrl(jsRep.url)
+    this.setPageName(jsRep.pageName)
     this._tests.replace(jsRep.tests.map(TestCase.fromJS))
     this._suites.replace(
       jsRep.suites.map(suite => Suite.fromJS(suite, this.tests))
@@ -226,6 +257,10 @@ export default class ProjectStore {
     this._urls.clear()
     jsRep.urls.forEach(url => {
       this.addUrl(url)
+    })
+    this._pageNames.clear()
+    jsRep.pageNames.forEach(pageName => {
+      this.addPageName(pageName)
     })
     this.plugins.replace(jsRep.plugins)
     this.version = jsRep.version
@@ -246,9 +281,11 @@ export default class ProjectStore {
       version: this.version,
       name: this.name,
       url: this.url,
+      pageName: this.pageName,
       tests: this._tests.map(t => t.export()),
       suites: this._suites.map(s => s.export()),
       urls: this._urls,
+      pageNames: this._pageNames,
       plugins: this.plugins,
     })
   }

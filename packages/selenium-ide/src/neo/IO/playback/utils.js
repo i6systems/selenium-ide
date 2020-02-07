@@ -20,3 +20,23 @@ import resolveUrl from 'resolve-url'
 export function absolutifyUrl(targetUrl, baseUrl) {
   return resolveUrl(baseUrl, targetUrl)
 }
+
+export async function fetchURL(url) {
+  let success = false
+  try {
+    await fetch(url, { credentials: 'include' }).then(async response => {
+      if (response.ok) {
+        await response.json().then(data => {
+          if (data.success === true) {
+            success = true
+          }
+        })
+      }
+    })
+  } catch (_e) {
+    success = false
+  }
+  if (!success) {
+    throw new Error('Error reading ' + url)
+  }
+}

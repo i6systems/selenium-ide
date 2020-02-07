@@ -295,6 +295,8 @@ module.exports = {
       { from: 'content/highlight.css', to: './' },
       { from: 'content/bootstrap.html', to: '../' },
       { from: 'content/indicator.html', to: '../' },
+      { from: 'content/recorder.html', to: '../' },
+      { from: 'content/spinner.gif', to: '../' },
       { from: 'content/indicator.js', to: './' },
       { from: 'manifest.json', to: '../' },
       { from: 'icons', to: '../icons' },
