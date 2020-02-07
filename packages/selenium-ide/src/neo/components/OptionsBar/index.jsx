@@ -20,15 +20,18 @@ import PropTypes from 'prop-types'
 import AutoComplete from '../AutoComplete'
 import './style.css'
 
-export default class UrlBar extends React.Component {
+export default class OptionsBar extends React.Component {
   static propTypes = {
     url: PropTypes.string.isRequired,
     urls: PropTypes.array,
     setUrl: PropTypes.func.isRequired,
+    pageName: PropTypes.string.isRequired,
+    pageNames: PropTypes.array,
+    setPageName: PropTypes.func.isRequired,
   }
   render() {
     return (
-      <div className="url">
+      <div className="options">
         <div>
           <AutoComplete
             items={this.props.urls ? this.props.urls : []}
@@ -41,6 +44,18 @@ export default class UrlBar extends React.Component {
               this.props.setUrl(e.target.value)
             }}
             onSelect={this.props.setUrl}
+          />
+          <AutoComplete
+            items={this.props.pageNames ? this.props.pageNames : []}
+            value={this.props.pageName}
+            inputProps={{
+              type: 'string',
+              placeholder: 'Starting Page Name',
+            }}
+            onChange={e => {
+              this.props.setPageName(e.target.value)
+            }}
+            onSelect={this.props.setPageName}
           />
         </div>
       </div>

@@ -30,6 +30,8 @@ class ModalState {
   @observable
   baseUrlState = {}
   @observable
+  pageNameState = {}
+  @observable
   welcomeState = {
     started: false,
     completed: false,
@@ -59,6 +61,23 @@ class ModalState {
         cancel: action(() => {
           rej()
           this.baseUrlState = {}
+        }),
+      }
+    })
+  }
+
+  @action.bound
+  selectPageName() {
+    return new Promise((res, rej) => {
+      this.pageNameState = {
+        selecting: true,
+        done: action(pageName => {
+          res(pageName)
+          this.pageNameState = {}
+        }),
+        cancel: action(() => {
+          rej()
+          this.pageNameState = {}
         }),
       }
     })

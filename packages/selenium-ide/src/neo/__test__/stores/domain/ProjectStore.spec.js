@@ -191,6 +191,7 @@ describe('Project Store', () => {
       id: '1',
       name: 'my project',
       url: 'https://en.wikipedia.org/',
+      pageName: 'Page 1',
       tests: [
         {
           id: '1',
@@ -226,6 +227,7 @@ describe('Project Store', () => {
         },
       ],
       urls: ['https://en.wikipedia.org/', 'http://www.seleniumhq.org/'].sort(),
+      pageNames: ['Page 1', 'Page 2'].sort(),
       plugins: [
         {
           id: '1',
@@ -253,9 +255,11 @@ describe('Project Store', () => {
     const projectRep = {
       name: 'my project',
       url: '',
+      pageName: '',
       tests: [],
       suites: [],
       urls: [],
+      pageNames: [],
     }
 
     const project = new ProjectStore()
@@ -266,14 +270,31 @@ describe('Project Store', () => {
     const projectRep = {
       name: 'my project',
       url: '',
+      pageName: '',
       tests: [],
       suites: [],
       urls: ['https://seleniumhq.org/', 'https://seleniumhq.org/'],
+      pageNames: [],
     }
 
     const project = new ProjectStore()
     project.fromJS(projectRep)
     expect(project.urls.length).toBe(1)
+  })
+  it('should remove duplicate page names when loaded', () => {
+    const projectRep = {
+      name: 'my project',
+      url: '',
+      pageName: '',
+      tests: [],
+      suites: [],
+      urls: [],
+      pageNames: ['Page 1', 'Page 1'],
+    }
+
+    const project = new ProjectStore()
+    project.fromJS(projectRep)
+    expect(project.pageNames.length).toBe(1)
   })
   it('should have a list of loaded plugins', () => {
     const project = new ProjectStore()
