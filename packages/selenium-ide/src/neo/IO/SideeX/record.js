@@ -79,6 +79,7 @@ export async function addInitialCommands(recordedUrl) {
     const setSize = test.createCommand(2)
     setSize.setCommand('setWindowSize')
     UiState.setPageName(UiState.pageName, true)
+    UiState.setDatabaseName(UiState.databaseName, true)
 
     const tab = await browser.tabs.get(WindowSession.currentUsedTabId[test.id])
     const win = await browser.windows.get(tab.windowId)

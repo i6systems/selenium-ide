@@ -28,6 +28,9 @@ export default class OptionsBar extends React.Component {
     pageName: PropTypes.string.isRequired,
     pageNames: PropTypes.array,
     setPageName: PropTypes.func.isRequired,
+    databaseName: PropTypes.string.isRequired,
+    databaseNames: PropTypes.array,
+    setDatabaseName: PropTypes.func.isRequired,
   }
   render() {
     return (
@@ -56,6 +59,18 @@ export default class OptionsBar extends React.Component {
               this.props.setPageName(e.target.value)
             }}
             onSelect={this.props.setPageName}
+          />
+          <AutoComplete
+            items={this.props.databaseNames ? this.props.databaseNames : []}
+            value={this.props.databaseName}
+            inputProps={{
+              type: 'string',
+              placeholder: 'Database to use',
+            }}
+            onChange={e => {
+              this.props.setDatabaseName(e.target.value)
+            }}
+            onSelect={this.props.setDatabaseName}
           />
         </div>
       </div>

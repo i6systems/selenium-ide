@@ -192,6 +192,7 @@ describe('Project Store', () => {
       name: 'my project',
       url: 'https://en.wikipedia.org/',
       pageName: 'Page 1',
+      databaseName: 'Database 1',
       tests: [
         {
           id: '1',
@@ -228,6 +229,7 @@ describe('Project Store', () => {
       ],
       urls: ['https://en.wikipedia.org/', 'http://www.seleniumhq.org/'].sort(),
       pageNames: ['Page 1', 'Page 2'].sort(),
+      databaseNames: ['Database 1', 'Database 2'].sort(),
       plugins: [
         {
           id: '1',
@@ -256,10 +258,12 @@ describe('Project Store', () => {
       name: 'my project',
       url: '',
       pageName: '',
+      databaseName: '',
       tests: [],
       suites: [],
       urls: [],
       pageNames: [],
+      databaseNames: [],
     }
 
     const project = new ProjectStore()
@@ -271,10 +275,12 @@ describe('Project Store', () => {
       name: 'my project',
       url: '',
       pageName: '',
+      databaseName: '',
       tests: [],
       suites: [],
       urls: ['https://seleniumhq.org/', 'https://seleniumhq.org/'],
       pageNames: [],
+      databaseNames: [],
     }
 
     const project = new ProjectStore()
@@ -286,15 +292,34 @@ describe('Project Store', () => {
       name: 'my project',
       url: '',
       pageName: '',
+      databaseName: '',
       tests: [],
       suites: [],
       urls: [],
       pageNames: ['Page 1', 'Page 1'],
+      databaseNames: [],
     }
 
     const project = new ProjectStore()
     project.fromJS(projectRep)
     expect(project.pageNames.length).toBe(1)
+  })
+  it('should remove duplicate database names when loaded', () => {
+    const projectRep = {
+      name: 'my project',
+      url: '',
+      pageName: '',
+      databaseName: '',
+      tests: [],
+      suites: [],
+      urls: [],
+      pageNames: [],
+      databaseNames: ['Database 1', 'Database 1'],
+    }
+
+    const project = new ProjectStore()
+    project.fromJS(projectRep)
+    expect(project.databaseNames.length).toBe(1)
   })
   it('should have a list of loaded plugins', () => {
     const project = new ProjectStore()

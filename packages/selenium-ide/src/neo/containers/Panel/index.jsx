@@ -379,6 +379,9 @@ export default class Panel extends React.Component {
                     pageName={this.state.project.pageName}
                     pageNames={this.state.project.pageNames}
                     setPageName={this.state.project.setPageName}
+                    databaseName={this.state.project.databaseName}
+                    databaseNames={this.state.project.databaseNames}
+                    setDatabaseName={this.state.project.setDatabaseName}
                     test={UiState.displayedTest}
                     callstackIndex={UiState.selectedTest.stack}
                   />
