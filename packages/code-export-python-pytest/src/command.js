@@ -107,6 +107,7 @@ export const emitters = {
   verifySelectedLabel: emitVerifySelectedLabel,
   verifySelectedValue: emitVerifyValue,
   verifyText: emitVerifyText,
+  verifyTextContains: emitVerifyTextContains,
   verifyTitle: emitVerifyTitle,
   verifyValue: emitVerifyValue,
   waitForElementEditable: emitWaitForElementEditable,
@@ -117,6 +118,7 @@ export const emitters = {
   waitForElementNotVisible: emitWaitForElementNotVisible,
   webdriverAnswerOnVisiblePrompt: emitAnswerOnNextPrompt,
   waitForText: emitWaitForText,
+  waitForTextContains: emitWaitForTextContains,
   webdriverChooseCancelOnVisibleConfirmation: emitChooseCancelOnNextConfirmation,
   webdriverChooseCancelOnVisiblePrompt: emitChooseCancelOnNextConfirmation,
   webdriverChooseOkOnVisibleConfirmation: emitChooseOkOnNextConfirmation,
@@ -841,6 +843,18 @@ async function emitVerifyText(locator, text) {
   return Promise.resolve({ commands })
 }
 
+async function emitVerifyTextContains(locator, text) {
+  const commands = [
+    {
+      level: 0,
+      statement: `assert self.driver.find_element(${await location.emit(
+        locator
+      )}).text == "${exporter.emit.text(text)}"`,
+    },
+  ]
+  return Promise.resolve({ commands })
+}
+
 async function emitVerifyValue(locator, value) {
   const commands = [
     {
@@ -871,6 +885,19 @@ async function emitWaitForElementEditable(locator, timeout) {
 }
 
 async function emitWaitForText(locator, text) {
+  const timeout = 30000
+  const commands = [
+    {
+      level: 0,
+      statement: `WebDriverWait(self.driver, ${timeout}).until(expected_conditions.text_to_be_present_in_element((${await location.emit(
+        locator
+      )}), "${text}"))`,
+    },
+  ]
+  return Promise.resolve({ commands })
+}
+
+async function emitWaitForTextContains(locator, text) {
   const timeout = 30000
   const commands = [
     {

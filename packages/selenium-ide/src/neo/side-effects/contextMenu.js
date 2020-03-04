@@ -263,6 +263,13 @@ function createContextMenus() {
     parentId: 'verify',
   })
   browser.contextMenus.create({
+    id: 'verifyTextContains',
+    title: 'Text Contains',
+    documentUrlPatterns: ['<all_urls>'],
+    contexts: ['all'],
+    parentId: 'verify',
+  })
+  browser.contextMenus.create({
     id: 'verifyTitle',
     title: 'Title',
     documentUrlPatterns: ['<all_urls>'],
@@ -327,6 +334,13 @@ function createContextMenus() {
   browser.contextMenus.create({
     id: 'waitForText',
     title: 'Text',
+    documentUrlPatterns: ['<all_urls>'],
+    contexts: ['all'],
+    parentId: 'waitFor',
+  })
+  browser.contextMenus.create({
+    id: 'waitForTextContains',
+    title: 'Text Contains',
     documentUrlPatterns: ['<all_urls>'],
     contexts: ['all'],
     parentId: 'waitFor',

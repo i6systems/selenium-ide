@@ -231,6 +231,8 @@ exports[`command code emitter should emit \`verify not text\` command 1`] = `"cy
 
 exports[`command code emitter should emit \`verify selected value\` command 1`] = `"cy.get('#select').should('have.value','test')"`;
 
+exports[`command code emitter should emit \`verify text contains\` command 1`] = `"cy.get('#test').text().should('contain','some text that should be here')"`;
+
 exports[`command code emitter should emit \`verify text\` command 1`] = `"cy.get('#test').text().should('equal','some text that should be here')"`;
 
 exports[`command code emitter should emit \`verify title\` command 1`] = `"cy.title().should('equal','example title')"`;
@@ -252,6 +254,8 @@ exports[`command code emitter should emit \`waitForElementPresent\` command 1`] 
 exports[`command code emitter should emit \`waitForElementVisible\` command 1`] = `"cy.get('#blah').should('be.visible')"`;
 
 exports[`command code emitter should emit \`waitForText\` command 1`] = `"cy.get('#blah').text().should('equal','text')"`;
+
+exports[`command code emitter should emit \`waitForTextContains\` command 1`] = `"cy.get('#blah').text().should('contain','text')"`;
 
 exports[`command code emitter should emit \`when\` command 1`] = `
 "})

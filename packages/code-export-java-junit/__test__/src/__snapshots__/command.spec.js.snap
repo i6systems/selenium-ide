@@ -424,6 +424,8 @@ exports[`command code emitter should emit \`verify selected value\` command 1`] 
 }"
 `;
 
+exports[`command code emitter should emit \`verify text contains\` command 1`] = `"assertThat(driver.findElement(By.id(\\"test\\")).getText(), is(\\"some text that should be here\\"));"`;
+
 exports[`command code emitter should emit \`verify text\` command 1`] = `"assertThat(driver.findElement(By.id(\\"test\\")).getText(), is(\\"some text that should be here\\"));"`;
 
 exports[`command code emitter should emit \`verify title\` command 1`] = `"assertThat(driver.getTitle(), is(\\"example title\\"));"`;
@@ -481,6 +483,13 @@ exports[`command code emitter should emit \`waitForElementVisible\` command 1`] 
 `;
 
 exports[`command code emitter should emit \`waitForText\` command 1`] = `
+"{
+  WebDriverWait wait = new WebDriverWait(driver, 30);
+  wait.until(ExpectedConditions.textToBe(By.cssSelector(\\"#blah\\"), \\"text\\"));
+}"
+`;
+
+exports[`command code emitter should emit \`waitForTextContains\` command 1`] = `
 "{
   WebDriverWait wait = new WebDriverWait(driver, 30);
   wait.until(ExpectedConditions.textToBe(By.cssSelector(\\"#blah\\"), \\"text\\"));

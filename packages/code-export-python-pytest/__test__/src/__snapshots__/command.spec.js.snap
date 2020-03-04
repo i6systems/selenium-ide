@@ -337,6 +337,8 @@ exports[`command code emitter should emit \`verify selected value\` command 1`] 
 assert value == \\"test\\""
 `;
 
+exports[`command code emitter should emit \`verify text contains\` command 1`] = `"assert self.driver.find_element(By.ID, \\"test\\").text == \\"some text that should be here\\""`;
+
 exports[`command code emitter should emit \`verify text\` command 1`] = `"assert self.driver.find_element(By.ID, \\"test\\").text == \\"some text that should be here\\""`;
 
 exports[`command code emitter should emit \`verify title\` command 1`] = `"assert self.driver.title == \\"example title\\""`;
@@ -361,6 +363,8 @@ exports[`command code emitter should emit \`waitForElementPresent\` command 1`] 
 exports[`command code emitter should emit \`waitForElementVisible\` command 1`] = `"WebDriverWait(self.driver, 5000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, \\"#blah\\")))"`;
 
 exports[`command code emitter should emit \`waitForText\` command 1`] = `"WebDriverWait(self.driver, 30000).until(expected_conditions.text_to_be_present_in_element((By.CSS_SELECTOR, \\"#blah\\"), \\"text\\"))"`;
+
+exports[`command code emitter should emit \`waitForTextContains\` command 1`] = `"WebDriverWait(self.driver, 30000).until(expected_conditions.text_to_be_present_in_element((By.CSS_SELECTOR, \\"#blah\\"), \\"text\\"))"`;
 
 exports[`command code emitter should emit \`while\` command 1`] = `
 Object {

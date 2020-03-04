@@ -322,6 +322,10 @@ Selenium.prototype.doVerifyText = function(locator, value) {
   this.doAssertText(locator, value)
 }
 
+Selenium.prototype.doVerifyTextContains = function(locator, value) {
+  this.doAssertTextContains(locator, value)
+}
+
 Selenium.prototype.doVerifyNotText = function(locator, value) {
   this.doAssertNotText(locator, value)
 }
@@ -476,6 +480,14 @@ Selenium.prototype.doAssertText = function(locator, value) {
   const visibleText = bot.dom.getVisibleText(element).trim()
   if (visibleText !== value) {
     throw new Error(`Actual value "${visibleText}" did not match "${value}"`)
+  }
+}
+
+Selenium.prototype.doAssertTextContains = function(locator, value) {
+  const element = this.findElementVisible(locator)
+  const visibleText = bot.dom.getVisibleText(element).trim()
+  if (!visibleText.includes(value)) {
+    throw new Error(`Actual value "${visibleText}" did not include "${value}"`)
   }
 }
 
@@ -734,6 +746,16 @@ Selenium.prototype.doWaitForText = function(locator, text) {
     text,
     this.defaultTimeout,
     'Element did not have text within the timeout specified.'
+  )
+}
+
+Selenium.prototype.doWaitForTextContains = function(locator, text) {
+  return waitUntilText(
+    containsText.bind(this),
+    locator,
+    text,
+    this.defaultTimeout,
+    'Element did not contain text within the timeout specified.'
   )
 }
 
@@ -2510,7 +2532,7 @@ function isText(locator, text) {
   try {
     return this.isText(locator, text)
   } catch (error) {
-    unableToLocateTargetElementError()
+    return false
   }
 }
 
@@ -2522,9 +2544,30 @@ Selenium.prototype.isText = function(locator, text) {
    * @param text a string
    * @return boolean true if the element text matches, false otherwise
    */
-  let element = this.browserbot.findElement(locator)
-  let elementText = bot.dom.getVisibleText(element).trim()
-  return elementText == text
+  const element = this.findElementVisible(locator)
+  const visibleText = bot.dom.getVisibleText(element).trim()
+  return visibleText === text
+}
+
+function containsText(locator, text) {
+  try {
+    return this.containsText(locator, text)
+  } catch (error) {
+    return false
+  }
+}
+
+Selenium.prototype.containsText = function(locator, text) {
+  /**
+   * Determines whether the specified element text value matches the parameter
+   *
+   * @param locator an <a href="#locators">element locator</a>
+   * @param text a string
+   * @return boolean true if the element text matches, false otherwise
+   */
+  const element = this.findElementVisible(locator)
+  const visibleText = bot.dom.getVisibleText(element).trim()
+  return visibleText.includes(text)
 }
 
 Selenium.prototype.getAllButtons = function() {

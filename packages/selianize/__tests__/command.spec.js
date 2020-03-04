@@ -475,6 +475,18 @@ describe('command code emitter', () => {
       }\`);`
     )
   })
+  it('should emit `verify text contains` command', () => {
+    const command = {
+      command: 'verifyTextContains',
+      target: 'id=test',
+      value: 'some text that should be here',
+    }
+    return expect(CommandEmitter.emit(command)).resolves.toBe(
+      `await driver.wait(until.elementLocated(By.id(\`test\`)), configuration.timeout);await expect(driver.findElement(By.id(\`test\`))).resolves.toHaveText(\`${
+        command.value
+      }\`);`
+    )
+  })
   it('should emit `assert checked` command', () => {
     const command = {
       command: 'assertChecked',
@@ -1264,6 +1276,16 @@ describe('command code emitter', () => {
     }
     return expect(CommandEmitter.emit(command)).resolves.toBe(
       'await driver.wait(until.elementTextIs(await driver.findElement(By.css(`#blah`)), `text`), 30000);'
+    )
+  })
+  it('should emit `waitForTextContains` command', () => {
+    const command = {
+      command: 'waitForTextContains',
+      target: 'css=#blah',
+      value: 'text',
+    }
+    return expect(CommandEmitter.emit(command)).resolves.toBe(
+      'await driver.wait(until.elementTextContains(await driver.findElement(By.css(`#blah`)), `text`), 30000);'
     )
   })
   it('should emit new window handling, if command opens a new window', () => {

@@ -395,6 +395,8 @@ exports[`command code emitter should emit \`verify selected value\` command 1`] 
 }"
 `;
 
+exports[`command code emitter should emit \`verify text contains\` command 1`] = `"assert(await driver.findElement(By.id(\\"test\\")).getText() == \\"some text that should be here\\")"`;
+
 exports[`command code emitter should emit \`verify text\` command 1`] = `"assert(await driver.findElement(By.id(\\"test\\")).getText() == \\"some text that should be here\\")"`;
 
 exports[`command code emitter should emit \`verify title\` command 1`] = `"assert(await driver.getTitle() == \\"example title\\")"`;
@@ -421,6 +423,8 @@ exports[`command code emitter should emit \`waitForElementPresent\` command 1`] 
 exports[`command code emitter should emit \`waitForElementVisible\` command 1`] = `"await driver.wait(until.elementIsVisible(await driver.findElement(By.css(\\"#blah\\"))), 5000)"`;
 
 exports[`command code emitter should emit \`waitForText\` command 1`] = `"await driver.wait(until.elementTextIs(await driver.findElement(By.css(\\"#blah\\")), 'text'), 30000)"`;
+
+exports[`command code emitter should emit \`waitForTextContains\` command 1`] = `"await driver.wait(until.elementTextIs(await driver.findElement(By.css(\\"#blah\\")), 'text'), 30000)"`;
 
 exports[`command code emitter should emit \`while\` command 1`] = `"while(!!await driver.executeScript(\\"return (true)\\")) {"`;
 

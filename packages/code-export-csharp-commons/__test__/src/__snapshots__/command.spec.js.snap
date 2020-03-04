@@ -409,6 +409,8 @@ exports[`command code emitter should emit \`verify selected value\` command 1`] 
 }"
 `;
 
+exports[`command code emitter should emit \`verify text contains\` command 1`] = `"Assert.That(driver.FindElement(By.Id(\\"test\\")).Text, Is.EqualTo(\\"some text that should be here\\"));"`;
+
 exports[`command code emitter should emit \`verify text\` command 1`] = `"Assert.That(driver.FindElement(By.Id(\\"test\\")).Text, Is.EqualTo(\\"some text that should be here\\"));"`;
 
 exports[`command code emitter should emit \`verify title\` command 1`] = `"Assert.That(driver.Title, Is.EqualTo(\\"example title\\"));"`;
@@ -465,6 +467,13 @@ exports[`command code emitter should emit \`waitForElementVisible\` command 1`] 
 `;
 
 exports[`command code emitter should emit \`waitForText\` command 1`] = `
+"{
+  WebDriverWait wait = new WebDriverWait(driver, System.TimeSpan.FromSeconds(30));
+  wait.Until(driver => driver.FindElement(By.CssSelector(\\"#blah\\")).Text == \\"text\\");
+}"
+`;
+
+exports[`command code emitter should emit \`waitForTextContains\` command 1`] = `
 "{
   WebDriverWait wait = new WebDriverWait(driver, System.TimeSpan.FromSeconds(30));
   wait.Until(driver => driver.FindElement(By.CssSelector(\\"#blah\\")).Text == \\"text\\");

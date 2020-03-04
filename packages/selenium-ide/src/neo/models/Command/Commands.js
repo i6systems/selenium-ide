@@ -879,6 +879,17 @@ export const Commands = [
     },
   ],
   [
+    'verifyTextContains',
+    {
+      name: 'verify text contains',
+      type: TargetTypes.LOCATOR,
+      description:
+        'Soft assert the text of an element contains a value. The test will continue even if the verify fails.',
+      target: ArgTypes.locator,
+      value: ArgTypes.text,
+    },
+  ],
+  [
     'verifyTitle',
     {
       name: 'verify title',
@@ -966,6 +977,16 @@ export const Commands = [
       name: 'wait for text',
       type: TargetTypes.LOCATOR,
       description: 'Wait for the text of an element to be equal to the value.',
+      target: ArgTypes.locator,
+      value: ArgTypes.text,
+    },
+  ],
+  [
+    'waitForTextContains',
+    {
+      name: 'wait for text contains',
+      type: TargetTypes.LOCATOR,
+      description: 'Wait for the text of an element to contain the value.',
       target: ArgTypes.locator,
       value: ArgTypes.text,
     },

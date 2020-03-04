@@ -107,6 +107,7 @@ export const emitters = {
   verifySelectedLabel: emitVerifySelectedLabel,
   verifySelectedValue: emitVerifySelectedValue,
   verifyText: emitVerifyText,
+  verifyTextContains: emitVerifyTextContains,
   verifyTitle: emitVerifyTitle,
   verifyValue: emitVerifyValue,
   waitForElementEditable: emitWaitForElementEditable,
@@ -116,6 +117,7 @@ export const emitters = {
   waitForElementNotPresent: emitWaitForElementNotPresent,
   waitForElementNotVisible: emitWaitForElementNotVisible,
   waitForText: emitWaitForText,
+  waitForTextContains: emitWaitForTextContains,
   webdriverAnswerOnVisiblePrompt: emitAnswerOnNextPrompt,
   webdriverChooseCancelOnVisibleConfirmation: emitChooseCancelOnNextConfirmation,
   webdriverChooseCancelOnVisiblePrompt: emitChooseCancelOnNextConfirmation,
@@ -895,6 +897,14 @@ async function emitVerifyText(locator, text) {
   )
 }
 
+async function emitVerifyTextContains(locator, text) {
+  return Promise.resolve(
+    `assertThat(driver.findElement(${await location.emit(
+      locator
+    )}).getText(), is("${exporter.emit.text(text)}"));`
+  )
+}
+
 async function emitVerifyValue(locator, value) {
   const commands = [
     { level: 0, statement: '{' },
@@ -935,6 +945,27 @@ async function emitWaitForElementEditable(locator, timeout) {
 }
 
 async function emitWaitForText(locator, text) {
+  const timeout = 30000
+  const commands = [
+    { level: 0, statement: '{' },
+    {
+      level: 1,
+      statement: `WebDriverWait wait = new WebDriverWait(driver, ${Math.floor(
+        timeout / 1000
+      )});`,
+    },
+    {
+      level: 1,
+      statement: `wait.until(ExpectedConditions.textToBe(${await location.emit(
+        locator
+      )}, "${text}"));`,
+    },
+    { level: 0, statement: '}' },
+  ]
+  return Promise.resolve({ commands })
+}
+
+async function emitWaitForTextContains(locator, text) {
   const timeout = 30000
   const commands = [
     { level: 0, statement: '{' },

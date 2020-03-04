@@ -113,6 +113,7 @@ export const emitters = {
   verifySelectedLabel: emitVerifySelectedLabel,
   verifySelectedValue: emitVerifyValue,
   verifyText: emitVerifyText,
+  verifyTextContains: emitVerifyTextContains,
   verifyTitle: emitVerifyTitle,
   verifyValue: emitVerifyValue,
   waitForElementEditable: emitVerifyEditable,
@@ -123,6 +124,7 @@ export const emitters = {
   waitForElementNotVisible: emitWaitForElementNotVisible,
   webdriverAnswerOnVisiblePrompt: skip,
   waitForText: emitVerifyText,
+  waitForTextContains: emitVerifyTextContains,
   webdriverChooseCancelOnVisibleConfirmation: skip,
   webdriverChooseCancelOnVisiblePrompt: skip,
   webdriverChooseOkOnVisibleConfirmation: skip,
@@ -463,6 +465,14 @@ async function emitVerifyText(locator, text) {
     `${await location.emit(
       locator
     )}.text().should('equal','${exporter.emit.text(text)}')`
+  )
+}
+
+async function emitVerifyTextContains(locator, text) {
+  return Promise.resolve(
+    `${await location.emit(
+      locator
+    )}.text().should('contain','${exporter.emit.text(text)}')`
   )
 }
 
