@@ -737,6 +737,16 @@ Selenium.prototype.doWaitForText = function(locator, text) {
   )
 }
 
+Selenium.prototype.doWaitForTextContains = function(locator, text) {
+  return waitUntilText(
+    containsText.bind(this),
+    locator,
+    text,
+    this.defaultTimeout,
+    'Element did not contain text within the timeout specified.'
+  )
+}
+
 // xian
 Selenium.prototype.doWaitPreparation = function() {
   // function setNewPageValue(e) {
@@ -2510,7 +2520,7 @@ function isText(locator, text) {
   try {
     return this.isText(locator, text)
   } catch (error) {
-    unableToLocateTargetElementError()
+    return false
   }
 }
 
@@ -2522,9 +2532,30 @@ Selenium.prototype.isText = function(locator, text) {
    * @param text a string
    * @return boolean true if the element text matches, false otherwise
    */
-  let element = this.browserbot.findElement(locator)
-  let elementText = bot.dom.getVisibleText(element).trim()
-  return elementText == text
+  const element = this.findElementVisible(locator)
+  const visibleText = bot.dom.getVisibleText(element).trim()
+  return visibleText == text
+}
+
+function containsText(locator, text) {
+  try {
+    return this.containsText(locator, text)
+  } catch (error) {
+    return false
+  }
+}
+
+Selenium.prototype.containsText = function(locator, text) {
+  /**
+   * Determines whether the specified element text value matches the parameter
+   *
+   * @param locator an <a href="#locators">element locator</a>
+   * @param text a string
+   * @return boolean true if the element text matches, false otherwise
+   */
+  const element = this.findElementVisible(locator)
+  const visibleText = bot.dom.getVisibleText(element).trim()
+  return visibleText.includes(text)
 }
 
 Selenium.prototype.getAllButtons = function() {

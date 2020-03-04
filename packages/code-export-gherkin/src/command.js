@@ -116,6 +116,7 @@ export const emitters = {
   waitForElementNotPresent: skip,
   waitForElementNotVisible: skip,
   waitForText: skip,
+  waitForTextContains: skip,
   webdriverAnswerOnVisiblePrompt: skip,
   webdriverChooseCancelOnVisibleConfirmation: skip,
   webdriverChooseCancelOnVisiblePrompt: skip,

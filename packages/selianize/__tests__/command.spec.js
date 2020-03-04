@@ -1266,6 +1266,16 @@ describe('command code emitter', () => {
       'await driver.wait(until.elementTextIs(await driver.findElement(By.css(`#blah`)), `text`), 30000);'
     )
   })
+  it('should emit `waitForTextContains` command', () => {
+    const command = {
+      command: 'waitForTextContains',
+      target: 'css=#blah',
+      value: 'text',
+    }
+    return expect(CommandEmitter.emit(command)).resolves.toBe(
+      'await driver.wait(until.elementTextContains(await driver.findElement(By.css(`#blah`)), `text`), 30000);'
+    )
+  })
   it('should emit new window handling, if command opens a new window', () => {
     const command = {
       command: 'click',

@@ -996,6 +996,16 @@ export const Commands = [
     },
   ],
   [
+    'waitForTextContains',
+    {
+      name: 'wait for text contains',
+      type: TargetTypes.LOCATOR,
+      description: 'Wait for the text of an element to contain the value.',
+      target: ArgTypes.locator,
+      value: ArgTypes.text,
+    },
+  ],
+  [
     'webdriverAnswerOnVisiblePrompt',
     {
       name: 'webdriver answer on visible prompt',

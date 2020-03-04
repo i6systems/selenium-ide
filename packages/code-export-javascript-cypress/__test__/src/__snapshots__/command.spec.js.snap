@@ -253,6 +253,8 @@ exports[`command code emitter should emit \`waitForElementVisible\` command 1`] 
 
 exports[`command code emitter should emit \`waitForText\` command 1`] = `"cy.get('#blah').text().should('equal','text')"`;
 
+exports[`command code emitter should emit \`waitForTextContains\` command 1`] = `"cy.get('#blah').text().should('contain','text')"`;
+
 exports[`command code emitter should emit \`when\` command 1`] = `
 "})
 

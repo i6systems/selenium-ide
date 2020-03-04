@@ -117,6 +117,7 @@ export const emitters = {
   waitForElementNotVisible: emitWaitForElementNotVisible,
   webdriverAnswerOnVisiblePrompt: emitAnswerOnNextPrompt,
   waitForText: emitWaitForText,
+  waitForTextContains: emitWaitForTextContains,
   webdriverChooseCancelOnVisibleConfirmation: emitChooseCancelOnNextConfirmation,
   webdriverChooseCancelOnVisiblePrompt: emitChooseCancelOnNextConfirmation,
   webdriverChooseOkOnVisibleConfirmation: emitChooseOkOnNextConfirmation,
@@ -859,6 +860,20 @@ async function emitWaitForElementEditable(locator, timeout) {
 }
 
 async function emitWaitForText(locator, text) {
+  const timeout = 30000
+  const commands = [
+    {
+      level: 0,
+      statement: `Selenium::WebDriver::Wait.new(timeout: ${timeout /
+        1000}).until { @driver.find_element(${await location.emit(
+        locator
+      )}).text == "${text}" }`,
+    },
+  ]
+  return Promise.resolve({ commands })
+}
+
+async function emitWaitForTextContains(locator, text) {
   const timeout = 30000
   const commands = [
     {

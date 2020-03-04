@@ -116,6 +116,7 @@ const emitters = {
   waitForElementPresent: emitWaitForElementPresent,
   waitForElementVisible: emitWaitForElementVisible,
   waitForText: emitWaitForText,
+  waitForTextContains: emitWaitForTextContains,
   webdriverAnswerOnVisiblePrompt: emitAnswerOnNextPrompt,
   webdriverChooseCancelOnVisibleConfirmation: emitChooseCancelOnNextConfirmation,
   webdriverChooseCancelOnVisiblePrompt: emitChooseCancelOnNextConfirmation,
@@ -892,6 +893,15 @@ async function emitWaitForText(locator, text) {
   const timeout = 30000
   return Promise.resolve(
     `await driver.wait(until.elementTextIs(await driver.findElement(${await LocationEmitter.emit(
+      locator
+    )}), \`${text}\`), ${Math.floor(timeout)});`
+  )
+}
+
+async function emitWaitForTextContains(locator, text) {
+  const timeout = 30000
+  return Promise.resolve(
+    `await driver.wait(until.elementTextContains(await driver.findElement(${await LocationEmitter.emit(
       locator
     )}), \`${text}\`), ${Math.floor(timeout)});`
   )
