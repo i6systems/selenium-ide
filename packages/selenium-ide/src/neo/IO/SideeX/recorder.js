@@ -596,16 +596,17 @@ export default class BackgroundRecorder {
       url: browser.runtime.getURL('/recorder.html'),
     })
     const tab = win.tabs[0]
+    const databaseName = UiState.databaseName
     try {
       await fetchURL(
-        'https://qa-test-company.i6clouds.com/test/set-database-base-date'
+        'https://qa-test-company.i6clouds.com/test/set-database-base-date/' + databaseName
       )
       await fetchURL(
-        'https://qa-test-company.i6clouds.com/test/restore-database'
+        'https://qa-test-company.i6clouds.com/test/restore-database/' + databaseName
       )
     } catch (_e) {
       await browser.tabs.remove(tab.id)
-      throw new Error('Could not clear the database.')
+      throw new Error('Could not load the database "' + databaseName + '"')
     }
     await browser.tabs.update(tab.id, {
       url: url,

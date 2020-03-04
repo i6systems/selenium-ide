@@ -34,12 +34,7 @@ opts.generateMethodDeclaration = generateMethodDeclaration
 
 // Create generators for dynamic string creation of primary entities (e.g., filename, methods, test, and suite)
 function generateTestDeclaration(name) {
-  return [
-    '    ',
-    `Scenario: ${name}`,
-    `    Given I reset the "backup" database`,
-    `    And I log in as "test.user@example.com"`,
-  ]
+  return ['    ', `Scenario: ${name}`]
 }
 function generateMethodDeclaration() {
   return {

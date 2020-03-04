@@ -394,15 +394,15 @@ class UiState {
         isInvalid,
         confirmLabel: 'Start recording',
       })
-      this.setUrl(startingUrl)
+      this.setUrl(startingUrl, true)
     }
     if (!this.pageName) {
       let pageName = await ModalState.selectPageName()
-      this.setPageName(pageName)
+      this.setPageName(pageName, true)
     }
     if (!this.databaseName) {
       let databaseName = await ModalState.selectDatabaseName()
-      this.setDatabaseName(databaseName)
+      this.setDatabaseName(databaseName, true)
     }
     try {
       await this.recorder.attach(startingUrl)

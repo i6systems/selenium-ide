@@ -60,6 +60,11 @@ export const ArgTypes = {
     name: 'window handle',
     description: `A handle representing a specific page (tab, or window).`,
   },
+  ignore: {
+    name: 'ignore',
+    description: `An optional argument that specifies that no Cypress output is needed for this step.`,
+    isOptional: true,
+  },
   iteratorVariableName: {
     name: 'iterator variable name',
     description: `The name of the variable used when iterating over a collection in a looping control flow command (e.g., for each).`,

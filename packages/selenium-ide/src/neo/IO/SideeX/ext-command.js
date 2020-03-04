@@ -96,7 +96,7 @@ export default class ExtCommand {
     }
   }
 
-  async init(baseUrl, testCaseId, options = {}, variables) {
+  async init(baseUrl, databaseName, testCaseId, options = {}, variables) {
     this.baseUrl = baseUrl
     this.testCaseId = testCaseId
     this.options = options
@@ -120,14 +120,14 @@ export default class ExtCommand {
     if (!this.options.softInit) {
       try {
         await fetchURL(
-          'https://qa-test-company.i6clouds.com/test/set-database-base-date'
+          'https://qa-test-company.i6clouds.com/test/set-database-base-date/' + databaseName
         )
         await fetchURL(
-          'https://qa-test-company.i6clouds.com/test/restore-database'
+          'https://qa-test-company.i6clouds.com/test/restore-database/' + databaseName
         )
       } catch (_e) {
         await this.doClose()
-        throw new Error('Could not clear the database.')
+        throw new Error('Could not load the database "' + databaseName + '"')
       }
     }
     this.attaching = false

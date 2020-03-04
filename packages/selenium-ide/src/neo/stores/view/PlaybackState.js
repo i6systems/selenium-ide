@@ -213,6 +213,7 @@ class PlaybackState {
     this.isPlaying = true
     return play(
       UiState.baseUrl,
+      UiState.databaseName,
       process.env.USE_WEBDRIVER ? this.browserDriver : this.extCommand,
       this.variables
     )

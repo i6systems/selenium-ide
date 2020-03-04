@@ -23,6 +23,7 @@ let activeKeyword
 let emittedSteps = []
 
 let emitting
+let ignoring
 
 export const emitters = {
   addSelection: emitSelect,
@@ -134,6 +135,7 @@ exporter.register.preprocessors(emitters)
 function init() {
   activeKeyword = null
   emitting = true
+  ignoring = false
   emittedSteps = []
 }
 
@@ -488,16 +490,16 @@ async function emitWaitForElementNotVisible(locator) {
   )
 }
 
-async function emitAnd(step) {
+async function emitAnd(step, ignore) {
   if (activeKeyword === null) {
     return Promise.reject(
       new Error('"And" cannot be the first step in an scenario')
     )
   }
-  return emitGherkinStep(activeKeyword, step)
+  return emitGherkinStep(activeKeyword, step, ignore)
 }
 
-async function emitGiven(step) {
+async function emitGiven(step, ignore) {
   if (activeKeyword !== null) {
     return Promise.reject(
       new Error('"Given" must be the first step in an scenario')
@@ -510,10 +512,10 @@ async function emitGiven(step) {
       )
     )
   }
-  return emitGherkinStep('Given', step)
+  return emitGherkinStep('Given', step, ignore)
 }
 
-async function emitThen(step) {
+async function emitThen(step, ignore) {
   if (activeKeyword === 'Then') {
     return Promise.reject(
       new Error(
@@ -521,10 +523,10 @@ async function emitThen(step) {
       )
     )
   }
-  return emitGherkinStep('Then', step)
+  return emitGherkinStep('Then', step, ignore)
 }
 
-async function emitWhen(step) {
+async function emitWhen(step, ignore) {
   if (activeKeyword === 'When') {
     return Promise.reject(
       new Error(
@@ -532,10 +534,15 @@ async function emitWhen(step) {
       )
     )
   }
-  return emitGherkinStep('When', step)
+  return emitGherkinStep('When', step, ignore)
 }
 
-async function emitGherkinStep(keyword, step) {
+async function emitGherkinStep(keyword, step, ignore) {
+  if (ignore) {
+    ignoring = true
+    activeKeyword = keyword
+    return skip()
+  }
   if (step in emittedSteps) {
     emitting = false
     activeKeyword = keyword
@@ -545,9 +552,10 @@ async function emitGherkinStep(keyword, step) {
   emittedSteps[step] = true
 
   let commands = []
-  if (activeKeyword !== null) {
+  if (activeKeyword !== null && !ignoring) {
     commands.push({ level: 0, statement: `})` })
   }
+  ignoring = false
   activeKeyword = keyword
   commands.push({ level: 0, statement: `` })
   commands.push({ level: 0, statement: `${keyword}(\`${step}\`, () => {` })
