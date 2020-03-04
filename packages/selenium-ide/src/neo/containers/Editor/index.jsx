@@ -40,6 +40,9 @@ export default class Editor extends React.Component {
     databaseName: PropTypes.string.isRequired,
     databaseNames: PropTypes.array,
     setDatabaseName: PropTypes.func.isRequired,
+    userName: PropTypes.string.isRequired,
+    userNames: PropTypes.array,
+    setUserName: PropTypes.func.isRequired,
   }
   constructor(props) {
     super(props)
@@ -102,6 +105,9 @@ export default class Editor extends React.Component {
           databaseName={this.props.databaseName}
           databaseNames={this.props.databaseNames}
           setDatabaseName={this.props.setDatabaseName}
+          userName={this.props.userName}
+          userNames={this.props.userNames}
+          setUserName={this.props.setUserName}
         />
         <TestTable
           commands={this.props.test ? this.props.test.commands : null}

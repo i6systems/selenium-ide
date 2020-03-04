@@ -34,6 +34,8 @@ class ModalState {
   @observable
   databaseNameState = {}
   @observable
+  userNameState = {}
+  @observable
   welcomeState = {
     started: false,
     completed: false,
@@ -97,6 +99,23 @@ class ModalState {
         cancel: action(() => {
           rej()
           this.databaseNameState = {}
+        }),
+      }
+    })
+  }
+
+  @action.bound
+  selectUserName() {
+    return new Promise((res, rej) => {
+      this.userNameState = {
+        selecting: true,
+        done: action(userName => {
+          res(userName)
+          this.userNameState = {}
+        }),
+        cancel: action(() => {
+          rej()
+          this.userNameState = {}
         }),
       }
     })

@@ -20,7 +20,7 @@ import Debugger, { convertLocator } from '../debugger'
 import PlaybackState from '../../stores/view/PlaybackState'
 import { Logger, Channels, output } from '../../stores/view/Logs'
 import FrameNotFoundError from '../../../errors/frame-not-found'
-import { absolutifyUrl, fetchURL } from '../playback/utils'
+import { absolutifyUrl, fetchURL, postToURL } from '../playback/utils'
 import { userAgent as parsedUA } from '../../../common/utils'
 import { buildFrameTree } from '../playback/cdp-utils'
 import './bootstrap'
@@ -48,7 +48,7 @@ export default class ExtCommand {
     this.tabsOnUpdatedHandler = (tabId, changeInfo, _tabInfo) => {
       // eslint-disable-line
       if (changeInfo.status) {
-        if (changeInfo.status == 'loading') {
+        if (changeInfo.status === 'loading') {
           this.setLoading(tabId)
         } else {
           this.setComplete(tabId)
@@ -96,7 +96,14 @@ export default class ExtCommand {
     }
   }
 
-  async init(baseUrl, databaseName, testCaseId, options = {}, variables) {
+  async init(
+    baseUrl,
+    databaseName,
+    userName,
+    testCaseId,
+    options = {},
+    variables
+  ) {
     this.baseUrl = baseUrl
     this.testCaseId = testCaseId
     this.options = options
@@ -120,11 +127,17 @@ export default class ExtCommand {
     if (!this.options.softInit) {
       try {
         await fetchURL(
-          'https://qa-test-company.i6clouds.com/test/set-database-base-date/' + databaseName
+          'https://qa-test-company.i6clouds.com/test/set-database-base-date/' +
+            databaseName
         )
         await fetchURL(
-          'https://qa-test-company.i6clouds.com/test/restore-database/' + databaseName
+          'https://qa-test-company.i6clouds.com/test/restore-database/' +
+            databaseName
         )
+        await postToURL('https://qa-test-company.i6clouds.com/test/login', {
+          username: userName,
+          password: 'i6test20',
+        })
       } catch (_e) {
         await this.doClose()
         throw new Error('Could not load the database "' + databaseName + '"')

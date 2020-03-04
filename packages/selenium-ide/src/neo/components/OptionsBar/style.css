@@ -8,5 +8,5 @@
 }
 
 .options > div > *:first-of-type {
-  flex-grow: 2;
+  flex-grow: 4;
 }

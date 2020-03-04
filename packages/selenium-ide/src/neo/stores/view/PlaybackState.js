@@ -214,6 +214,7 @@ class PlaybackState {
     return play(
       UiState.baseUrl,
       UiState.databaseName,
+      UiState.userName,
       process.env.USE_WEBDRIVER ? this.browserDriver : this.extCommand,
       this.variables
     )

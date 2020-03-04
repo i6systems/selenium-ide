@@ -193,6 +193,7 @@ describe('Project Store', () => {
       url: 'https://en.wikipedia.org/',
       pageName: 'Page 1',
       databaseName: 'Database 1',
+      userName: 'User 1',
       tests: [
         {
           id: '1',
@@ -230,6 +231,7 @@ describe('Project Store', () => {
       urls: ['https://en.wikipedia.org/', 'http://www.seleniumhq.org/'].sort(),
       pageNames: ['Page 1', 'Page 2'].sort(),
       databaseNames: ['Database 1', 'Database 2'].sort(),
+      userNames: ['User 1', 'User 2'].sort(),
       plugins: [
         {
           id: '1',
@@ -259,11 +261,13 @@ describe('Project Store', () => {
       url: '',
       pageName: '',
       databaseName: '',
+      userName: '',
       tests: [],
       suites: [],
       urls: [],
       pageNames: [],
       databaseNames: [],
+      userNames: [],
     }
 
     const project = new ProjectStore()
@@ -276,11 +280,13 @@ describe('Project Store', () => {
       url: '',
       pageName: '',
       databaseName: '',
+      userName: '',
       tests: [],
       suites: [],
       urls: ['https://seleniumhq.org/', 'https://seleniumhq.org/'],
       pageNames: [],
       databaseNames: [],
+      userNames: [],
     }
 
     const project = new ProjectStore()
@@ -293,11 +299,13 @@ describe('Project Store', () => {
       url: '',
       pageName: '',
       databaseName: '',
+      userName: '',
       tests: [],
       suites: [],
       urls: [],
       pageNames: ['Page 1', 'Page 1'],
       databaseNames: [],
+      userNames: [],
     }
 
     const project = new ProjectStore()
@@ -310,16 +318,37 @@ describe('Project Store', () => {
       url: '',
       pageName: '',
       databaseName: '',
+      userName: '',
       tests: [],
       suites: [],
       urls: [],
       pageNames: [],
       databaseNames: ['Database 1', 'Database 1'],
+      userNames: [],
     }
 
     const project = new ProjectStore()
     project.fromJS(projectRep)
     expect(project.databaseNames.length).toBe(1)
+  })
+  it('should remove duplicate database names when loaded', () => {
+    const projectRep = {
+      name: 'my project',
+      url: '',
+      pageName: '',
+      databaseName: '',
+      userName: '',
+      tests: [],
+      suites: [],
+      urls: [],
+      pageNames: [],
+      databaseNames: ['Database 1', 'Database 1'],
+      userNames: ['User 1', 'User 1'],
+    }
+
+    const project = new ProjectStore()
+    project.fromJS(projectRep)
+    expect(project.userNames.length).toBe(1)
   })
   it('should have a list of loaded plugins', () => {
     const project = new ProjectStore()
