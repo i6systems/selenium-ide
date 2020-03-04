@@ -244,8 +244,17 @@ async function emitVerifyValue(locator, value) {
 
 emitters.assertText = emitVerifyText
 emitters.verifyText = emitVerifyText
+emitters.verifyTextContains = emitVerifyTextContains
 
 async function emitVerifyText(locator, text) {
+  return Promise.resolve(
+    `Assert.Equal(driver.FindElement(${await location.emit(
+      locator
+    )}).Text, "${exporter.emit.text(text)}");`
+  )
+}
+
+async function emitVerifyTextContains(locator, text) {
   return Promise.resolve(
     `Assert.Equal(driver.FindElement(${await location.emit(
       locator

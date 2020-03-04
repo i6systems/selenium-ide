@@ -322,6 +322,10 @@ Selenium.prototype.doVerifyText = function(locator, value) {
   this.doAssertText(locator, value)
 }
 
+Selenium.prototype.doVerifyTextContains = function(locator, value) {
+  this.doAssertTextContains(locator, value)
+}
+
 Selenium.prototype.doVerifyNotText = function(locator, value) {
   this.doAssertNotText(locator, value)
 }
@@ -476,6 +480,14 @@ Selenium.prototype.doAssertText = function(locator, value) {
   const visibleText = bot.dom.getVisibleText(element).trim()
   if (visibleText !== value) {
     throw new Error(`Actual value "${visibleText}" did not match "${value}"`)
+  }
+}
+
+Selenium.prototype.doAssertTextContains = function(locator, value) {
+  const element = this.findElementVisible(locator)
+  const visibleText = bot.dom.getVisibleText(element).trim()
+  if (!visibleText.includes(value)) {
+    throw new Error(`Actual value "${visibleText}" did not include "${value}"`)
   }
 }
 
@@ -2534,7 +2546,7 @@ Selenium.prototype.isText = function(locator, text) {
    */
   const element = this.findElementVisible(locator)
   const visibleText = bot.dom.getVisibleText(element).trim()
-  return visibleText == text
+  return visibleText === text
 }
 
 function containsText(locator, text) {

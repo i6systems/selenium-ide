@@ -263,6 +263,13 @@ function createContextMenus() {
     parentId: 'verify',
   })
   browser.contextMenus.create({
+    id: 'verifyTextContains',
+    title: 'Text Contains',
+    documentUrlPatterns: ['<all_urls>'],
+    contexts: ['all'],
+    parentId: 'verify',
+  })
+  browser.contextMenus.create({
     id: 'verifyTitle',
     title: 'Title',
     documentUrlPatterns: ['<all_urls>'],

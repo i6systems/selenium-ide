@@ -107,6 +107,7 @@ export const emitters = {
   verifySelectedLabel: emitVerifySelectedLabel,
   verifySelectedValue: emitVerifySelectedValue,
   verifyText: emitVerifyText,
+  verifyTextContains: emitVerifyTextContains,
   verifyTitle: emitVerifyTitle,
   verifyValue: emitVerifyValue,
   waitForElementEditable: emitWaitForElementEditable,
@@ -900,6 +901,14 @@ async function emitVerifySelectedValue(locator, value) {
 }
 
 async function emitVerifyText(locator, text) {
+  return Promise.resolve(
+    `Assert.That(driver.FindElement(${await location.emit(
+      locator
+    )}).Text, Is.EqualTo("${exporter.emit.text(text)}"));`
+  )
+}
+
+async function emitVerifyTextContains(locator, text) {
   return Promise.resolve(
     `Assert.That(driver.FindElement(${await location.emit(
       locator

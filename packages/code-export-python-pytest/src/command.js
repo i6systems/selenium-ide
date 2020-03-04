@@ -107,6 +107,7 @@ export const emitters = {
   verifySelectedLabel: emitVerifySelectedLabel,
   verifySelectedValue: emitVerifyValue,
   verifyText: emitVerifyText,
+  verifyTextContains: emitVerifyTextContains,
   verifyTitle: emitVerifyTitle,
   verifyValue: emitVerifyValue,
   waitForElementEditable: emitWaitForElementEditable,
@@ -831,6 +832,18 @@ async function emitVerifySelectedLabel(locator, labelValue) {
 }
 
 async function emitVerifyText(locator, text) {
+  const commands = [
+    {
+      level: 0,
+      statement: `assert self.driver.find_element(${await location.emit(
+        locator
+      )}).text == "${exporter.emit.text(text)}"`,
+    },
+  ]
+  return Promise.resolve({ commands })
+}
+
+async function emitVerifyTextContains(locator, text) {
   const commands = [
     {
       level: 0,

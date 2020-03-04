@@ -107,6 +107,7 @@ export const emitters = {
   verifySelectedLabel: skip,
   verifySelectedValue: skip,
   verifyText: skip,
+  verifyTextContains: skip,
   verifyTitle: skip,
   verifyValue: skip,
   waitForElementEditable: skip,

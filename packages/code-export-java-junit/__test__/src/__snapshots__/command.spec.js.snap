@@ -424,6 +424,8 @@ exports[`command code emitter should emit \`verify selected value\` command 1`] 
 }"
 `;
 
+exports[`command code emitter should emit \`verify text contains\` command 1`] = `"assertThat(driver.findElement(By.id(\\"test\\")).getText(), is(\\"some text that should be here\\"));"`;
+
 exports[`command code emitter should emit \`verify text\` command 1`] = `"assertThat(driver.findElement(By.id(\\"test\\")).getText(), is(\\"some text that should be here\\"));"`;
 
 exports[`command code emitter should emit \`verify title\` command 1`] = `"assertThat(driver.getTitle(), is(\\"example title\\"));"`;

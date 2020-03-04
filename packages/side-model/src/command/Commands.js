@@ -904,6 +904,17 @@ export const Commands = [
     },
   ],
   [
+    'verifyTextContains',
+    {
+      name: 'verify text contains',
+      type: TargetTypes.LOCATOR,
+      description:
+        'Soft assert the text of an element contains a value. The test will continue even if the verify fails.',
+      target: ArgTypes.locator,
+      value: ArgTypes.text,
+    },
+  ],
+  [
     'verifyTitle',
     {
       name: 'verify title',

@@ -786,6 +786,14 @@ describe('command code emitter', () => {
     }
     return expect(prettify(command)).resolves.toMatchSnapshot()
   })
+  it('should emit `verify text contains` command', () => {
+    const command = {
+      command: 'verifyTextContains',
+      target: 'id=test',
+      value: 'some text that should be here',
+    }
+    return expect(prettify(command)).resolves.toMatchSnapshot()
+  })
   it('should emit `verify title` command', () => {
     const command = {
       command: 'verifyTitle',

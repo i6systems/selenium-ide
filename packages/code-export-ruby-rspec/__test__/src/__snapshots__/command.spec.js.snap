@@ -329,6 +329,8 @@ exports[`command code emitter should emit \`verify selected value\` command 1`] 
 expect(value).to eq('test')"
 `;
 
+exports[`command code emitter should emit \`verify text contains\` command 1`] = `"expect(@driver.find_element(:id, 'test').text).to eq('some text that should be here')"`;
+
 exports[`command code emitter should emit \`verify text\` command 1`] = `"expect(@driver.find_element(:id, 'test').text).to eq('some text that should be here')"`;
 
 exports[`command code emitter should emit \`verify title\` command 1`] = `"expect(@driver.title).to eq('example title')"`;

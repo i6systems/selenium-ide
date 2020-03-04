@@ -337,6 +337,8 @@ exports[`command code emitter should emit \`verify selected value\` command 1`] 
 assert value == \\"test\\""
 `;
 
+exports[`command code emitter should emit \`verify text contains\` command 1`] = `"assert self.driver.find_element(By.ID, \\"test\\").text == \\"some text that should be here\\""`;
+
 exports[`command code emitter should emit \`verify text\` command 1`] = `"assert self.driver.find_element(By.ID, \\"test\\").text == \\"some text that should be here\\""`;
 
 exports[`command code emitter should emit \`verify title\` command 1`] = `"assert self.driver.title == \\"example title\\""`;

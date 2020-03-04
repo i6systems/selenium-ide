@@ -107,6 +107,7 @@ const emitters = {
   verifySelectedLabel: emitVerifySelectedLabel,
   verifySelectedValue: emitVerifySelectedValue,
   verifyText: emitVerifyText,
+  verifyTextContains: emitVerifyTextContains,
   verifyTitle: emitVerifyTitle,
   verifyValue: emitVerifyValue,
   waitForElementEditable: emitWaitForElementEditable,
@@ -518,6 +519,16 @@ async function emitVerifyValue(locator, value) {
 }
 
 async function emitVerifyText(locator, text) {
+  return Promise.resolve(
+    `await driver.wait(until.elementLocated(${await LocationEmitter.emit(
+      locator
+    )}), configuration.timeout);await expect(driver.findElement(${await LocationEmitter.emit(
+      locator
+    )})).resolves.toHaveText(\`${text}\`);`
+  )
+}
+
+async function emitVerifyTextContains(locator, text) {
   return Promise.resolve(
     `await driver.wait(until.elementLocated(${await LocationEmitter.emit(
       locator
