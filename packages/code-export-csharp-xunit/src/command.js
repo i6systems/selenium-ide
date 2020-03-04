@@ -243,6 +243,7 @@ async function emitVerifyValue(locator, value) {
 }
 
 emitters.assertText = emitVerifyText
+emitters.AssertTextContains = emitVerifyText
 emitters.verifyText = emitVerifyText
 emitters.verifyTextContains = emitVerifyTextContains
 

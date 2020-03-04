@@ -38,6 +38,7 @@ const emitters = {
   assertSelectedLabel: emitVerifySelectedLabel,
   assertSelectedValue: emitVerifySelectedValue,
   assertText: emitVerifyText,
+  AssertTextContains: emitVerifyText,
   assertTitle: emitVerifyTitle,
   assertValue: emitVerifyValue,
   check: emitCheck,

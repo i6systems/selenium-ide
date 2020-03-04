@@ -209,6 +209,17 @@ export const Commands = [
     },
   ],
   [
+    'AssertTextContains',
+    {
+      name: 'assert text contains',
+      type: TargetTypes.LOCATOR,
+      description: `Confirm that the text of an element contains the provided value.
+      The test will stop if the assert fails.`,
+      target: ArgTypes.locator,
+      value: ArgTypes.pattern,
+    },
+  ],
+  [
     'assertTitle',
     {
       name: 'assert title',

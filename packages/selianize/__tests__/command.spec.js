@@ -619,6 +619,18 @@ describe('command code emitter', () => {
       }\`);`
     )
   })
+  it('should emit `assert text contains` command', () => {
+    const command = {
+      command: 'assertText',
+      target: 'id=test',
+      value: 'some text that should be here',
+    }
+    return expect(CommandEmitter.emit(command)).resolves.toBe(
+      `await driver.wait(until.elementLocated(By.id(\`test\`)), configuration.timeout);await expect(driver.findElement(By.id(\`test\`))).resolves.toHaveText(\`${
+        command.value
+      }\`);`
+    )
+  })
   it('should emit `set window size` command', () => {
     const command = {
       command: 'setWindowSize',

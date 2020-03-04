@@ -311,6 +311,16 @@ export default class WebDriverExecutor {
     }
   }
 
+  async doAssertContains(locator, value) {
+    const element = await waitForElement(locator, this.driver)
+    const text = await element.getText()
+    if (!text.includes(value)) {
+      throw new Error(
+        "Actual value '" + text + "' did not contain '" + value + "'"
+      )
+    }
+  }
+
   async doAssertNotText(locator, value) {
     const element = await waitForElement(locator, this.driver)
     const text = await element.getText()

@@ -168,6 +168,14 @@ describe('command code emitter', () => {
     }
     return expect(prettify(command)).resolves.toMatchSnapshot()
   })
+  it('should emit `assert text contains` command', () => {
+    const command = {
+      command: 'AssertTextContains',
+      target: 'id=test',
+      value: 'some text that should be here',
+    }
+    return expect(prettify(command)).resolves.toMatchSnapshot()
+  })
   it('should emit `assert title` command', () => {
     const command = {
       command: 'assertTitle',

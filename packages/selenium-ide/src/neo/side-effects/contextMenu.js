@@ -105,6 +105,13 @@ function createContextMenus() {
     parentId: 'assert',
   })
   browser.contextMenus.create({
+    id: 'AssertTextContains',
+    title: 'Text Contains',
+    documentUrlPatterns: ['<all_urls>'],
+    contexts: ['all'],
+    parentId: 'assert',
+  })
+  browser.contextMenus.create({
     id: 'assertTitle',
     title: 'Title',
     documentUrlPatterns: ['<all_urls>'],

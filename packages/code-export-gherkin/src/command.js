@@ -39,6 +39,7 @@ export const emitters = {
   assertSelectedValue: skip,
   assertValue: skip,
   assertText: skip,
+  AssertTextContains: skip,
   assertTitle: skip,
   check: skip,
   chooseCancelOnNextConfirmation: skip,

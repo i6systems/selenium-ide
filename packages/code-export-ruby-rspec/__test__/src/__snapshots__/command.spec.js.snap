@@ -70,6 +70,8 @@ exports[`command code emitter should emit \`assert selected value\` command 1`] 
 expect(value).to eq('test')"
 `;
 
+exports[`command code emitter should emit \`assert text contains\` command 1`] = `"expect(@driver.find_element(:id, 'test').text).to eq('some text that should be here')"`;
+
 exports[`command code emitter should emit \`assert text\` command 1`] = `"expect(@driver.find_element(:id, 'test').text).to eq('some text that should be here')"`;
 
 exports[`command code emitter should emit \`assert title\` command 1`] = `"expect(@driver.title).to eq('example title')"`;
