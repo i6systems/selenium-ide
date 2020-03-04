@@ -29,13 +29,13 @@ let ignoreBreakpoint = false
 let breakOnNextCommand = false
 let executor = undefined
 
-export function play(currUrl, databaseName, exec, variables) {
+export function play(currUrl, databaseName, userName, exec, variables) {
   baseUrl = currUrl
   ignoreBreakpoint = false
   breakOnNextCommand = false
   executor = exec
   initPlaybackTree()
-  return prepareToPlay(databaseName, variables)
+  return prepareToPlay(databaseName, userName, variables)
     .then(executionLoop)
     .then(finishPlaying)
     .catch(catchPlayingError)
@@ -180,10 +180,11 @@ function runNextCommand() {
   }
 }
 
-function prepareToPlay(databaseName, variables) {
+function prepareToPlay(databaseName, userName, variables) {
   return executor.init(
     baseUrl,
     databaseName,
+    userName,
     PlaybackState.currentRunningTest.id,
     {
       // softInit will try to reconnect to the last session for the sake of running the command if possible

@@ -77,7 +77,7 @@ export async function addInitialCommands(recordedUrl) {
     given1.setValue('1')
     const given2 = test.createCommand(1)
     given2.setCommand('And')
-    given2.setTarget('I log in as "test.user@example.com"')
+    given2.setTarget('I log in as "' + UiState.userName + '"')
     given2.setValue('1')
     const given3 = test.createCommand(2)
     given3.setCommand('And')
@@ -88,6 +88,7 @@ export async function addInitialCommands(recordedUrl) {
     setSize.setCommand('setWindowSize')
     UiState.setPageName(UiState.pageName, true)
     UiState.setDatabaseName(UiState.databaseName, true)
+    UiState.setUserName(UiState.userName, true)
 
     const tab = await browser.tabs.get(WindowSession.currentUsedTabId[test.id])
     const win = await browser.windows.get(tab.windowId)

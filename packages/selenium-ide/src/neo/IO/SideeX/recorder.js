@@ -19,7 +19,7 @@ import browser from 'webextension-polyfill'
 import UiState from '../../stores/view/UiState'
 import record, { recordOpensWindow, addInitialCommands } from './record'
 import { Logger, Channels } from '../../stores/view/Logs'
-import { fetchURL } from '../playback/utils'
+import { fetchURL, postToURL } from '../playback/utils'
 
 const logger = new Logger(Channels.PLAYBACK)
 
@@ -597,13 +597,20 @@ export default class BackgroundRecorder {
     })
     const tab = win.tabs[0]
     const databaseName = UiState.databaseName
+    const userName = UiState.userName
     try {
       await fetchURL(
-        'https://qa-test-company.i6clouds.com/test/set-database-base-date/' + databaseName
+        'https://qa-test-company.i6clouds.com/test/set-database-base-date/' +
+          databaseName
       )
       await fetchURL(
-        'https://qa-test-company.i6clouds.com/test/restore-database/' + databaseName
+        'https://qa-test-company.i6clouds.com/test/restore-database/' +
+          databaseName
       )
+      await postToURL('https://qa-test-company.i6clouds.com/test/login', {
+        username: userName,
+        password: 'i6test20',
+      })
     } catch (_e) {
       await browser.tabs.remove(tab.id)
       throw new Error('Could not load the database "' + databaseName + '"')

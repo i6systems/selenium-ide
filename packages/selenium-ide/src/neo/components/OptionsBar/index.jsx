@@ -31,6 +31,9 @@ export default class OptionsBar extends React.Component {
     databaseName: PropTypes.string.isRequired,
     databaseNames: PropTypes.array,
     setDatabaseName: PropTypes.func.isRequired,
+    userName: PropTypes.string.isRequired,
+    userNames: PropTypes.array,
+    setUserName: PropTypes.func.isRequired,
   }
   render() {
     return (
@@ -71,6 +74,18 @@ export default class OptionsBar extends React.Component {
               this.props.setDatabaseName(e.target.value)
             }}
             onSelect={this.props.setDatabaseName}
+          />
+          <AutoComplete
+            items={this.props.userNames ? this.props.userNames : []}
+            value={this.props.userName}
+            inputProps={{
+              type: 'string',
+              placeholder: 'Email of user',
+            }}
+            onChange={e => {
+              this.props.setUserName(e.target.value)
+            }}
+            onSelect={this.props.setUserName}
           />
         </div>
       </div>

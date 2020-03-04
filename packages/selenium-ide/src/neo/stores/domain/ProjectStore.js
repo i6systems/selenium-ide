@@ -36,6 +36,8 @@ export default class ProjectStore {
   @observable
   databaseName = ''
   @observable
+  userName = ''
+  @observable
   plugins = []
   @observable
   _tests = []
@@ -47,6 +49,8 @@ export default class ProjectStore {
   _pageNames = []
   @observable
   _databaseNames = []
+  @observable
+  _userNames = []
   @observable
   version = VERSIONS[VERSIONS.length - 1]
 
@@ -169,6 +173,32 @@ export default class ProjectStore {
     this.addDatabaseName(this.databaseName)
   }
 
+  @computed
+  get userNames() {
+    return this._userNames.slice().sort()
+  }
+
+  @action.bound
+  setUserName(userName) {
+    this.userName = userName
+    this.setModified(true)
+  }
+
+  @action.bound
+  addUserName(userNameToAdd) {
+    if (userNameToAdd) {
+      if (!this._userNames.find(u => u === userNameToAdd)) {
+        this._userNames.push(userNameToAdd)
+        this.setModified(true)
+      }
+    }
+  }
+
+  @action.bound
+  addCurrentUserName() {
+    this.addUserName(this.userName)
+  }
+
   @action.bound
   changeName(name) {
     this.name = name.replace(/<[^>]*>/g, '') // firefox adds unencoded html elements to the string, strip them
@@ -281,6 +311,7 @@ export default class ProjectStore {
     this.setUrl(jsRep.url)
     this.setPageName(jsRep.pageName)
     this.setDatabaseName(jsRep.databaseName)
+    this.setUserName(jsRep.userName)
     this._tests.replace(jsRep.tests.map(TestCase.fromJS))
     this._suites.replace(
       jsRep.suites.map(suite => Suite.fromJS(suite, this.tests))
@@ -296,6 +327,10 @@ export default class ProjectStore {
     this._databaseNames.clear()
     jsRep.databaseNames.forEach(databaseName => {
       this.addDatabaseName(databaseName)
+    })
+    this._userNames.clear()
+    jsRep.userNames.forEach(userName => {
+      this.addUserName(userName)
     })
     this.plugins.replace(jsRep.plugins)
     this.version = jsRep.version
@@ -318,11 +353,13 @@ export default class ProjectStore {
       url: this.url,
       pageName: this.pageName,
       databaseName: this.databaseName,
+      userName: this.userName,
       tests: this._tests.map(t => t.export()),
       suites: this._suites.map(s => s.export()),
       urls: this._urls,
       pageNames: this._pageNames,
       databaseNames: this._databaseNames,
+      userNames: this._userNames,
       plugins: this.plugins,
     })
   }

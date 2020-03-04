@@ -40,3 +40,31 @@ export async function fetchURL(url) {
     throw new Error('Error reading ' + url)
   }
 }
+
+export async function postToURL(url, body) {
+  let success = false
+  try {
+    await fetch(url, {
+      credentials: 'include',
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    }).then(async response => {
+      if (response.ok) {
+        await response.json().then(data => {
+          if (data.success === true) {
+            success = true
+          }
+        })
+      }
+    })
+  } catch (_e) {
+    success = false
+  }
+  if (!success) {
+    throw new Error('Error reading ' + url)
+  }
+}

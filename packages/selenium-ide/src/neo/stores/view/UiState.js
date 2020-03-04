@@ -161,6 +161,11 @@ class UiState {
   }
 
   @computed
+  get userName() {
+    return this._project.userName
+  }
+
+  @computed
   get maxContentHeight() {
     return this.windowHeight - this.minConsoleHeight
   }
@@ -404,6 +409,10 @@ class UiState {
       let databaseName = await ModalState.selectDatabaseName()
       this.setDatabaseName(databaseName, true)
     }
+    if (!this.userName) {
+      let userName = await ModalState.selectUserName()
+      this.setUserName(userName, true)
+    }
     try {
       await this.recorder.attach(startingUrl)
       this._setRecordingState(true)
@@ -616,6 +625,11 @@ class UiState {
   setDatabaseName(databaseName, addToCache) {
     this._project.setDatabaseName(databaseName)
     if (addToCache) this._project.addDatabaseName(databaseName)
+  }
+
+  setUserName(userName, addToCache) {
+    this._project.setUserName(userName)
+    if (addToCache) this._project.addUserName(userName)
   }
 
   @action.bound
