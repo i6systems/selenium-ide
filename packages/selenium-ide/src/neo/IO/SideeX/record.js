@@ -71,14 +71,23 @@ async function notifyPluginsOfRecordedCommand(command, test) {
 export async function addInitialCommands(recordedUrl) {
   const { test } = UiState.selectedTest
   if (WindowSession.openedTabIds[test.id]) {
-    const given = test.createCommand(0)
-    given.setCommand('Given')
-    given.setTarget(`I am on the ${UiState.pageName} page`)
-    const open = test.createCommand(1)
+    const given1 = test.createCommand(0)
+    given1.setCommand('Given')
+    given1.setTarget('I reset the "' + UiState.databaseName + '" database')
+    given1.setValue('1')
+    const given2 = test.createCommand(1)
+    given2.setCommand('And')
+    given2.setTarget('I log in as "test.user@example.com"')
+    given2.setValue('1')
+    const given3 = test.createCommand(2)
+    given3.setCommand('And')
+    given3.setTarget(`I am on the ${UiState.pageName} page`)
+    const open = test.createCommand(3)
     open.setCommand('open')
-    const setSize = test.createCommand(2)
+    const setSize = test.createCommand(4)
     setSize.setCommand('setWindowSize')
     UiState.setPageName(UiState.pageName, true)
+    UiState.setDatabaseName(UiState.databaseName, true)
 
     const tab = await browser.tabs.get(WindowSession.currentUsedTabId[test.id])
     const win = await browser.windows.get(tab.windowId)
@@ -95,7 +104,9 @@ export async function addInitialCommands(recordedUrl) {
       open.setTarget(recordedUrl)
     }
     setSize.setTarget(`${win.width}x${win.height}`)
-    await notifyPluginsOfRecordedCommand(given, test)
+    await notifyPluginsOfRecordedCommand(given1, test)
+    await notifyPluginsOfRecordedCommand(given2, test)
+    await notifyPluginsOfRecordedCommand(given3, test)
     await notifyPluginsOfRecordedCommand(open, test)
     await notifyPluginsOfRecordedCommand(setSize, test)
   }

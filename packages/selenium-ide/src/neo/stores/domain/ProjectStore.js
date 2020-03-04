@@ -34,6 +34,8 @@ export default class ProjectStore {
   @observable
   pageName = ''
   @observable
+  databaseName = ''
+  @observable
   plugins = []
   @observable
   _tests = []
@@ -43,6 +45,8 @@ export default class ProjectStore {
   _urls = []
   @observable
   _pageNames = []
+  @observable
+  _databaseNames = []
   @observable
   version = VERSIONS[VERSIONS.length - 1]
 
@@ -137,6 +141,32 @@ export default class ProjectStore {
   @action.bound
   addCurrentPageName() {
     this.addPageName(this.pageName)
+  }
+
+  @computed
+  get databaseNames() {
+    return this._databaseNames.slice().sort()
+  }
+
+  @action.bound
+  setDatabaseName(databaseName) {
+    this.databaseName = databaseName
+    this.setModified(true)
+  }
+
+  @action.bound
+  addDatabaseName(databaseNameToAdd) {
+    if (databaseNameToAdd) {
+      if (!this._databaseNames.find(u => u === databaseNameToAdd)) {
+        this._databaseNames.push(databaseNameToAdd)
+        this.setModified(true)
+      }
+    }
+  }
+
+  @action.bound
+  addCurrentDatabaseName() {
+    this.addDatabaseName(this.databaseName)
   }
 
   @action.bound
@@ -250,6 +280,7 @@ export default class ProjectStore {
     this.name = jsRep.name
     this.setUrl(jsRep.url)
     this.setPageName(jsRep.pageName)
+    this.setDatabaseName(jsRep.databaseName)
     this._tests.replace(jsRep.tests.map(TestCase.fromJS))
     this._suites.replace(
       jsRep.suites.map(suite => Suite.fromJS(suite, this.tests))
@@ -261,6 +292,10 @@ export default class ProjectStore {
     this._pageNames.clear()
     jsRep.pageNames.forEach(pageName => {
       this.addPageName(pageName)
+    })
+    this._databaseNames.clear()
+    jsRep.databaseNames.forEach(databaseName => {
+      this.addDatabaseName(databaseName)
     })
     this.plugins.replace(jsRep.plugins)
     this.version = jsRep.version
@@ -282,10 +317,12 @@ export default class ProjectStore {
       name: this.name,
       url: this.url,
       pageName: this.pageName,
+      databaseName: this.databaseName,
       tests: this._tests.map(t => t.export()),
       suites: this._suites.map(s => s.export()),
       urls: this._urls,
       pageNames: this._pageNames,
+      databaseNames: this._databaseNames,
       plugins: this.plugins,
     })
   }

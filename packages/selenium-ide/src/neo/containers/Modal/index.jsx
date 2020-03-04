@@ -24,6 +24,7 @@ import SuiteSettings from '../../components/Dialogs/SuiteSettings'
 import RenameDialog from '../../components/Dialogs/Rename'
 import BaseUrlDialog from '../../components/Dialogs/BaseUrl'
 import PageNameDialog from '../../components/Dialogs/PageName'
+import DatabaseNameDialog from '../../components/Dialogs/DatabaseName'
 import WelcomeDialog from '../../components/Dialogs/Welcome'
 import AlertDialog from '../../components/Dialogs/Alert'
 import ModalState from '../../stores/view/ModalState'
@@ -98,6 +99,11 @@ export default class Modal extends Component {
           isSelectingPageName={ModalState.pageNameState.selecting}
           onPageNameSelection={ModalState.pageNameState.done}
           cancel={ModalState.pageNameState.cancel}
+        />
+        <DatabaseNameDialog
+          isSelectingDatabaseName={ModalState.databaseNameState.selecting}
+          onDatabaseNameSelection={ModalState.databaseNameState.done}
+          cancel={ModalState.databaseNameState.cancel}
         />
         {isProduction ? (
           <WelcomeDialog

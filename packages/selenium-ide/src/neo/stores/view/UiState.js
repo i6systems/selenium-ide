@@ -156,6 +156,11 @@ class UiState {
   }
 
   @computed
+  get databaseName() {
+    return this._project.databaseName
+  }
+
+  @computed
   get maxContentHeight() {
     return this.windowHeight - this.minConsoleHeight
   }
@@ -389,11 +394,15 @@ class UiState {
         isInvalid,
         confirmLabel: 'Start recording',
       })
-      this.setUrl(startingUrl)
+      this.setUrl(startingUrl, true)
     }
     if (!this.pageName) {
       let pageName = await ModalState.selectPageName()
-      this.setPageName(pageName)
+      this.setPageName(pageName, true)
+    }
+    if (!this.databaseName) {
+      let databaseName = await ModalState.selectDatabaseName()
+      this.setDatabaseName(databaseName, true)
     }
     try {
       await this.recorder.attach(startingUrl)
@@ -602,6 +611,11 @@ class UiState {
   setPageName(pageName, addToCache) {
     this._project.setPageName(pageName)
     if (addToCache) this._project.addPageName(pageName)
+  }
+
+  setDatabaseName(databaseName, addToCache) {
+    this._project.setDatabaseName(databaseName)
+    if (addToCache) this._project.addDatabaseName(databaseName)
   }
 
   @action.bound

@@ -23,6 +23,7 @@ export const Commands = [
       name: 'And',
       description: 'Defines an "And" step for Gherkin.',
       target: ArgTypes.step,
+      value: { isOptional: true, ...ArgTypes.ignore },
     },
   ],
   [
@@ -397,6 +398,7 @@ export const Commands = [
       name: 'Given',
       description: 'Defines a "Given" step for Gherkin.',
       target: ArgTypes.step,
+      value: { isOptional: true, ...ArgTypes.ignore },
     },
   ],
   [
@@ -715,6 +717,7 @@ export const Commands = [
       name: 'Then',
       description: 'Defines a "Then" step for Gherkin.',
       target: ArgTypes.step,
+      value: { isOptional: true, ...ArgTypes.ignore },
     },
   ],
   [
@@ -1010,6 +1013,7 @@ export const Commands = [
       name: 'When',
       description: 'Defines a "When" step for Gherkin.',
       target: ArgTypes.step,
+      value: { isOptional: true, ...ArgTypes.ignore },
     },
   ],
   [

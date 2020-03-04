@@ -56,7 +56,13 @@ export function emitCommand(
 ) {
   validateCommand(command)
   if (emitter) {
-    const ignoreEscaping = command.command === 'storeJson'
+    const ignoreEscaping =
+      command.command === 'storeJson' ||
+      command.command === 'and' ||
+      command.command === 'given' ||
+      command.command === 'then' ||
+      command.command === 'when'
+
     let result = emitter(
       preprocessParameter(
         command.target,
