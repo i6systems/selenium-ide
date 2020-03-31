@@ -55,7 +55,6 @@ if (!isTest) {
 
 if (userAgent.os.name === 'Windows') {
   require('../../styles/conditional/scrollbar.css')
-  require('../../styles/conditional/button-direction.css')
   require('../../styles/conditional/text.css')
 }
 
@@ -330,6 +329,9 @@ export default class Panel extends React.Component {
         className="container"
         onKeyDown={this.handleKeyDownAlt.bind(this)}
         onClick={this.onClick.bind(this)}
+        style={{
+          minHeight: UiState.minContentHeight + UiState.minConsoleHeight + 'px',
+        }}
       >
         <SuiteDropzone loadProject={this.doLoadProject.bind(this)}>
           <SplitPane
