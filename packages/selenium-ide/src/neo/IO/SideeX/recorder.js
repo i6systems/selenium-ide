@@ -439,6 +439,36 @@ export default class BackgroundRecorder {
           }, 100)
         })
       return
+    } else if (message.command === 'setSetting') {
+      browser.windows
+        .update(this.windowSession.ideWindowId, { focused: true })
+        .then(() => {
+          setTimeout(() => {
+            message.target = prompt(
+              'Enter the setting ("category/setting-name")'
+            )
+            message.value = prompt('Enter the value')
+            fetchURL(
+              'https://qa-test-company.i6clouds.com/test/modify-settings/' +
+                message.target +
+                '/' +
+                message.value
+            ).then(() => {
+              if (message.insertBeforeLastCommand) {
+                record(message.command, [[message.target]], message.value, true)
+              } else {
+                this.sendRecordNotification(
+                  sender.tab.id,
+                  message.command,
+                  [[message.target]],
+                  message.value
+                )
+                record(message.command, [[message.target]], message.value)
+              }
+            })
+          }, 100)
+        })
+      return
     }
 
     //handle choose ok/cancel confirm

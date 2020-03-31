@@ -87,6 +87,7 @@ export const emitters = {
   selectFrame: skip,
   selectWindow: skip,
   sendKeys: emitSendKeys,
+  setSetting: emitSetSetting,
   setSpeed: skip,
   setWindowSize: emitSetWindowSize,
   store: emitStore,
@@ -315,6 +316,29 @@ async function emitSendKeys(locator, value) {
         value
       )}, { force:true })`,
     },
+  ]
+  return Promise.resolve({ commands })
+}
+
+async function emitSetSetting(target, value) {
+  const commands = [
+    {
+      level: 0,
+      statement: `cy.request({url: '/test/modify-settings/${target}/${value}', timeout: 20000}).then(function(response){`,
+    },
+    {
+      level: 1,
+      statement: 'expect(response.status).to.equal(200);',
+    },
+    {
+      level: 1,
+      statement: `expect(response.body).to.have.property('success');`,
+    },
+    {
+      level: 1,
+      statement: 'expect(response.body.success).to.be.true;',
+    },
+    { level: 0, statement: `});` },
   ]
   return Promise.resolve({ commands })
 }

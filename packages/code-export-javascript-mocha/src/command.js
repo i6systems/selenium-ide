@@ -81,6 +81,7 @@ export const emitters = {
   selectFrame: emitSelectFrame,
   selectWindow: emitSelectWindow,
   sendKeys: emitSendKeys,
+  setSetting: skip,
   setSpeed: emitSetSpeed,
   setWindowSize: emitSetWindowSize,
   store: emitStore,

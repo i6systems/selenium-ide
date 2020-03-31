@@ -667,7 +667,8 @@ Recorder.addEventHandler(
         m.cmd === 'and' ||
         m.cmd === 'given' ||
         m.cmd === 'then' ||
-        m.cmd === 'when'
+        m.cmd === 'when' ||
+        m.cmd === 'setSetting'
       ) {
         record(m.cmd, '', '')
       } else if (m.cmd.includes('Value')) {

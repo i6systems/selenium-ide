@@ -133,6 +133,10 @@ export const ArgTypes = {
     name: 'select locator',
     description: 'An element locator identifying a drop-down menu.',
   },
+  setting: {
+    name: 'setting',
+    description: 'The setting, composed of two parts: category/setting-name',
+  },
   step: {
     name: 'step',
     description: 'The name of the step.',

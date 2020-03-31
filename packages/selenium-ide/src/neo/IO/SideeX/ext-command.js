@@ -686,6 +686,22 @@ export default class ExtCommand {
     }
   }
 
+  async doSetSetting(target, value) {
+    try {
+      await fetchURL(
+        'https://qa-test-company.i6clouds.com/test/modify-settings/' +
+          target +
+          '/' +
+          value
+      )
+    } catch (_e) {
+      await this.doClose()
+      throw new Error(
+        'Could not set the setting "' + target + '" to "' + value + '"'
+      )
+    }
+  }
+
   doStore(string, varName) {
     this.variables.set(varName, string)
     return Promise.resolve()
@@ -927,6 +943,7 @@ export default class ExtCommand {
       case 'run':
       case 'selectFrame':
       case 'selectWindow':
+      case 'setSetting':
       case 'setSpeed':
       case 'setWindowSize':
       case 'store':

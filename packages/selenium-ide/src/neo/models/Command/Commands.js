@@ -615,6 +615,15 @@ export const Commands = [
     },
   ],
   [
+    'setSetting',
+    {
+      name: 'Set Setting',
+      description: 'Sets a setting programmatically',
+      target: ArgTypes.setting,
+      value: ArgTypes.value,
+    },
+  ],
+  [
     'setSpeed',
     {
       name: 'set speed',

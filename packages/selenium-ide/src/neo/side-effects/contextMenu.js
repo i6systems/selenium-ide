@@ -17,6 +17,12 @@ function createContextMenus() {
     contexts: ['all'],
   })
   browser.contextMenus.create({
+    id: 'setSetting',
+    title: 'Set Setting',
+    documentUrlPatterns: ['<all_urls>'],
+    contexts: ['all'],
+  })
+  browser.contextMenus.create({
     type: 'separator',
     documentUrlPatterns: ['<all_urls>'],
     contexts: ['all'],
