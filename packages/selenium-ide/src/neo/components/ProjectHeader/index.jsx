@@ -23,6 +23,7 @@ import ContentEditable from 'react-contenteditable'
 import { observer } from 'mobx-react'
 import NewButton from '../ActionButtons/New'
 import OpenButton from '../ActionButtons/Open'
+import MergeButton from '../ActionButtons/Merge'
 import SaveButton from '../ActionButtons/Save'
 import MoreButton from '../ActionButtons/More'
 import ListMenu, { ListMenuItem } from '../ListMenu'
@@ -41,6 +42,7 @@ export default class ProjectHeader extends React.Component {
     changeName: PropTypes.func.isRequired,
     openFile: PropTypes.func,
     load: PropTypes.func,
+    merge: PropTypes.func,
     save: PropTypes.func,
     new: PropTypes.func,
   }
@@ -77,6 +79,10 @@ export default class ProjectHeader extends React.Component {
           <NewButton onClick={this.props.new} />
           <OpenButton
             onFileSelected={this.props.load}
+            openFile={this.props.openFile}
+          />
+          <MergeButton
+            onFileSelected={this.props.merge}
             openFile={this.props.openFile}
           />
           <SaveButton

@@ -46,7 +46,12 @@ import '../../styles/resizer.css'
 import { isProduction, isTest, userAgent } from '../../../common/utils'
 import Logger from '../../stores/view/Logs'
 
-import { loadProject, saveProject, loadJSProject } from '../../IO/filesystem'
+import {
+  loadProject,
+  mergeProject,
+  saveProject,
+  loadJSProject,
+} from '../../IO/filesystem'
 
 if (!isTest) {
   const api = require('../../../api')
@@ -168,6 +173,9 @@ export default class Panel extends React.Component {
       e.preventDefault()
       saveProject(this.state.project)
     } else if (keyComb.onlyPrimary && keyComb.key === 'O' && this.openFile) {
+      e.preventDefault()
+      this.openFile()
+    } else if (keyComb.primaryAndShift && keyComb.key === 'M') {
       e.preventDefault()
       this.openFile()
     } else if (
@@ -307,6 +315,23 @@ export default class Panel extends React.Component {
       loadProject(this.state.project, file)
     }
   }
+  async doMergeProject(file) {
+    if (UiState.isRecording) {
+      const choseProceed = await ModalState.showAlert({
+        title: 'Stop recording',
+        description:
+          'Merging a project into this one will stop the recording process. Would you like to continue?',
+        confirmLabel: 'proceed',
+        cancelLabel: 'cancel',
+      })
+      if (choseProceed) {
+        await UiState.stopRecording({ nameNewTest: false })
+        mergeProject(this.state.project, file)
+      }
+    } else {
+      mergeProject(this.state.project, file)
+    }
+  }
 
   componentWillUnmount() {
     if (isProduction) {
@@ -354,6 +379,7 @@ export default class Panel extends React.Component {
                   this.openFile = openFile
                 }}
                 load={this.doLoadProject.bind(this)}
+                merge={this.doMergeProject.bind(this)}
                 save={() => saveProject(this.state.project)}
                 new={this.loadNewProject.bind(this)}
               />

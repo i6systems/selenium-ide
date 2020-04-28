@@ -213,11 +213,41 @@ export function loadProject(project, file) {
   })
 }
 
+export function mergeProject(project, file) {
+  loadAsText(file).then(contents => {
+    if (/\.side$/.test(file.name)) {
+      mergeJSProject(project, UpgradeProject(JSON.parse(contents)))
+    } else {
+      ModalState.showAlert({
+        title: 'Error merging project',
+        description: 'Only .SIDE files can be merged',
+        confirmLabel: 'close',
+      })
+    }
+  })
+}
+
 export function loadJSProject(project, data) {
   UiState.changeView('Test suites')
   PlaybackState.clearPlayingCache()
   UiState.clearViewCache()
   project.fromJS(data)
+  UiState.projectChanged()
+  Manager.emitMessage({
+    action: 'event',
+    event: 'projectLoaded',
+    options: {
+      projectName: project.name,
+      projectId: project.id,
+    },
+  })
+}
+
+export function mergeJSProject(project, data) {
+  UiState.changeView('Test suites')
+  PlaybackState.clearPlayingCache()
+  UiState.clearViewCache()
+  project.mergeFromJS(data)
   UiState.projectChanged()
   Manager.emitMessage({
     action: 'event',

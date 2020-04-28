@@ -232,7 +232,7 @@ export default class ProjectStore {
   }
 
   @action.bound
-  addTestCase(test) {
+  addTestCase(test, dontDuplicate) {
     if (!test || !(test instanceof TestCase)) {
       throw new Error(
         `Expected to receive TestCase instead received ${
@@ -241,19 +241,51 @@ export default class ProjectStore {
       )
     } else {
       let foundNumber = 0
+      let duplicate = false
       // handle duplicate names -> name (1)
       // by using the sorted array we can do it in one read of the array
       this.tests.forEach(t => {
+        if (t.id === test.id && dontDuplicate === true) {
+          duplicate = true
+          return
+        }
         if (
           t.name === (foundNumber ? `${test.name} (${foundNumber})` : test.name)
-        )
+        ) {
           foundNumber++
+        }
       })
-      if (foundNumber) {
-        test.name = `${test.name} (${foundNumber})`
+      if (duplicate === false) {
+        if (foundNumber) {
+          test.name = `${test.name} (${foundNumber})`
+        }
+        this._tests.push(test)
       }
-      this._tests.push(test)
       return test
+    }
+  }
+
+  @action.bound
+  addSuite(suite) {
+    let duplicate = false
+    this.suites.forEach((s, i) => {
+      if (s.id === suite.id) {
+        duplicate = true
+        suite._tests.forEach(test => {
+          let testExists = false
+          this.suites[i]._tests.forEach(t => {
+            if (t.id === test.id) {
+              testExists = true
+            }
+          })
+          if (testExists === false) {
+            this.suites[i]._tests.push(test)
+          }
+        })
+      }
+    })
+    if (duplicate === false) {
+      this._suites.push(suite)
     }
   }
 
@@ -336,6 +368,30 @@ export default class ProjectStore {
     this.version = jsRep.version
     this.id = jsRep.id || uuidv4()
     this.saved()
+  }
+
+  mergeFromJS(jsRep) {
+    jsRep.tests.forEach(testJs => {
+      let test = TestCase.fromJS(testJs)
+      this.addTestCase(test, true)
+    })
+    jsRep.suites.forEach(suiteJs => {
+      let suite = Suite.fromJS(suiteJs, this.tests)
+      this.addSuite(suite)
+    })
+    jsRep.urls.forEach(url => {
+      this.addUrl(url)
+    })
+    jsRep.pageNames.forEach(pageName => {
+      this.addPageName(pageName)
+    })
+    jsRep.databaseNames.forEach(databaseName => {
+      this.addDatabaseName(databaseName)
+    })
+    jsRep.userNames.forEach(userName => {
+      this.addUserName(userName)
+    })
+    this.setModified(true)
   }
 
   dispose() {

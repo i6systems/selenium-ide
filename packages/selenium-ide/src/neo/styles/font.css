@@ -75,6 +75,9 @@
 .si-open::before {
   content: '\e906';
 }
+.si-merge::before {
+  content: '\e903';
+}
 .si-pencil::before {
   content: '\e919';
 }
