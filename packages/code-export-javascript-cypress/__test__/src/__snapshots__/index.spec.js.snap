@@ -3,7 +3,6 @@
 exports[`Code Export JavaScript Cypress should export a suite 1`] = `
 "import { Given, When, Then } from \\"cypress-cucumber-preprocessor/steps\\"
     cy.visit(\\"http://the-internet.herokuapp.com/login\\")
-    cy.viewport(1440, 1177)
     cy.get('#username').clear({ force:true })
     cy.get('#username').type(\\"tomsmith\\", { force:true })
     cy.get('#password').clear({ force:true })
@@ -12,7 +11,6 @@ exports[`Code Export JavaScript Cypress should export a suite 1`] = `
     cy.get('.flash.success').text().should('equal','You logged into a secure area!\\\\\\\\\\\\\\\\n×')
 })
     cy.visit(\\"http://the-internet.herokuapp.com/login\\")
-    cy.viewport(1440, 1177)
     cy.get('#username').clear({ force:true })
     cy.get('#username').type(\\"blah\\", { force:true })
     cy.get('#password').clear({ force:true })
@@ -63,7 +61,6 @@ exports[`Code Export JavaScript Cypress should export a suite with a reused test
 exports[`Code Export JavaScript Cypress should export a test 1`] = `
 "import { Given, When, Then } from \\"cypress-cucumber-preprocessor/steps\\"
     cy.visit(\\"http://the-internet.herokuapp.com/login\\")
-    cy.viewport(1440, 1177)
     cy.get('#username').clear({ force:true })
     cy.get('#username').type(\\"tomsmith\\", { force:true })
     cy.get('#password').clear({ force:true })
@@ -93,7 +90,6 @@ exports[`Code Export JavaScript Cypress should export a test with a reused test 
 exports[`Code Export JavaScript Cypress should export a test with grid execution 1`] = `
 "import { Given, When, Then } from \\"cypress-cucumber-preprocessor/steps\\"
     cy.visit(\\"http://the-internet.herokuapp.com/login\\")
-    cy.viewport(1440, 1177)
     cy.get('#username').clear({ force:true })
     cy.get('#username').type(\\"tomsmith\\", { force:true })
     cy.get('#password').clear({ force:true })

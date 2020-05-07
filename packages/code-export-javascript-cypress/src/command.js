@@ -267,9 +267,8 @@ async function emitRun(testName) {
   return Promise.resolve(`${exporter.parsers.sanitizeName(testName)}()`)
 }
 
-async function emitSetWindowSize(size) {
-  const [width, height] = size.split('x')
-  return Promise.resolve(`cy.viewport(${width}, ${height})`)
+async function emitSetWindowSize() {
+  return Promise.resolve(undefined)
 }
 
 async function emitSelect(selectElement, option) {

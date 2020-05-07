@@ -46,9 +46,9 @@ function generateSuiteDeclaration(name) {
   return `Feature: ${name}`
 }
 function generateFilename(name) {
-  return `${exporter.parsers.uncapitalize(
-    exporter.parsers.sanitizeName(name)
-  )}${opts.fileExtension}`
+  return `${exporter.parsers.sanitizeName(name.toLowerCase())}${
+    opts.fileExtension
+  }`
 }
 
 // Emit an individual test, wrapped in a suite (using the test name as the suite name)

@@ -166,7 +166,7 @@ cy.get('#input').type(vars[\\"blah\\"], { force:true })"
 
 exports[`command code emitter should emit \`set speed\` 1`] = `undefined`;
 
-exports[`command code emitter should emit \`setWindowSize\` 1`] = `"cy.viewport(1440, 1177)"`;
+exports[`command code emitter should emit \`setWindowSize\` 1`] = `undefined`;
 
 exports[`command code emitter should emit \`store attribute\` command 1`] = `
 "cy.xpath('button[3]').its('id').then(value => {
