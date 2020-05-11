@@ -688,6 +688,26 @@ class UiState {
       this.selectCommand(command, index)
     })
   }
+
+  @action.bound
+  importGherkinFile(project, contents) {
+    let lines = contents.split('\n')
+    lines.forEach(line => {
+      let elements = line.split(' ', 1)
+      let gherkinCommands = ['And', 'Given', 'When', 'Then']
+      let command = elements[0]
+      if (command !== undefined && gherkinCommands.includes(command)) {
+        let step = line.substring(command.length + 1)
+        if (step !== '') {
+          let testCommand = new Command()
+          testCommand.command = command
+          testCommand.target = step
+          this.displayedTest.addCommand(testCommand)
+        }
+      }
+    })
+    project.setModified(true)
+  }
 }
 
 if (!window._state) window._state = new UiState()

@@ -76,7 +76,7 @@
   content: '\e906';
 }
 .si-merge::before {
-  content: '\e903';
+  content: '\e92b';
 }
 .si-pencil::before {
   content: '\e919';
@@ -116,6 +116,9 @@
 }
 .si-add::before {
   content: '\e90d';
+}
+.si-import-gherkin::before {
+  content: '\e92a';
 }
 .si-ic_arrow_down::before {
   content: '\e908';

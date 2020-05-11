@@ -49,6 +49,7 @@ import Logger from '../../stores/view/Logs'
 import {
   loadProject,
   mergeProject,
+  importGherkinFile,
   saveProject,
   loadJSProject,
 } from '../../IO/filesystem'
@@ -333,6 +334,10 @@ export default class Panel extends React.Component {
     }
   }
 
+  async doImportGherkinFile(file) {
+    importGherkinFile(this.state.project, file)
+  }
+
   componentWillUnmount() {
     if (isProduction) {
       clearInterval(this.moveInterval)
@@ -380,6 +385,7 @@ export default class Panel extends React.Component {
                 }}
                 load={this.doLoadProject.bind(this)}
                 merge={this.doMergeProject.bind(this)}
+                importGherkin={this.doImportGherkinFile.bind(this)}
                 save={() => saveProject(this.state.project)}
                 new={this.loadNewProject.bind(this)}
               />

@@ -24,6 +24,7 @@ import { observer } from 'mobx-react'
 import NewButton from '../ActionButtons/New'
 import OpenButton from '../ActionButtons/Open'
 import MergeButton from '../ActionButtons/Merge'
+import ImportGherkinButton from '../ActionButtons/ImportGherkin'
 import SaveButton from '../ActionButtons/Save'
 import MoreButton from '../ActionButtons/More'
 import ListMenu, { ListMenuItem } from '../ListMenu'
@@ -43,6 +44,7 @@ export default class ProjectHeader extends React.Component {
     openFile: PropTypes.func,
     load: PropTypes.func,
     merge: PropTypes.func,
+    importGherkin: PropTypes.func,
     save: PropTypes.func,
     new: PropTypes.func,
   }
@@ -83,6 +85,10 @@ export default class ProjectHeader extends React.Component {
           />
           <MergeButton
             onFileSelected={this.props.merge}
+            openFile={this.props.openFile}
+          />
+          <ImportGherkinButton
+            onFileSelected={this.props.importGherkin}
             openFile={this.props.openFile}
           />
           <SaveButton

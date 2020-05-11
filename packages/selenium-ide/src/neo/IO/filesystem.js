@@ -227,6 +227,20 @@ export function mergeProject(project, file) {
   })
 }
 
+export function importGherkinFile(project, file) {
+  loadAsText(file).then(contents => {
+    if (/\.feature$/.test(file.name)) {
+      importGherkinData(project, contents)
+    } else {
+      ModalState.showAlert({
+        title: 'Error loading Gherkin file',
+        description: 'Only .feature files can be loaded',
+        confirmLabel: 'close',
+      })
+    }
+  })
+}
+
 export function loadJSProject(project, data) {
   UiState.changeView('Test suites')
   PlaybackState.clearPlayingCache()
@@ -257,4 +271,8 @@ export function mergeJSProject(project, data) {
       projectId: project.id,
     },
   })
+}
+
+export function importGherkinData(project, data) {
+  UiState.importGherkinFile(project, data)
 }
