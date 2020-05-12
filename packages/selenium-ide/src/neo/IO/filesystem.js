@@ -227,10 +227,10 @@ export function mergeProject(project, file) {
   })
 }
 
-export function importGherkinFile(project, file) {
-  loadAsText(file).then(contents => {
+export async function importGherkinFile(project, file) {
+  await loadAsText(file).then(async contents => {
     if (/\.feature$/.test(file.name)) {
-      importGherkinData(project, contents)
+      await importGherkinData(project, contents)
     } else {
       ModalState.showAlert({
         title: 'Error loading Gherkin file',
@@ -262,7 +262,6 @@ export function mergeJSProject(project, data) {
   PlaybackState.clearPlayingCache()
   UiState.clearViewCache()
   project.mergeFromJS(data)
-  UiState.projectChanged()
   Manager.emitMessage({
     action: 'event',
     event: 'projectLoaded',
@@ -273,6 +272,20 @@ export function mergeJSProject(project, data) {
   })
 }
 
-export function importGherkinData(project, data) {
-  UiState.importGherkinFile(project, data)
+export async function importGherkinData(project, data) {
+  UiState.changeView('Tests')
+  PlaybackState.clearPlayingCache()
+  UiState.clearViewCache()
+  let startingUrl = await UiState.checkInitialValues()
+  let test = project.importGherkinFile(
+    data,
+    startingUrl,
+    UiState.pageName,
+    UiState.databaseName,
+    UiState.userName
+  )
+  UiState.setPageName(UiState.pageName, true)
+  UiState.setDatabaseName(UiState.databaseName, true)
+  UiState.setUserName(UiState.userName, true)
+  UiState.selectTest(test)
 }

@@ -176,7 +176,18 @@ export default class Panel extends React.Component {
     } else if (keyComb.onlyPrimary && keyComb.key === 'O' && this.openFile) {
       e.preventDefault()
       this.openFile()
-    } else if (keyComb.primaryAndShift && keyComb.key === 'M') {
+    } else if (
+      keyComb.primaryAndShift &&
+      keyComb.key === 'M' &&
+      this.openFile
+    ) {
+      e.preventDefault()
+      this.openFile()
+    } else if (
+      keyComb.primaryAndShift &&
+      keyComb.key === 'G' &&
+      this.openFile
+    ) {
       e.preventDefault()
       this.openFile()
     } else if (
@@ -335,7 +346,21 @@ export default class Panel extends React.Component {
   }
 
   async doImportGherkinFile(file) {
-    importGherkinFile(this.state.project, file)
+    if (UiState.isRecording) {
+      const choseProceed = await ModalState.showAlert({
+        title: 'Stop recording',
+        description:
+          'Loading a Gherkin file will stop the recording process. Would you like to continue?',
+        confirmLabel: 'proceed',
+        cancelLabel: 'cancel',
+      })
+      if (choseProceed) {
+        await UiState.stopRecording({ nameNewTest: false })
+        await importGherkinFile(this.state.project, file)
+      }
+    } else {
+      await importGherkinFile(this.state.project, file)
+    }
   }
 
   componentWillUnmount() {

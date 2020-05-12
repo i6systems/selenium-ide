@@ -84,14 +84,11 @@ export async function addInitialCommands(recordedUrl) {
     given3.setTarget(`I am on the ${UiState.pageName} page`)
     const open = test.createCommand(3)
     open.setCommand('open')
-    const setSize = test.createCommand(4)
-    setSize.setCommand('setWindowSize')
     UiState.setPageName(UiState.pageName, true)
     UiState.setDatabaseName(UiState.databaseName, true)
     UiState.setUserName(UiState.userName, true)
 
     const tab = await browser.tabs.get(WindowSession.currentUsedTabId[test.id])
-    const win = await browser.windows.get(tab.windowId)
 
     const url = new URL(recordedUrl ? recordedUrl : tab.url)
     if (!UiState.baseUrl) {
@@ -104,12 +101,10 @@ export async function addInitialCommands(recordedUrl) {
       UiState.setUrl(recordedUrl, true)
       open.setTarget(recordedUrl)
     }
-    setSize.setTarget(`${win.width}x${win.height}`)
     await notifyPluginsOfRecordedCommand(given1, test)
     await notifyPluginsOfRecordedCommand(given2, test)
     await notifyPluginsOfRecordedCommand(given3, test)
     await notifyPluginsOfRecordedCommand(open, test)
-    await notifyPluginsOfRecordedCommand(setSize, test)
   }
 }
 

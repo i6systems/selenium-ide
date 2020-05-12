@@ -21,6 +21,7 @@ import naturalCompare from 'string-natural-compare'
 import TestCase from '../../models/TestCase'
 import Suite from '../../models/Suite'
 import { VERSIONS } from '../../IO/migrate'
+import Command from '../../models/Command'
 
 export default class ProjectStore {
   @observable
@@ -392,6 +393,72 @@ export default class ProjectStore {
       this.addUserName(userName)
     })
     this.setModified(true)
+  }
+
+  importGherkinFile(contents, baseUrl, pageName, databaseName, userName) {
+    let lines = contents.split('\n')
+    let test = new TestCase()
+    test.name = 'New Test'
+    let firstCommand = true
+    let numCommand = 0
+    lines.forEach(line => {
+      line = line.trim()
+      let elements = line.split(' ', 1)
+      let gherkinCommands = ['And', 'Given', 'When', 'Then']
+      let command = elements[0]
+      if (command !== undefined) {
+        let restOfLine = line.substring(command.length + 1)
+        if (gherkinCommands.includes(command)) {
+          if (restOfLine !== '') {
+            let skip = false
+            if (firstCommand) {
+              const given1 = test.createCommand(0)
+              given1.setCommand('Given')
+              given1.setTarget('I reset the "' + databaseName + '" database')
+              given1.setValue('1')
+              const given2 = test.createCommand(1)
+              given2.setCommand('And')
+              given2.setTarget('I log in as "' + userName + '"')
+              given2.setValue('1')
+              const given3 = test.createCommand(2)
+              given3.setCommand('And')
+              let step = `I am on the ${pageName} page`
+              given3.setTarget(step)
+              //if the first step in the gherkin file is a given command and
+              //the step matches our automatic initial given step,
+              //we skip this step from the gherkin file so that it is not duplicated
+              //if it is a given but does not match our automatic initial step
+              //we convert it into an and
+              if (command === 'Given') {
+                if (restOfLine === step) {
+                  skip = true
+                } else {
+                  command = 'And'
+                }
+              }
+              const open = test.createCommand(3)
+              open.setCommand('open')
+              open.setTarget(baseUrl)
+              firstCommand = false
+            }
+            if (!skip) {
+              let testCommand = new Command()
+              testCommand.command = command
+              testCommand.target = restOfLine
+              test.addCommand(testCommand)
+              if (++numCommand === 2) {
+                test.selectedCommand = testCommand
+              }
+            }
+          }
+        } else if (command === 'Scenario:') {
+          test.name = restOfLine
+        }
+      }
+    })
+    this.addTestCase(test)
+    this.setModified(true)
+    return test
   }
 
   dispose() {

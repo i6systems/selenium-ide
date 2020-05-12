@@ -400,6 +400,21 @@ class UiState {
 
   @action.bound
   async startRecording(isInvalid) {
+    let startingUrl = await this.checkInitialValues(isInvalid)
+    try {
+      await this.recorder.attach(startingUrl)
+      this._setRecordingState(true)
+      this.lastRecordedCommand = null
+      await this.emitRecordingState()
+    } catch (err) {
+      ModalState.showAlert({
+        title: 'Could not start recording',
+        description: err ? err.message : undefined,
+      })
+    }
+  }
+
+  async checkInitialValues(isInvalid) {
     let startingUrl = this.baseUrl
     if (!startingUrl) {
       startingUrl = await ModalState.selectBaseUrl({
@@ -420,17 +435,7 @@ class UiState {
       let userName = await ModalState.selectUserName()
       this.setUserName(userName, true)
     }
-    try {
-      await this.recorder.attach(startingUrl)
-      this._setRecordingState(true)
-      this.lastRecordedCommand = null
-      await this.emitRecordingState()
-    } catch (err) {
-      ModalState.showAlert({
-        title: 'Could not start recording',
-        description: err ? err.message : undefined,
-      })
-    }
+    return startingUrl
   }
 
   nameNewTest(isEnabled = true) {
@@ -687,26 +692,6 @@ class UiState {
     this.selectedTest.test.commands.forEach((command, index) => {
       this.selectCommand(command, index)
     })
-  }
-
-  @action.bound
-  importGherkinFile(project, contents) {
-    let lines = contents.split('\n')
-    lines.forEach(line => {
-      let elements = line.split(' ', 1)
-      let gherkinCommands = ['And', 'Given', 'When', 'Then']
-      let command = elements[0]
-      if (command !== undefined && gherkinCommands.includes(command)) {
-        let step = line.substring(command.length + 1)
-        if (step !== '') {
-          let testCommand = new Command()
-          testCommand.command = command
-          testCommand.target = step
-          this.displayedTest.addCommand(testCommand)
-        }
-      }
-    })
-    project.setModified(true)
   }
 }
 
