@@ -443,8 +443,8 @@ export default class ProjectStore {
             }
             if (!skip) {
               let testCommand = new Command()
-              testCommand.command = command
-              testCommand.target = restOfLine
+              testCommand.setCommand(command.toLowerCase())
+              testCommand.setTarget(restOfLine)
               test.addCommand(testCommand)
               if (++numCommand === 2) {
                 test.selectedCommand = testCommand
